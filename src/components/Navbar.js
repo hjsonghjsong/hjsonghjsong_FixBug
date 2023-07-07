@@ -5,11 +5,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import AdbIcon from '@mui/icons-material/Adb';
 import SignUp from './SignUp';
 import NavBarRouter from '../NavBarRouter';
 import RenderNavBarList from './NavBarComponents/RenderNavBarList';
 import RenderAccountMenuList from './AccountMenuComponents/RenderAccountMenuList';
+import RenderNavBarMobile from './NavBarComponents/RenderNavBarMobile';
+import AdbIcon from "@mui/icons-material/Adb"
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -18,6 +19,10 @@ function NavBar() {
 
   const handleOpenDialog = (e) => {
     setOpen(!open);
+  };
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
   };
 
   const handleOpenUserMenu = (event) => {
@@ -56,9 +61,14 @@ function NavBar() {
             Argus
           </Typography>
           
+          <RenderNavBarMobile 
+              anchorElNav={anchorElNav}
+              handleCloseNavMenu={handleCloseNavMenu}
+              handleOpenNavMenu={handleOpenNavMenu}
+          />
           <RenderNavBarList handleCloseNavMenu={handleCloseNavMenu}/>
 
-          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 0, display: 'flex' }}>
             <Box sx={{ flexGrow: 0 }}>
               <Button
                 onClick={handleOpenDialog}

@@ -3,11 +3,15 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { resumeList } from "../../hooks/fetchResumeList";
 import RenderResumeList from "../ResumeComponents/RenderResumeList";
+import ResumeMobile from "./ResumeMobile";
 
 const Resume = () => {
     return (
         <Box>
-        <Box sx={{ flexGrow: 1, paddingY: '60px', paddingX: '20px' }}>
+        <Box sx={{display: {xs:'block', md: 'none'}}}>
+            <ResumeMobile />
+        </Box>
+        <Box sx={{ flexGrow: 1, paddingY: '80px', paddingX: '40px', display: {xs: 'none', md:'block'} }}>
             <Box sx={{ display: 'flex', border: 2, justifyContent: 'center', alignItems: 'center' }}>
                 <Box sx={{ display: 'flex', flexGrow: 1, backgroundColor: 'white'}}>
                     <Box sx={{flexGrow: 1}}>

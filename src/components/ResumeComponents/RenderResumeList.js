@@ -6,16 +6,34 @@ import { IconButton, Tooltip, Box, Typography } from "@mui/material";
 
 const RenderResumeList = ({resumeList}) => (
     <Box sx={{ flexGrow: 1, paddingY: '40px', paddingX: '20px' }}>
+        <Box sx={{ display: 'flex' }}>
+                    <Box sx={{ flexGrow: 1  }}>
+                    <Typography sx={{ paddingX: '40px'}}>Name</Typography>
+                    </Box>
+                    <Box sx={{display: 'flex'}}>
+                        <Box sx={{ display: {xs: 'none', md: 'flex'}}}>
+                        <Typography sx={{paddingX: '10px'}}>Date Modified</Typography>
+                        <Typography sx={{paddingX: '10px'}}>Rating</Typography>
+                        <Typography sx={{paddingX: '10px'}}>Status</Typography>
+                        <Box sx={{pr: '6em'}}/>
+                        </Box>
+                    </Box>
+                </Box>
             {resumeList.map((resume) => (
-                <Box key={resume.id} sx={{ display: 'flex', border: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', paddingY: '15px', m:3 }}>
-                    <Box sx={{ flexGrow: 1 }}>
+                <Box key={resume.id} sx={{ display: 'flex', border: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', paddingY: '15px', m:3,
+                    ':hover': {
+                      boxShadow: '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12)',
+                    },
+                  }}>
+                    <Box sx={{ flexGrow: 1  }}>
                     <Typography sx={{ paddingX: '10px'}}>{resume.name}</Typography>
                     </Box>
                     <Box sx={{display: 'flex'}}>
+                        <Box sx={{ display: {xs: 'none', md: 'flex'}}}>
                         <Typography sx={{paddingX: '10px'}}>{resume.date}</Typography>
                         <CircularProgress variant="determinate" value={resume.rating} color="success" sx={{paddingX: '10px'}}/>
-                        <Typography sx={{paddingX: '10px'}}>{resume.rating}</Typography>
                         <Typography sx={{paddingX: '10px'}}>{resume.status}</Typography>
+                        </Box>
                         <Tooltip title="Preview">
                         <IconButton>
                             <RemoveRedEyeIcon sx={{ color: 'text.primary'}}/>
