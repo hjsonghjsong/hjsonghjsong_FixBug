@@ -1,20 +1,21 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import AdbIcon from '@mui/icons-material/Adb';
-import SignUp from './SignUp';
-import NavBarRouter from '../NavBarRouter';
-import RenderNavBarList from './NavBarComponents/RenderNavBarList';
-import RenderAccountMenuList from './AccountMenuComponents/RenderAccountMenuList';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import AdbIcon from "@mui/icons-material/Adb";
+import SignUp from "./SignUp";
+import NavBarRouter from "../NavBarRouter";
+import RenderNavBarList from "./NavBarComponents/RenderNavBarList";
+import RenderAccountMenuList from "./AccountMenuComponents/RenderAccountMenuList";
+import "../components/Navbar.css";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [open, setOpen] = React.useState(false); 
+  const [open, setOpen] = React.useState(false);
 
   const handleOpenDialog = (e) => {
     setOpen(!open);
@@ -34,58 +35,59 @@ function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="fixed" color="transparent" elevation={0} sx={{top: 0}} >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Argus
-          </Typography>
-          
-          <RenderNavBarList handleCloseNavMenu={handleCloseNavMenu}/>
+      <AppBar id="nav-bar" position="sticky" elevation={0} sx={{ top: 0 }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "Helvetica, Arial, sans-serif",
+                fontWeight: 700,
+                letterSpacing: ".2rem",
+                color: "#FFFFFF",
+                textDecoration: "none",
+              }}
+            >
+              MyCareerChoice
+            </Typography>
 
-          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-            <Box sx={{ flexGrow: 0 }}>
-              <Button
-                onClick={handleOpenDialog}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                Sign Up
+            <RenderNavBarList handleCloseNavMenu={handleCloseNavMenu} />
+
+            <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+              <Box sx={{ flexGrow: 0 }}>
+                <Button
+                  onClick={handleOpenDialog}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Sign up
                 </Button>
                 <SignUp open={open} setOpen={setOpen} />
-              
-            
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-              <Button onClick={handleOpenUserMenu} sx={{ my: 2, color: 'black'}} >
-                My Account
-              </Button>
+              </Box>
+              <Box sx={{ flexGrow: 0 }}>
+                <Button
+                  onClick={handleOpenUserMenu}
+                  sx={{ my: 2, color: "white" }}
+                >
+                  My Account
+                </Button>
 
-            <RenderAccountMenuList 
-                anchorElUser={anchorElUser}
-                handleCloseUserMenu={handleCloseUserMenu}
-            />
-          </Box>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
-    <NavBarRouter />
-  </Box>
+                <RenderAccountMenuList
+                  anchorElUser={anchorElUser}
+                  handleCloseUserMenu={handleCloseUserMenu}
+                />
+              </Box>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      <NavBarRouter />
+    </Box>
   );
 }
 export default NavBar;
