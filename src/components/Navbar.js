@@ -10,6 +10,7 @@ import SignUp from "./SignUp";
 import NavBarRouter from "../NavBarRouter";
 import RenderNavBarList from "./NavBarComponents/RenderNavBarList";
 import RenderAccountMenuList from "./AccountMenuComponents/RenderAccountMenuList";
+import RenderNavBarMobile from "./NavBarComponents/RenderNavBarMobile";
 import "../components/Navbar.css";
 
 function NavBar() {

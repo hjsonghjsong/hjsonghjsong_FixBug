@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "./login.css";
 import resume from "../../Utils/Images/Resume.jpeg";
-import { FormControl, FormControlLabel, TextField } from "@mui/material";
+import { FormControlLabel, TextField } from "@mui/material";
 import { Checkbox } from "@mui/material";
 
 import "./login.css";
@@ -51,7 +51,6 @@ const Login = () => {
   };
 
   return (
-    // <div className="login-container">
     <main>
       <article className="flex justify-center w-full mr-auto ml-auto flex-shrink-0 items-stretch grow">
         <div className="w-auto">
@@ -67,10 +66,7 @@ const Login = () => {
               <h1>Welcome Back!</h1>
             </div>
             <div className="flex w-full">
-              <button
-                onClick={handleGoogleAuth}
-                className="btn-google w-full bg-white space-x-2 active:bg-gray-200"
-              >
+              <button className="btn-google w-full bg-white space-x-2 active:bg-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -155,7 +151,7 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              // onClick={handleSumit}
+              onClick={handleSubmit}
               className="btn-01 w-full active:bg-primary600"
             >
               Login
@@ -168,7 +164,6 @@ const Login = () => {
             </div>
           </form>
         </div>
-        {/* </div> */}
       </article>
     </main>
   );
