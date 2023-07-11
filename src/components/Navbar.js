@@ -21,6 +21,10 @@ function NavBar() {
     setOpen(!open);
   };
 
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -56,16 +60,21 @@ function NavBar() {
             >
               MyCareerChoice
             </Typography>
+            <RenderNavBarMobile
+              anchorElNav={anchorElNav}
+              handleCloseNavMenu={handleCloseNavMenu}
+              handleOpenNavMenu={handleOpenNavMenu}
+            />
 
             <RenderNavBarList handleCloseNavMenu={handleCloseNavMenu} />
 
-            <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ flexGrow: 0, display: "flex" }}>
               <Box sx={{ flexGrow: 0 }}>
                 <Button
                   onClick={handleOpenDialog}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "black", display: "block" }}
                 >
-                  Sign up
+                  Sign Up
                 </Button>
                 <SignUp open={open} setOpen={setOpen} />
               </Box>
