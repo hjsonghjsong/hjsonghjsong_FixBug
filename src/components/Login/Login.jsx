@@ -47,7 +47,7 @@ const Login = () => {
     }
     console.log("Email: ", email);
     console.log("Password: ", password);
-    console.log("Checked: ", checkBox);
+    console.log("Checkbox: ", checkBox);
   };
 
   return (
@@ -67,7 +67,10 @@ const Login = () => {
               <h1>Welcome Back!</h1>
             </div>
             <div className="flex w-full">
-              <button className="btn-google w-full bg-white space-x-2 active:bg-gray-200">
+              <button
+                onClick={handleGoogleAuth}
+                className="btn-google w-full bg-white space-x-2 active:bg-gray-200"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
