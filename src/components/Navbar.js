@@ -6,12 +6,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import AdbIcon from "@mui/icons-material/Adb";
-import SignUp from "./SignUp";
+import SignUp from "./Signup/SignUp";
 import NavBarRouter from "../NavBarRouter";
 import RenderNavBarList from "./NavBarComponents/RenderNavBarList";
 import RenderAccountMenuList from "./AccountMenuComponents/RenderAccountMenuList";
 import RenderNavBarMobile from "./NavBarComponents/RenderNavBarMobile";
 import "../components/Navbar.css";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -69,14 +70,34 @@ function NavBar() {
 
             <RenderNavBarList handleCloseNavMenu={handleCloseNavMenu} />
 
-            <Box sx={{ flexGrow: 0, display: "flex" }}>
-              <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0, display: "flex", gap: "24px" }}>
+              <Box
+                sx={{
+                  flexGrow: 0,
+                  display: "flex",
+                }}
+              >
                 <Button
                   onClick={handleOpenDialog}
-                  sx={{ my: 2, color: "black", display: "block" }}
+                  sx={{ my: 2, color: "white", display: "block" }}
                 >
                   Sign Up
                 </Button>
+
+                <Link to="/login">
+                  <Button
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "block",
+                      backgroundColor: "#437EF7",
+                    }}
+                  >
+                    {" "}
+                    Login
+                  </Button>
+                </Link>
+
                 <SignUp open={open} setOpen={setOpen} />
               </Box>
               <Box sx={{ flexGrow: 0 }}>

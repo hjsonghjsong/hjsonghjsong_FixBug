@@ -4,6 +4,7 @@ import "./login.css";
 import resume from "../../Utils/Images/Resume.jpeg";
 import { FormControlLabel, TextField } from "@mui/material";
 import { Checkbox } from "@mui/material";
+import { useAuth } from "../../Contexts/Auth";
 
 import "./login.css";
 
@@ -13,6 +14,7 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkBox, setCheckBox] = useState(false);
+  const { session, signIn } = useAuth();
 
   const handleInputChange = (e) => {
     const { name, value, checked } = e.target;
@@ -35,8 +37,13 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    if (session) {
+      window.location.href = "/dashboard";
+      return;
+    }
+
     if (email.trim() === "") {
       setEmailError("Email cannot be empty");
       return;
@@ -45,9 +52,8 @@ const Login = () => {
       setPasswordError("Password cannot be empty");
       return;
     }
-    console.log("Email: ", email);
-    console.log("Password: ", password);
-    console.log("Checkbox: ", checkBox);
+
+    signIn({ email, password });
   };
 
   return (
@@ -59,7 +65,7 @@ const Login = () => {
         <div className="flex flex-col items-center login-form-container justify-center grow">
           <form
             id="login-form"
-            onSubmit={handleSubmit}
+            onSubmit={handleLogin}
             className="login-form flex flex-col items-center space-y-8 w-full"
           >
             <div className="flex items-center">
@@ -144,14 +150,13 @@ const Login = () => {
                 </div>
                 <div>
                   <a className="" href="">
-                    <h2 className="text-[#437ef7]">Forgot Password</h2>
+                    <h2 className="text-primary]">Forgot Password</h2>
                   </a>
                 </div>
               </div>
             </div>
             <button
               type="submit"
-              onClick={handleSubmit}
               className="btn-01 w-full active:bg-primary600"
             >
               Login
