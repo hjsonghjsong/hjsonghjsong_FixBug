@@ -7,7 +7,7 @@ function HomePage() {
   return (
     <div className="flex flex-col w-full justify-start mb-8">
       <div className=" image_container flex flex-col w-full items-center justify-center">
-        <img className="home-image" src={image}></img>
+        <img className="home-image" src={image} alt="logo"></img>
         <div className="overlay flex justify-center items-center">
           <div className="home-data flex flex-col items-center justify-center pt-5 pb-6 px-2 text-white">
             <h1>Create. Tailor. Succeed</h1>

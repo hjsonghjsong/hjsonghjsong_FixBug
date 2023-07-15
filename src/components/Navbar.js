@@ -93,7 +93,6 @@ function NavBar() {
                       backgroundColor: "#437EF7",
                     }}
                   >
-                    {" "}
                     Login
                   </Button>
                 </Link>

@@ -1,4 +1,4 @@
-.image_container {
+/* .image_container {
   height: 23rem;
   background-color: #0f1724;
 
@@ -8,10 +8,8 @@
   height: 23rem;
   width: 100%;
 
-  overflow: hidden;
-  position: relative;
   object-fit: cover;
-}
+} */
 .svg_01 {
   width: 100%;
 }
