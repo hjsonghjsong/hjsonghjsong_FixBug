@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../../Utils/Images/Job_interview.jpg";
+import image from "../../Utils/Images/job-interview.jpg";
 import "./HomePage.css";
 import { Button } from "@mui/material";
 
@@ -24,8 +24,8 @@ function HomePage() {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center gap-2 mt-5">
-        <h2>Try Resume Builder</h2>
-        <button className="btn-02">Create New Resume</button>
+        <h1>Try Resume Builder</h1>
+        <button className="btn-02 w-80">Create New Resume</button>
       </div>
     </div>
   );

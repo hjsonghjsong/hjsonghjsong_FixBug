@@ -14,7 +14,8 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkBox, setCheckBox] = useState(false);
-  const { session, signIn } = useAuth();
+  const { signIn, session } = useAuth();
+  const [error, setError] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value, checked } = e.target;
@@ -43,7 +44,6 @@ const Login = () => {
       window.location.href = "/dashboard";
       return;
     }
-
     if (email.trim() === "") {
       setEmailError("Email cannot be empty");
       return;
@@ -53,9 +53,12 @@ const Login = () => {
       return;
     }
 
-    signIn({ email, password });
+    try {
+      await signIn({ email, password });
+    } catch (error) {
+      setError("Failed to sign in. Please check your credentials.");
+    }
   };
-
   return (
     <main>
       <article className="flex justify-center w-full mr-auto ml-auto flex-shrink-0 items-stretch grow">
@@ -167,6 +170,7 @@ const Login = () => {
                 <h2 className="text-[#437ef7]">Register</h2>
               </a>
             </div>
+            {error && <div>{error}</div>}
           </form>
         </div>
       </article>

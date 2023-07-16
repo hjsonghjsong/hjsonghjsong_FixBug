@@ -16,10 +16,10 @@ function SignUp(props) {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [password, setPassword] = useState("");
   const [passError, setPassError] = useState(false);
-  const { signUp } = useAuth();
+  const { signUp, session } = useAuth();
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -42,7 +42,14 @@ function SignUp(props) {
       password: password,
       phone: phone,
     };
-    signUp(userData);
+    try {
+      await signUp(userData);
+      if (session != null) {
+        handleCloseDialog();
+      }
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   const handleCloseDialog = (e) => {
@@ -151,6 +158,8 @@ function SignUp(props) {
           />
         </Box>
       </DialogContent>
+      {error && <div>{error}</div>}
+
       <div className="mt-8 mb-2">
         <DialogActions>
           <Button onClick={handleCloseDialog} sx={{ color: "black" }}>

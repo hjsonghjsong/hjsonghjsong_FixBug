@@ -11,7 +11,7 @@ const RenderAccountMenuList = (props) => {
 
   const handleLogout = () => {
     signOut();
-    window.location.href = "/login";
+    // window.location.href = "/login";
     props.handleCloseUserMenu();
   };
 

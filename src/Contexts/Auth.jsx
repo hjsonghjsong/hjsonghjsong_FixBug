@@ -10,11 +10,15 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
+      setSession(session ?? null);
+      setLoading(false);
+      console.log(session);
     });
+
     setLoading(false);
 
     const { data: subscription } = supabase.auth.onAuthStateChange(
@@ -29,48 +33,51 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
-  async function signUp(data) {
+  // signing up the user with email and password and also passing the user's meta data
+
+  async function signUp(userData) {
     try {
       setLoading(true);
-      const { user, error } = await supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
-        phone: data.phone,
+      const { data, error } = await supabase.auth.signUp({
+        email: userData.email,
+        password: userData.password,
+
         options: {
           data: {
-            first_name: data.firstName,
-            last_name: data.lastName,
+            first_name: userData.firstName,
+            last_name: userData.lastName,
+            phone: userData.phone,
           },
         },
       });
       if (error) throw error;
-      setSession(user.session);
+      setSession(data.session);
     } catch (error) {
-      console.error(error);
+      throw error;
     }
   }
 
-  async function signIn(data) {
-    try {
-      const { user, error } = await supabase.auth.signInWithPassword(data);
+  // supabase signInWithPassword method
 
+  async function signIn(userData) {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: userData.email,
+        password: userData.password,
+      });
       if (error) throw error;
-      setSession(user.session);
-      setLoading(false);
+      setSession(data.session);
     } catch (error) {
-      console.error(error);
+      throw error;
     }
   }
-
+  //  setting the session to null
   async function signOut() {
-    try {
-      await supabase.auth.signOut();
-      setSession(null);
-    } catch (error) {
-      console.error(error);
-    }
+    const { error } = await supabase.auth.signOut();
+    setSession(null);
+    console.log(session);
+    if (error) throw error;
   }
-
   const value = {
     signUp,
     signIn,
