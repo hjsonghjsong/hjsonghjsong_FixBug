@@ -13,11 +13,13 @@ import RenderAccountMenuList from "./AccountMenuComponents/RenderAccountMenuList
 import RenderNavBarMobile from "./NavBarComponents/RenderNavBarMobile";
 import "../components/Navbar.css";
 import { Link } from "react-router-dom";
+import { useAuth } from "../Contexts/Auth";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const { session } = useAuth();
 
   const handleOpenDialog = (e) => {
     setOpen(!open);
@@ -71,6 +73,20 @@ function NavBar() {
             <RenderNavBarList handleCloseNavMenu={handleCloseNavMenu} />
 
             <Box sx={{ flexGrow: 0, display: "flex", gap: "24px" }}>
+              <Box sx={{ flexGrow: 0 }}>
+                <Button
+                  onClick={handleOpenUserMenu}
+                  sx={{ my: 2, color: "white" }}
+                >
+                  My Account
+                </Button>
+
+                <RenderAccountMenuList
+                  anchorElUser={anchorElUser}
+                  handleCloseUserMenu={handleCloseUserMenu}
+                />
+              </Box>
+
               <Box
                 sx={{
                   flexGrow: 0,
@@ -98,19 +114,6 @@ function NavBar() {
                 </Link>
 
                 <SignUp open={open} setOpen={setOpen} />
-              </Box>
-              <Box sx={{ flexGrow: 0 }}>
-                <Button
-                  onClick={handleOpenUserMenu}
-                  sx={{ my: 2, color: "white" }}
-                >
-                  My Account
-                </Button>
-
-                <RenderAccountMenuList
-                  anchorElUser={anchorElUser}
-                  handleCloseUserMenu={handleCloseUserMenu}
-                />
               </Box>
             </Box>
           </Toolbar>

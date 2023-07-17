@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./login.css";
 import resume from "../../Utils/Images/Resume.jpeg";
 import { FormControlLabel, TextField } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { useAuth } from "../../Contexts/Auth";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./login.css";
 
 const Login = () => {
@@ -16,6 +16,9 @@ const Login = () => {
   const [checkBox, setCheckBox] = useState(false);
   const { signIn, session } = useAuth();
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleInputChange = (e) => {
     const { name, value, checked } = e.target;
@@ -40,10 +43,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (session) {
-      window.location.href = "/dashboard";
-      return;
-    }
+
     if (email.trim() === "") {
       setEmailError("Email cannot be empty");
       return;
@@ -55,6 +55,7 @@ const Login = () => {
 
     try {
       await signIn({ email, password });
+      navigate(from, { replcae: true });
     } catch (error) {
       setError("Failed to sign in. Please check your credentials.");
     }

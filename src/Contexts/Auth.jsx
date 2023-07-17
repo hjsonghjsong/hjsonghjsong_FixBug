@@ -9,17 +9,18 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session ?? null);
-      setLoading(false);
-      console.log(session);
-    });
-
-    setLoading(false);
+    const fetchSession = async () => {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        setSession(session ?? null);
+        setLoading(false);
+      });
+    };
+    fetchSession();
 
     const { data: subscription } = supabase.auth.onAuthStateChange(
       (_event, session) => {
@@ -52,6 +53,7 @@ export function AuthProvider({ children }) {
       });
       if (error) throw error;
       setSession(data.session);
+      setUser(data.user);
     } catch (error) {
       throw error;
     }
@@ -67,6 +69,7 @@ export function AuthProvider({ children }) {
       });
       if (error) throw error;
       setSession(data.session);
+      setUser(data.user);
     } catch (error) {
       throw error;
     }
@@ -75,7 +78,8 @@ export function AuthProvider({ children }) {
   async function signOut() {
     const { error } = await supabase.auth.signOut();
     setSession(null);
-    console.log(session);
+    setUser(null);
+
     if (error) throw error;
   }
   const value = {
@@ -83,6 +87,7 @@ export function AuthProvider({ children }) {
     signIn,
     signOut,
     session,
+    user,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
