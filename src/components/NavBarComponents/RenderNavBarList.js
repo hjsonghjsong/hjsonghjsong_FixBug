@@ -1,7 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const pages = ['dashboard', 'resume', 'about'];
+const pages = ['dashboard', 'resume'];
 
 const RenderNavBarList = (props) => (
     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

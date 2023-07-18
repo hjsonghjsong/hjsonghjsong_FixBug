@@ -38,8 +38,8 @@ function NavBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="fixed" color="transparent" elevation={0} sx={{top: 0}} >
+    <Box>
+    <AppBar color="transparent" elevation={0} sx={{top: 0}} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

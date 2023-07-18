@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import Resume from './components/NavBarComponents/Resume'
-import About from './components/NavBarComponents/About';
+import CreateResumeStepper from './components/ResumeComponents/CreateResumeStepper';
 
 const NavBarRouter = () => (
     <Routes>
       <Route path="/resume" element={<Resume />} />
-      <Route path="/about" element={<About />} />
+        <Route path="/resume/add" element={<CreateResumeStepper />} />
     </Routes>
 );
 
