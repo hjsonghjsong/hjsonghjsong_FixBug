@@ -9,6 +9,7 @@ import {
   TextField,
   DialogActions,
   Box,
+  CircularProgress,
 } from "@mui/material";
 
 function SignUp(props) {
@@ -19,7 +20,10 @@ function SignUp(props) {
   const [error, setError] = useState(null);
   const [password, setPassword] = useState("");
   const [passError, setPassError] = useState(false);
+  const [phError, setPhError] = useState(false);
   const { signUp, session } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -43,17 +47,20 @@ function SignUp(props) {
       phone: phone,
     };
     try {
+      setLoading(true);
       await signUp(userData);
-      if (session != null) {
-        handleCloseDialog();
-      }
+      setSuccess(true);
+      handleCloseDialog();
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleCloseDialog = (e) => {
     props.setOpen(!props.open);
+    setSuccess(false);
   };
   const handlePasswordChange = (e) => {
     const password = e.target.value;
@@ -70,7 +77,8 @@ function SignUp(props) {
     const inputValue = e.target.value;
     if (inputValue.length <= 10) {
       setPhone(inputValue);
-      setError(!/^\d+$/.test(inputValue));
+
+      setPhError(!/^\d+$/.test(inputValue));
     }
   };
 
@@ -139,8 +147,8 @@ function SignUp(props) {
             placeholder="xxx-xxx-xxxx"
             sx={{ mr: 1 }}
             fullWidth
-            error={error}
-            helperText={error ? "Enter a valid phone number" : ""}
+            error={phError}
+            helperText={phError ? "Enter a valid phone number" : ""}
           />
 
           <TextField
@@ -158,6 +166,11 @@ function SignUp(props) {
           />
         </Box>
       </DialogContent>
+      {loading ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </div>
+      ) : null}
       {error && <div>{error}</div>}
 
       <div className="mt-8 mb-2">

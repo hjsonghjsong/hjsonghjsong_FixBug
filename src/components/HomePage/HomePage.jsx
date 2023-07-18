@@ -2,6 +2,7 @@ import React from "react";
 import image from "../../Utils/Images/job-interview.jpg";
 import "./HomePage.css";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   return (
@@ -25,7 +26,9 @@ function HomePage() {
       </div>
       <div className="flex flex-col items-center justify-center gap-2 mt-5">
         <h1>Try Resume Builder</h1>
-        <button className="btn-02 w-80">Create New Resume</button>
+        <Link to="/resume/add">
+          <button className="btn-02 w-80">Create New Resume</button>
+        </Link>
       </div>
     </div>
   );

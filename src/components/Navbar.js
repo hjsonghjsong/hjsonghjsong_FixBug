@@ -43,7 +43,12 @@ function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar id="nav-bar" position="sticky" elevation={0} sx={{ top: 0 }}>
+      <AppBar
+        id="nav-bar"
+        position="sticky"
+        elevation={0}
+        sx={{ top: 0, paddingLeft: "100px", paddingRight: "100px" }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -72,49 +77,57 @@ function NavBar() {
 
             <RenderNavBarList handleCloseNavMenu={handleCloseNavMenu} />
 
-            <Box sx={{ flexGrow: 0, display: "flex", gap: "24px" }}>
-              <Box sx={{ flexGrow: 0 }}>
-                <Button
-                  onClick={handleOpenUserMenu}
-                  sx={{ my: 2, color: "white" }}
-                >
-                  My Account
-                </Button>
-
-                <RenderAccountMenuList
-                  anchorElUser={anchorElUser}
-                  handleCloseUserMenu={handleCloseUserMenu}
-                />
-              </Box>
-
-              <Box
-                sx={{
-                  flexGrow: 0,
-                  display: "flex",
-                }}
-              >
-                <Button
-                  onClick={handleOpenDialog}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  Sign Up
-                </Button>
-
-                <Link to="/login">
+            <Box
+              sx={{
+                flexGrow: 0,
+                display: "flex",
+                gap: "24px",
+              }}
+            >
+              {session ? (
+                <Box sx={{ flexGrow: 0 }}>
                   <Button
-                    sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      backgroundColor: "#437EF7",
-                    }}
+                    onClick={handleOpenUserMenu}
+                    sx={{ my: 2, color: "white" }}
                   >
-                    Login
+                    My Account
                   </Button>
-                </Link>
 
-                <SignUp open={open} setOpen={setOpen} />
-              </Box>
+                  <RenderAccountMenuList
+                    anchorElUser={anchorElUser}
+                    handleCloseUserMenu={handleCloseUserMenu}
+                  />
+                </Box>
+              ) : (
+                <Box
+                  sx={{
+                    flexGrow: 0,
+                    display: "flex",
+                  }}
+                >
+                  <Button
+                    onClick={handleOpenDialog}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Sign Up
+                  </Button>
+
+                  <Link to="/login">
+                    <Button
+                      sx={{
+                        my: 2,
+                        color: "white",
+                        display: "block",
+                        backgroundColor: "#437EF7",
+                      }}
+                    >
+                      Login
+                    </Button>
+                  </Link>
+
+                  <SignUp open={open} setOpen={setOpen} />
+                </Box>
+              )}
             </Box>
           </Toolbar>
         </Container>

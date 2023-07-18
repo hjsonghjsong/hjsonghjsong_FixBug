@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./login.css";
 import resume from "../../Utils/Images/Resume.jpeg";
-import { FormControlLabel, TextField } from "@mui/material";
+import { CircularProgress, FormControlLabel, TextField } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { useAuth } from "../../Contexts/Auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkBox, setCheckBox] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { signIn, session } = useAuth();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -54,7 +55,9 @@ const Login = () => {
     }
 
     try {
+      setLoading(true);
       await signIn({ email, password });
+      setLoading(false);
       navigate(from, { replcae: true });
     } catch (error) {
       setError("Failed to sign in. Please check your credentials.");
@@ -171,6 +174,11 @@ const Login = () => {
                 <h2 className="text-[#437ef7]">Register</h2>
               </a>
             </div>
+            {loading ? (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <CircularProgress />
+              </div>
+            ) : null}
             {error && <div>{error}</div>}
           </form>
         </div>
