@@ -5,10 +5,9 @@ import Box from '@mui/material/Box';
 function StepperEducationDetail(props) {
 
     
-    const { educationDetail, setEducationDetail} = props;
-
+    const { index, educationDetailList, setEducationDetailList} = props;
     const handleChange = (event) => {
-        setEducationDetail({...educationDetail, [event.target.name]: event.target.value});
+        setEducationDetailList(educationDetailList.map((item, i) => i === index ? {...item, [event.target.name]: event.target.value} : item));
     }
 
     return (
@@ -19,7 +18,7 @@ function StepperEducationDetail(props) {
                     margin="dense"
                     label="University/College Name"
                     type="text"
-                    value={educationDetail.name}
+                    value={educationDetailList[index].name}
                     name='name'
                     onChange={handleChange}
                     fullWidth
@@ -28,7 +27,7 @@ function StepperEducationDetail(props) {
                     margin="dense"
                     label="University/College Location"
                     type="text"
-                    value={educationDetail.location}
+                    value={educationDetailList[index].location}
                     name='location'
                     onChange={handleChange}
                     fullWidth
@@ -41,7 +40,7 @@ function StepperEducationDetail(props) {
                         margin="dense"
                         label="Degree"
                         type="text"
-                        value={educationDetail.degree}
+                        value={educationDetailList[index].degree}
                         name='degree'
                         onChange={handleChange}
                         fullWidth
@@ -52,8 +51,8 @@ function StepperEducationDetail(props) {
                         margin="dense"
                         label="Start Date"
                         type="text"
-                        value={educationDetail.startDate}
-                        name='startDate'
+                        value={educationDetailList[index].startYear}
+                        name='startYear'
                         onChange={handleChange}
                         fullWidth
                     />
@@ -63,8 +62,8 @@ function StepperEducationDetail(props) {
                         margin="dense"
                         label="End Date"
                         type="text"
-                        value={educationDetail.endDate}
-                        name='endDate'
+                        value={educationDetailList[index].endYear}
+                        name='endYear'
                         onChange={handleChange}
                         fullWidth
                     />
@@ -76,7 +75,7 @@ function StepperEducationDetail(props) {
                         margin="dense"
                         label="Field of Study"
                         type="text"
-                        value={educationDetail.major}
+                        value={educationDetailList[index].major}
                         name='major'
                         onChange={handleChange}
                         fullWidth
@@ -87,7 +86,7 @@ function StepperEducationDetail(props) {
                         margin="dense"
                         label="Number of Courses"
                         type="text"
-                        value={educationDetail.numCourses}
+                        value={educationDetailList[index].numCourses}
                         name='numCourses'
                         onChange={handleChange}
                         fullWidth
@@ -98,7 +97,7 @@ function StepperEducationDetail(props) {
                         margin="dense"
                         label="CGPA"
                         type="text"
-                        value={educationDetail.gpa}
+                        value={educationDetailList[index].gpa}
                         name='gpa'
                         onChange={handleChange}
                         fullWidth

@@ -1,14 +1,12 @@
-import { TextField, Typography } from '@mui/material';
+import { TextField } from '@mui/material';
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { Add } from '@mui/icons-material';
-import Button from '@mui/material/Button';
 
 function MobileStepperEducationDetail(props) {
 
-    const {educationDetail, setEducationDetail} = props;
+    const { index, educationDetailList, setEducationDetailList} = props;
     const handleChange = (event) => {
-        setEducationDetail({...educationDetail, [event.target.name]: event.target.value});
+        setEducationDetailList(educationDetailList.map((item, i) => i === index ? {...item, [event.target.name]: event.target.value} : item));
     }
 
     return (
@@ -19,7 +17,7 @@ function MobileStepperEducationDetail(props) {
                     margin="dense"
                     label="University/College Name"
                     type="text"
-                    value={educationDetail.name}
+                    value={educationDetailList[index].name}
                     name='name'
                     onChange={handleChange}
                     fullWidth
@@ -29,7 +27,7 @@ function MobileStepperEducationDetail(props) {
                     margin="dense"
                     label="University/College Location"
                     type="text"
-                    value={educationDetail.location}
+                    value={educationDetailList[index].location}
                     name='location'
                     onChange={handleChange}
                     fullWidth
@@ -38,7 +36,7 @@ function MobileStepperEducationDetail(props) {
                     margin="dense"
                     label="Degree"
                     type="text"
-                    value={educationDetail.degree}
+                    value={educationDetailList[index].degree}
                     name='degree'
                     onChange={handleChange}
                     fullWidth
@@ -47,8 +45,8 @@ function MobileStepperEducationDetail(props) {
                     margin="dense"
                     label="Start Date"
                     type="text"
-                    value={educationDetail.startDate}
-                    name='startDate'
+                    value={educationDetailList[index].startYear}
+                    name='startYear'
                     onChange={handleChange}
                     fullWidth
                 />
@@ -56,8 +54,8 @@ function MobileStepperEducationDetail(props) {
                         margin="dense"
                         label="End Date"
                         type="text"
-                        value={educationDetail.endDate}
-                        name='endDate'
+                        value={educationDetailList[index].endYear}
+                        name='endYear'
                         onChange={handleChange}
                         fullWidth
                     />
@@ -65,7 +63,7 @@ function MobileStepperEducationDetail(props) {
                         margin="dense"
                         label="Major"
                         type="text"
-                        value={educationDetail.major}
+                        value={educationDetailList[index].major}
                         name='major'
                         onChange={handleChange}
                         fullWidth
@@ -74,7 +72,7 @@ function MobileStepperEducationDetail(props) {
                         margin="dense"
                         label="GPA"
                         type="text"
-                        value={educationDetail.gpa}
+                        value={educationDetailList[index].gpa}
                         name='gpa'
                         onChange={handleChange}
                         fullWidth

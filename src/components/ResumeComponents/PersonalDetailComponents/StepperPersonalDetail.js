@@ -4,15 +4,14 @@ import Box from '@mui/material/Box';
 import { Add } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import RenderSocialList from './RenderSocialList';
-import PersonalDetail from '../models/PersonalDetail';
+import PersonalDetail from '../../models/PersonalDetail';
+function StepperPersonalDetail(props) {
 
-function MobileStepperPersonalDetail(props) {
-
+    
     const {personalDetail, setPersonalDetail} = props;
     const handleChange = (event) => {
         setPersonalDetail({...personalDetail, [event.target.name]: event.target.value});
     }
-
     const addSocialLink = () => {
         let obj = {...personalDetail};
         obj.socialList.push(new PersonalDetail().InitialSocialDetailState);
@@ -21,7 +20,7 @@ function MobileStepperPersonalDetail(props) {
 
     return (
         <Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', flexdirection: 'row', justifyContent: 'space-between', gap: '20px' }}>
                 <TextField
                     autoFocus
                     margin="dense"
@@ -32,7 +31,6 @@ function MobileStepperPersonalDetail(props) {
                     onChange={handleChange}
                     fullWidth
                 />
-
                 <TextField
                     margin="dense"
                     label="Last Name"
@@ -42,6 +40,9 @@ function MobileStepperPersonalDetail(props) {
                     onChange={handleChange}
                     fullWidth
                 />
+
+            </Box>
+            <Box sx={{ display: 'flex', flexdirection: 'row', justifyContent: 'space-between', gap: '20px' }}>
                 <TextField
                     margin="dense"
                     label="Email Address"
@@ -60,6 +61,9 @@ function MobileStepperPersonalDetail(props) {
                     onChange={handleChange}
                     fullWidth
                 />
+            </Box>
+            <Box sx={{ display: 'flex', flexdirection: 'row', justifyContent: 'space-between', gap: '20px' }}>
+                <Box width="50%">
                     <TextField
                         margin="dense"
                         label="City"
@@ -69,6 +73,8 @@ function MobileStepperPersonalDetail(props) {
                         onChange={handleChange}
                         fullWidth
                     />
+                </Box>
+                <Box width="50%">
                     <TextField
                         margin="dense"
                         label="State/Province"
@@ -78,6 +84,8 @@ function MobileStepperPersonalDetail(props) {
                         onChange={handleChange}
                         fullWidth
                     />
+                </Box>
+                <Box width="50%">
                     <TextField
                         margin="dense"
                         label="Zip Code"
@@ -87,16 +95,16 @@ function MobileStepperPersonalDetail(props) {
                         onChange={handleChange}
                         fullWidth
                     />
-                                </Box>
-
+                </Box>
+            </Box>
             <Box>
                 <Button onClick={addSocialLink}>
                     <Add />
                     <Typography>Add Social Links</Typography>
                 </Button>
             </Box>
-            <RenderSocialList 
-                    personalDetailState={props}
+           <RenderSocialList 
+                personalDetailState={props}
             />
 
               
@@ -104,4 +112,4 @@ function MobileStepperPersonalDetail(props) {
     );
 }
 
-export default MobileStepperPersonalDetail;
+export default StepperPersonalDetail;

@@ -7,11 +7,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import MobileStepperPersonalDetail from './MobileStepperPersonalDetail';
-import MobileStepperEducationDetail from './EducationComponents/MobileStepperEducationDetail';
+import RenderEducationList from './EducationComponents/RenderEducationList';
+import RenderPersonalDetail from './PersonalDetailComponents/RenderPersonalDetail';
 
 
-export default function TextMobileStepper(props) {
+export default function CreateResumeMobileStepper(props) {
   const theme = useTheme();
   return (
     <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
@@ -30,13 +30,13 @@ export default function TextMobileStepper(props) {
       </Paper>
       <Box sx={{ width: '100%', p: 2 }}>
         {props.activeStep === 0 && 
-          <MobileStepperPersonalDetail 
+          <RenderPersonalDetail 
                 personalDetail={props.personalDetail}
                 setPersonalDetail={props.setPersonalDetail} />}
         {props.activeStep === 1 && 
-          <MobileStepperEducationDetail
-                educationDetail={props.educationDetail}
-                setEducationDetail={props.setEducationDetail} />}
+          <RenderEducationList
+                educationDetailList={props.educationDetailList}
+                setEducationDetailList={props.setEducationDetailList} />}
       </Box>
       <MobileStepper
         variant="text"

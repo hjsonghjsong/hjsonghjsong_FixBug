@@ -5,27 +5,31 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import StepperPersonalDetail from './StepperPersonalDetail';
-import TextMobileStepper from './TextMobileStepper';
+import CreateResumeMobileStepper from './CreateResumeMobileStepper';
 import PersonalDetail from '../models/PersonalDetail';
 import EducationDetail from '../models/EducationDetail';
+import JobPreference from '../models/JobPreference';
 import RenderEducationList from './EducationComponents/RenderEducationList';
+import RenderPersonalDetail from './PersonalDetailComponents/RenderPersonalDetail';
+import RenderJobPreference from './JobPreferenceComponents/RenderJobPreference';
 
-const steps = ['Personal Details', 'Education', 'Work Experience'];
+const steps = ['Personal Details', 'Education', 'Job Preference', 'Work Experience'];
 
 export default function CreateResumeStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const personalDetailInitialState = new PersonalDetail();
   const educationDetailInitialState = new EducationDetail();
+  const jobPreferenceInitialState = new JobPreference();
 
   const [personalDetailState, setPersonalDetailState] = React.useState(personalDetailInitialState.getState);
-  const [educationDetailState, setEducationDetailState] = React.useState(educationDetailInitialState.getState);
+  const [educationDetailList, setEducationDetailList] = React.useState([educationDetailInitialState.getState]);
+  const [jobPreferenceState, setJobPreferenceState] = React.useState(jobPreferenceInitialState.getState);
 
   const maxSteps = steps.length;
 
   const isStepOptional = (step) => {
-    return step === 2;
+    return step === 5;
   };
 
   const isStepSkipped = (step) => {
@@ -69,12 +73,12 @@ export default function CreateResumeStepper() {
   return (
     <Box>
       <Box sx={{ display: { xs: 'block', md: 'none' }}}>
-        <TextMobileStepper 
+        <CreateResumeMobileStepper 
                 steps={steps}
                 personalDetail={personalDetailState}
                 setPersonalDetail={setPersonalDetailState}
-                educationDetail={educationDetailState}
-                setEducationDetail={setEducationDetailState}
+                educationDetailList={educationDetailList}
+                setEducationDetailList={setEducationDetailList}
                 handleNext={handleNext}
                 handleBack={handleBack}
                 activeStep={activeStep}
@@ -114,15 +118,20 @@ export default function CreateResumeStepper() {
         <React.Fragment>
           <Box sx={{minHeight: '20em'}}>
           {activeStep === 0 && (
-          <StepperPersonalDetail 
+          <RenderPersonalDetail 
                 personalDetail={personalDetailState}
                 setPersonalDetail={setPersonalDetailState} />
             )}
             {activeStep === 1 && (
               <RenderEducationList
-                  educationDetail={educationDetailState}
-                  setEducationDetail={setEducationDetailState} />
+                  educationDetailList={educationDetailList}
+                  setEducationDetailList={setEducationDetailList} />
             )}
+            {activeStep === 2 && (
+              <RenderJobPreference 
+                  jobPreference={jobPreferenceState}
+                  setJobPreference={setJobPreferenceState}
+                  />)}
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
