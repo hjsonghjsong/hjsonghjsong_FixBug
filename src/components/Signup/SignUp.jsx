@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../Contexts/Auth";
 import {
   Button,
@@ -11,6 +11,7 @@ import {
   Box,
   CircularProgress,
 } from "@mui/material";
+import Loading from "../LoadingComponent/Loading";
 
 function SignUp(props) {
   const [firstName, setFirstName] = useState("");
@@ -22,7 +23,7 @@ function SignUp(props) {
   const [passError, setPassError] = useState(false);
   const [phError, setPhError] = useState(false);
   const { signUp, session } = useAuth();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState(false);
 
   const handleFirstNameChange = (event) => {
@@ -47,20 +48,15 @@ function SignUp(props) {
       phone: phone,
     };
     try {
-      setLoading(true);
       await signUp(userData);
-      setSuccess(true);
       handleCloseDialog();
     } catch (error) {
       setError(error.message);
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleCloseDialog = (e) => {
     props.setOpen(!props.open);
-    setSuccess(false);
   };
   const handlePasswordChange = (e) => {
     const password = e.target.value;
@@ -84,9 +80,11 @@ function SignUp(props) {
 
   return (
     <Dialog sx={{}} open={props.open} onClose={handleCloseDialog}>
-      <DialogTitle sx={{ fontWeight: "bold", fontSize: 24 }}>
-        Sign Up
-      </DialogTitle>
+      <div className="flex flex-row justify-between">
+        <DialogTitle sx={{ fontWeight: "bold", fontSize: 24 }}>
+          Sign Up
+        </DialogTitle>
+      </div>
       <DialogContent>
         <DialogContentText>
           Please fill out the form below to create an account.
@@ -166,12 +164,8 @@ function SignUp(props) {
           />
         </Box>
       </DialogContent>
-      {loading ? (
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <CircularProgress />
-        </div>
-      ) : null}
-      {error && <div>{error}</div>}
+
+      {/* {error && <div>{error}</div>} */}
 
       <div className="mt-8 mb-2">
         <DialogActions>
@@ -183,6 +177,11 @@ function SignUp(props) {
           </Button>
         </DialogActions>
       </div>
+      {success ? (
+        <div>
+          <h2>Singup Successful</h2>
+        </div>
+      ) : null}
     </Dialog>
   );
 }

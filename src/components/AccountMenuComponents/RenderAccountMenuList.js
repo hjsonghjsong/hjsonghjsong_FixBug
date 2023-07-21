@@ -1,18 +1,21 @@
 import Menu from "@mui/material/Menu";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Contexts/Auth";
 
 const settings = ["Profile", "Account", "Logout"];
 
 const RenderAccountMenuList = (props) => {
   const { signOut } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/login";
 
   const handleLogout = () => {
     signOut();
-    // window.location.href = "/login";
     props.handleCloseUserMenu();
+    navigate(from, { replace: true });
   };
 
   function handleItemClick(setting) {

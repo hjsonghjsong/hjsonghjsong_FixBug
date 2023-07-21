@@ -6,8 +6,6 @@ const ProtectedRoute = () => {
   const { session } = useAuth();
   const location = useLocation();
 
-  console.log(session);
-
   return session ? (
     <Outlet />
   ) : (

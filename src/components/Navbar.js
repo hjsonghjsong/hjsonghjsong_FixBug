@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,6 +14,8 @@ import RenderNavBarMobile from "./NavBarComponents/RenderNavBarMobile";
 import "../components/Navbar.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Contexts/Auth";
+import Loading from "./LoadingComponent/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -42,16 +44,21 @@ function NavBar() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box
+      sx={{
+        position: "relative",
+      }}
+    >
       <AppBar
         id="nav-bar"
         position="sticky"
         elevation={0}
-        sx={{ top: 0, paddingLeft: "100px", paddingRight: "100px" }}
+        sx={{ top: 0, zIndex: 2 }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+
             <Typography
               variant="h6"
               noWrap
@@ -132,8 +139,13 @@ function NavBar() {
           </Toolbar>
         </Container>
       </AppBar>
+      <div className="m-2 loading-box fixed top-13 right-0">
+        <Loading />
+      </div>
+
       <NavBarRouter />
     </Box>
   );
 }
+
 export default NavBar;

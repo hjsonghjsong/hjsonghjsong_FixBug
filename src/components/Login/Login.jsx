@@ -5,7 +5,7 @@ import resume from "../../Utils/Images/Resume.jpeg";
 import { CircularProgress, FormControlLabel, TextField } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { useAuth } from "../../Contexts/Auth";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import "./login.css";
 
 const Login = () => {
@@ -14,12 +14,10 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkBox, setCheckBox] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { signIn, session } = useAuth();
-  const [error, setError] = useState(null);
+  const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  // const from = location.state?.from?.pathname || "/resume";
 
   const handleInputChange = (e) => {
     const { name, value, checked } = e.target;
@@ -42,6 +40,10 @@ const Login = () => {
     }
   };
 
+  const signInWithOAuth = async (e) => {
+    signInWithGoogle();
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -55,12 +57,10 @@ const Login = () => {
     }
 
     try {
-      setLoading(true);
       await signIn({ email, password });
-      setLoading(false);
-      navigate(from, { replcae: true });
+      navigate("/resume");
     } catch (error) {
-      setError("Failed to sign in. Please check your credentials.");
+      throw error;
     }
   };
   return (
@@ -69,7 +69,8 @@ const Login = () => {
         <div className="w-auto">
           <img className="image" src={resume} alt="logo"></img>
         </div>
-        <div className="flex flex-col items-center login-form-container justify-center grow">
+
+        <div className="flex flex-col items-center login-form-container justify-center gap-6 grow">
           <form
             id="login-form"
             onSubmit={handleLogin}
@@ -79,7 +80,10 @@ const Login = () => {
               <h1>Welcome Back!</h1>
             </div>
             <div className="flex w-full">
-              <button className="btn-google w-full bg-white space-x-2 active:bg-gray-200">
+              <button
+                onClick={signInWithOAuth}
+                className="btn-google w-full bg-white space-x-2 active:bg-gray-200"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -174,12 +178,6 @@ const Login = () => {
                 <h2 className="text-[#437ef7]">Register</h2>
               </a>
             </div>
-            {loading ? (
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <CircularProgress />
-              </div>
-            ) : null}
-            {error && <div>{error}</div>}
           </form>
         </div>
       </article>
