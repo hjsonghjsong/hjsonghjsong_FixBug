@@ -12,6 +12,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import Loading from "../LoadingComponent/Loading";
+import "./SignUp.css";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function SignUp(props) {
   const [firstName, setFirstName] = useState("");
@@ -23,8 +27,7 @@ function SignUp(props) {
   const [passError, setPassError] = useState(false);
   const [phError, setPhError] = useState(false);
   const { signUp, session } = useAuth();
-  const [loading, setLoading] = useState(true);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(true);
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -49,14 +52,16 @@ function SignUp(props) {
     };
     try {
       await signUp(userData);
-      handleCloseDialog();
     } catch (error) {
+      setSuccess(false);
       setError(error.message);
     }
   };
 
   const handleCloseDialog = (e) => {
+    e.preventDefault();
     props.setOpen(!props.open);
+    setSuccess(false);
   };
   const handlePasswordChange = (e) => {
     const password = e.target.value;
@@ -68,7 +73,6 @@ function SignUp(props) {
     }
   };
 
-  /*This will take only number as input from user*/
   const handlePhoneInput = (e) => {
     const inputValue = e.target.value;
     if (inputValue.length <= 10) {
@@ -84,6 +88,9 @@ function SignUp(props) {
         <DialogTitle sx={{ fontWeight: "bold", fontSize: 24 }}>
           Sign Up
         </DialogTitle>
+        <button onClick={handleCloseDialog} className="px-5">
+          <FontAwesomeIcon icon={faX} style={{ color: "#9c9c9c" }} />
+        </button>
       </div>
       <DialogContent>
         <DialogContentText>
@@ -148,7 +155,6 @@ function SignUp(props) {
             error={phError}
             helperText={phError ? "Enter a valid phone number" : ""}
           />
-
           <TextField
             margin="dense"
             placeholder="Password"
@@ -161,27 +167,52 @@ function SignUp(props) {
             onChange={handlePasswordChange}
             error={passError}
             helperText={passError ? "Minimum-8 characters" : ""}
-          />
+          />{" "}
         </Box>
+        {success ? (
+          <div className="relative rounded-md border border-c py-4 px-6 flex space-x-4 items-center w-full bg-[#e9fcf2] verify-box mt-8">
+            <div class=" text-[#3fcf8e]">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="sbui-icon "
+              >
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <div>
+              <p>A confirmation mail has been sent. Please verify your email</p>
+            </div>
+          </div>
+        ) : null}
       </DialogContent>
 
-      {/* {error && <div>{error}</div>} */}
-
-      <div className="mt-8 mb-2">
+      <div className="mb-2">
         <DialogActions>
-          <Button onClick={handleCloseDialog} sx={{ color: "black" }}>
-            Cancel
-          </Button>
-          <Button onClick={handleSubmit} variant="contained">
-            Sign Up
-          </Button>
+          {success ? (
+            <Button onClick={handleCloseDialog} variant="contained">
+              Done
+            </Button>
+          ) : (
+            <div>
+              <Button onClick={handleCloseDialog} sx={{ color: "black" }}>
+                Cancel
+              </Button>
+              <Button onClick={handleSubmit} variant="contained">
+                Sign Up
+              </Button>
+            </div>
+          )}
         </DialogActions>
       </div>
-      {success ? (
-        <div>
-          <h2>Singup Successful</h2>
-        </div>
-      ) : null}
     </Dialog>
   );
 }

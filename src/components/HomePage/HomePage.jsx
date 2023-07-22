@@ -10,7 +10,7 @@ function HomePage() {
         <img className="home-image" src={image} alt="logo"></img>
         <div className="overlay flex justify-center items-center">
           <div className="home-data flex flex-col items-center justify-center pt-5 pb-6 px-2 text-white">
-            <h1>Create. Tailor. Succeed</h1>
+            <h1 className="font-semibold">Create. Tailor. Succeed</h1>
             <div className="details_container flex items-center justify-between">
               <h2>
                 Experience the future of resume building with our

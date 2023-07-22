@@ -7,75 +7,53 @@ import {
   faCircleXmark,
   faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
+
 const Loading = () => {
   const { loading, message, success, error } = useAuth();
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showError, setShowError] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
-    if (success) {
-      setShowSuccess(true);
-      const timer = setTimeout(() => {
-        setShowSuccess(false);
-      }, 10000);
+    if (success || error) {
+      setShowMessage(true);
 
-      return () => {
-        clearTimeout(timer);
-      };
-    } else if (error) {
-      setShowError(true);
-      const timer = setTimeout(() => {
-        setShowError(false);
-      }, 10000);
+      const timer = setTimeout(
+        () => {
+          setShowMessage(false);
+        },
+        success ? 5000 : 10000
+      ); // Show success message for 5 seconds, and error message for 10 seconds
+
       return () => {
         clearTimeout(timer);
       };
     }
   }, [success, error]);
 
-  if (loading) {
+  if (loading || showMessage) {
     return (
       <div className="flex items-end justify-center">
         <div className="flex justify-center items-center loading-component bg-white ">
           <div className=" flex items-center gap-2 justify-center">
-            <CircularProgress
-              size={15}
-              sx={{ height: "15px", width: "15px" }}
-            />
-            <p>{message}</p>
-          </div>
-        </div>
-      </div>
-    );
-  } else if (showSuccess) {
-    return (
-      <div id="second" className="flex items-end justify-center">
-        <div className="flex justify-center items-center loading-component bg-white">
-          <div className="flex items-center gap-2 justify-center">
-            <div className="">
+            {loading && (
+              <CircularProgress
+                size={15}
+                sx={{ height: "15px", width: "15px" }}
+              />
+            )}
+            {success && (
               <FontAwesomeIcon
                 icon={faCircleCheck}
                 beat
                 style={{ color: "#4ec125" }}
               />
-            </div>
-            <p>{message}</p>
-          </div>
-        </div>
-      </div>
-    );
-  } else if (showError) {
-    return (
-      <div id="one" className="flex items-end justify-center">
-        <div className="flex justify-center items-center loading-component bg-white">
-          <div className="flex items-center gap-2 justify-center">
-            <div className="">
+            )}
+            {error && (
               <FontAwesomeIcon
                 icon={faCircleXmark}
                 shake
                 style={{ color: "#ff4b4b" }}
               />
-            </div>
+            )}
             <p>{message}</p>
           </div>
         </div>

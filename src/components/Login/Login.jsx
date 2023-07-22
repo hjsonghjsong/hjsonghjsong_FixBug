@@ -14,10 +14,10 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkBox, setCheckBox] = useState(false);
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn, signInWithGoogle, passwordRecovery } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  // const from = location.state?.from?.pathname || "/resume";
+  const from = location.state?.from?.pathname || "/resume";
 
   const handleInputChange = (e) => {
     const { name, value, checked } = e.target;
@@ -41,9 +41,12 @@ const Login = () => {
   };
 
   const signInWithOAuth = async (e) => {
+    e.preventDefault();
     signInWithGoogle();
+    navigate("/resume");
   };
 
+  //Login
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -58,7 +61,7 @@ const Login = () => {
 
     try {
       await signIn({ email, password });
-      navigate("/resume");
+      navigate(from, { replace: true });
     } catch (error) {
       throw error;
     }
@@ -146,7 +149,7 @@ const Login = () => {
               </div>
               <div className="flex justify-between">
                 <div className=" space-x-3 flex">
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     sx={{ fontSize: "16px", fontWeight: "600" }}
                     control={
                       <Checkbox
@@ -156,13 +159,13 @@ const Login = () => {
                         onChange={handleInputChange}
                       />
                     }
-                    label="Keep me logged in"
-                  />
+                    label="Keep me logged in"s
+                  /> */}
                 </div>
                 <div>
-                  <a className="" href="">
+                  <Link to="/forgot-password">
                     <h2 className="text-primary]">Forgot Password</h2>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
