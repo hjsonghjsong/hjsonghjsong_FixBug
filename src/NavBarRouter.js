@@ -7,12 +7,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import React from "react";
 import { AuthProvider } from "./Contexts/Auth";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
+import Settings from "./components/Settings/Settings";
 
 const NavBarRouter = () => (
   <Routes>
     <Route path="/" element={<ProtectedRoute />}>
       <Route path="/about" element={<About />} />
       <Route path="/resume" element={<Resume />} />
+      <Route path="/settings" element={<Settings />} />
     </Route>
     <Route path="/login" element={<Login />} />
     <Route path="/forgot-password" element={<ResetPassword />} />
