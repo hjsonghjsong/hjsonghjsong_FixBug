@@ -1,6 +1,7 @@
 import { supabase } from "../SupabaseCL";
 import React, { useState, useContext, useEffect } from "react";
 import Cookies from "js-cookie";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const AuthContext = React.createContext();
 
@@ -35,6 +36,7 @@ export function AuthProvider({ children }) {
       } else {
         setSession(data.session);
         saveSessionToCookie(data.session); // Save the session data to a cookie when it's fetched
+        setUser(data.session.user);
       }
       setLoading(false);
       setSessionLoading(false);
@@ -87,30 +89,42 @@ export function AuthProvider({ children }) {
 
   //Singin with OAuth 2.0(provider google)
   async function signInWithGoogle() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: "http://localhost:3000/resume",
-      },
-    });
+    try {
+      setError(false);
+      setLoading(true);
+      setMessage("Signing in with google...");
+      setSuccess(false);
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: "http://localhost:3000/resume",
+        },
+      });
+      // if (error) throw error;
+      // setSuccess(true);
+      // setMessage("Google account linked...");
+    } catch (error) {
+      setError(true);
+      setSuccess(false);
+      setMessage(error.message);
+    }
   }
 
   // signing up the user with email and password and also passing the user's meta data
   async function signUp(userData) {
     try {
       setLoading(true);
-      setMessage("Singing up...");
+      setMessage("Signing up...");
       setSuccess(false);
       setError(false);
       const { data, error } = await supabase.auth.signUp({
         email: userData.email,
         password: userData.password,
-
+        phone: userData.phone,
         options: {
           data: {
             first_name: userData.firstName,
             last_name: userData.lastName,
-            phone: userData.phone,
           },
         },
       });
@@ -165,7 +179,7 @@ export function AuthProvider({ children }) {
     setSuccess(false);
     setMessage("Logging out...");
     const { error } = await supabase.auth.signOut();
-
+    setLoading(false);
     if (error) {
       setError(true);
       setMessage(error.message);
@@ -175,8 +189,6 @@ export function AuthProvider({ children }) {
       setSession(null);
       setUser(null);
     }
-
-    setLoading(false);
   }
 
   //Function for password recovery

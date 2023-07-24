@@ -27,7 +27,7 @@ function SignUp(props) {
   const [passError, setPassError] = useState(false);
   const [phError, setPhError] = useState(false);
   const { signUp, session } = useAuth();
-  const [success, setSuccess] = useState(true);
+  const [success, setSuccess] = useState(false);
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -52,6 +52,7 @@ function SignUp(props) {
     };
     try {
       await signUp(userData);
+      setSuccess(true);
     } catch (error) {
       setSuccess(false);
       setError(error.message);

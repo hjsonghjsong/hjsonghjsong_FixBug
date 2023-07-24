@@ -75,8 +75,8 @@ const Login = () => {
 
         <div className="flex flex-col items-center login-form-container justify-center gap-6 grow">
           <form
-            id="login-form"
             onSubmit={handleLogin}
+            id="login-form"
             className="login-form flex flex-col items-center space-y-8 w-full"
           >
             <div className="flex items-center">
@@ -84,6 +84,7 @@ const Login = () => {
             </div>
             <div className="flex w-full">
               <button
+                type="button"
                 onClick={signInWithOAuth}
                 className="btn-google w-full bg-white space-x-2 active:bg-gray-200"
               >
