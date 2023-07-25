@@ -3,7 +3,7 @@ import { Button, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import StepperEducationDetail from './StepperEducationDetail';
 import { Add } from '@mui/icons-material';
-import EducationDetail from '../../models/EducationDetail';
+import EducationDetail from '../../../models/EducationDetail';
 import MobileStepperEducationDetail from './MobileStepperEducationDetail';
 
 const RenderEducationList = (props) => {

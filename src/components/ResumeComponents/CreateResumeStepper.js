@@ -5,16 +5,21 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import PersonalDetail from '../models/PersonalDetail';
-import EducationDetail from '../models/EducationDetail';
-import JobPreference from '../models/JobPreference';
-import WorkHistory from '../models/WorkHistory';
+import PersonalDetail from '../../models/PersonalDetail';
+import EducationDetail from '../../models/EducationDetail';
+import JobPreference from '../../models/JobPreference';
+import WorkHistory from '../../models/WorkHistory';
+import Generation from '../../models/Generation';
+import ProjectHistory from '../../models/ProjectHistory';
+import Steps from '../../models/Steps';
 import CreateResumeMobileStepper from './CreateResumeMobileStepper';
 import RenderEducationList from './EducationComponents/RenderEducationList';
 import RenderPersonalDetail from './PersonalDetailComponents/RenderPersonalDetail';
 import RenderJobPreference from './JobPreferenceComponents/RenderJobPreference';
 import RenderWorkHistory from './WorkHistoryComponents/RenderWorkHistory';
 import RenderGeneration from './GenerationComponents/RenderGeneration';
+import RenderSkills from './SkillsComponents/RenderSkills';
+import RenderProjectHistory from './ProjectComponents/RenderProjectHistory';
 
 export default function CreateResumeStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -23,12 +28,16 @@ export default function CreateResumeStepper() {
   const educationDetailInitialState = new EducationDetail();
   const jobPreferenceInitialState = new JobPreference();
   const workHistoryInitialState = new WorkHistory();
+  const projectHistoryInitialState = new ProjectHistory();
+  const stepsInitialState = new Steps();
 
   const [personalDetailState, setPersonalDetailState] = React.useState(personalDetailInitialState.getState);
   const [educationDetailList, setEducationDetailList] = React.useState([educationDetailInitialState.getState]);
   const [jobPreferenceState, setJobPreferenceState] = React.useState(jobPreferenceInitialState.getState);
   const [workHistoryList, setWorkHistoryList] = React.useState([workHistoryInitialState.getState]);
-  const [steps, setSteps] = React.useState(['Personal Details', 'Education', 'Job Preference', 'Work Experience 0', 'Work Description 0']);
+  const [projectHistoryList, setProjectHistoryList] = React.useState([projectHistoryInitialState.getState]);
+  const [skills, setSkills] = React.useState([new Generation().getState]);
+  const [steps, setSteps] = React.useState(stepsInitialState.getState);
   
   const maxSteps = steps.length;
 
@@ -41,14 +50,22 @@ export default function CreateResumeStepper() {
   };
 
   const elongateStepper = (type) => (event) =>{
-      if(type === 'WorkHistory'){
+    const match = type.substring(0, type.length-2);
+      if(match === 'Work Description'){
         setWorkHistoryList([...workHistoryList, new WorkHistory().getState]);
-        setSteps([...steps, `Work Experience ${workHistoryList.length}`, `Work Description ${workHistoryList.length}`]);
-        // setSteps([...steps, 'Work Experience 1', 'Work Description 1']);
+        const newSteps =[...steps.slice(0, activeStep+1), `Work Experience ${workHistoryList.length}`, `Work Description ${workHistoryList.length}`, ...steps.slice(activeStep+1)];
+        setSteps(newSteps);
   }
+      if(match === 'Project Description'){
+        setProjectHistoryList([...projectHistoryList, new ProjectHistory().getState]);
+        const newSteps =[...steps.slice(0, activeStep+1), `Project History ${projectHistoryList.length}`, `Project Description ${projectHistoryList.length}`, ...steps.slice(activeStep+1)];
+        setSteps(newSteps);
+      }
+
 }
 
   const handleNext = () => {
+    console.log(skills);
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -109,7 +126,7 @@ export default function CreateResumeStepper() {
             stepProps.completed = false;
           }
           return (
-            <Step key={label} {...stepProps}>
+            <Step key={label} {...stepProps} sx={{paddingY: '20px'}}>
               <StepLabel {...labelProps}>{label}</StepLabel>
             </Step>
           );
@@ -152,10 +169,32 @@ export default function CreateResumeStepper() {
             {(steps[activeStep].match("Work Description")) !== null && steps[activeStep].match("Work Description")[0] === "Work Description" && (
               <RenderGeneration
                   input={steps[activeStep].match("Work Description").input}
-                  workHistoryList={workHistoryList}
-                  setWorkHistoryList={setWorkHistoryList}
+                  historyList={workHistoryList}
+                  setHistoryList={setWorkHistoryList}
                   elongateStepper={elongateStepper} />
               )}
+            {(steps[activeStep].match("Project History")) !== null && steps[activeStep].match("Project History")[0] === "Project History" && (
+              <RenderProjectHistory
+                  input={steps[activeStep].match("Project History").input}
+                  projectHistoryList={projectHistoryList}
+                  setProjectHistoryList={setProjectHistoryList} />
+              )}
+            {(steps[activeStep].match("Project Description")) !== null && steps[activeStep].match("Project Description")[0] === "Project Description" && (
+              <RenderGeneration
+                  input={steps[activeStep].match("Project Description").input}
+                  historyList={projectHistoryList}
+                  setHistoryList={setProjectHistoryList}
+                  elongateStepper={elongateStepper} />
+            )}
+            {steps[activeStep].match("Skills") !== null && steps[activeStep].match("Skills")[0] === "Skills" && (
+              <RenderSkills
+                  skills={skills}
+                  setSkills={setSkills}
+                  workHistoryList={workHistoryList}
+                  jobPreferenceState={jobPreferenceState}
+               />
+            )}
+
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button

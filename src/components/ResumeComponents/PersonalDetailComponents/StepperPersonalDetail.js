@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { Add } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import RenderSocialList from './RenderSocialList';
-import PersonalDetail from '../../models/PersonalDetail';
+import PersonalDetail from '../../../models/PersonalDetail';
 function StepperPersonalDetail(props) {
 
     

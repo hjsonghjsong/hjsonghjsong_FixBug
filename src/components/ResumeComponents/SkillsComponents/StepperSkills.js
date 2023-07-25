@@ -1,25 +1,26 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
 import CircularProgress from '@mui/material/CircularProgress';
-import fetchBulletPoint from '../../../hooks/fetchBulletPoint';
-import RenderGeneratedList from './RenderGeneratedList';
-import AddIcon from '@mui/icons-material/Add';
+import fetchSkills from '../../../hooks/fetchSkills';
+import RenderGeneratedList from '../GenerationComponents/RenderGeneratedList';
 
-function StepperGeneration(props) {
+function StepperSkills(props) {
     
     const [loading, setLoading] = React.useState(false);
-    const {input, historyList, setHistoryList, elongateStepper} = props;
-    const index = parseInt(input.charAt(input.length-1));
+    const {skills, setSkills, workHistoryList} = props;
+    
     const handleChange = (event) => {
-        setHistoryList(historyList.map((item, i) => i === index ? {...item, [event.target.name]: event.target.value} : item));
+        console.log(skills);
+        setSkills([{...skills[0], [event.target.name]: event.target.value}]);
+        // setSkills(skills.map((item, i) => i === 0 ? {...item, [event.target.name]: event.target.value} : item));
     }
 
     const handleSuggestPoints = () => {
         setLoading(true);
-        fetchBulletPoint(historyList[index]).then((res) => {
-            setHistoryList(historyList.map((item, i) => i === index ? {...item, generatedContent: res.bullet_points} : item));
+        fetchSkills(workHistoryList, skills).then((res) => {
+            setSkills([{...skills, generatedContent: res.relevant_skills}]);
             setLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -28,13 +29,13 @@ function StepperGeneration(props) {
     return (
         <Box>
             <Box sx={{ display: 'flex', flexdirection: 'row', justifyContent: 'space-between', gap: '20px', paddingBlockStart: '10px' }}>
-                <TextField
+            <TextField
                     autoFocus
                     margin="dense"
-                    label={input}
+                    label='Skills'
                     type="text"
                     multiline
-                    value={historyList[index].helperText}
+                    value={skills[0].helperText}
                     name='helperText'
                     onChange={handleChange}
                     fullWidth
@@ -47,24 +48,20 @@ function StepperGeneration(props) {
                         size='small'
                         onClick={handleSuggestPoints}
                     >
-                    Suggest Points
+                    Suggest Skills
                     </Button>
                     }
                 </Box>
             </Box>
             <Box>
             <RenderGeneratedList  
-                    index={index}
-                    historyList={historyList}
-                    setHistoryList={setHistoryList} 
+                    index={0}
+                    historyList={skills}
+                    setHistoryList={setSkills} 
             />
-            <Button onClick={elongateStepper(input)}>
-                <AddIcon />
-                <Typography>Add {input}</Typography>
-            </Button>
             </Box>
         </Box>
     );
 }
 
-export default StepperGeneration;
+export default StepperSkills;

@@ -7,17 +7,17 @@ import AddIcon from '@mui/icons-material/Add';
 
 const RenderGeneratedList = (props) => {
 
-    const {index, workHistoryList, setWorkHistoryList} = props;
+    const {index, historyList, setHistoryList} = props;
     
     const addPoint = () => {
-        setWorkHistoryList(workHistoryList.map((item, i) => i === index ? {...item, generatedContent: [...item.generatedContent, '']} : item));
+        setHistoryList(historyList.map((item, i) => i === index ? {...item, generatedContent: [...item.generatedContent, '']} : item));
     }
     const removePoint = (key) => () => {
-        setWorkHistoryList(workHistoryList.map((item, i) => i === index ? {...item, generatedContent: item.generatedContent.filter((_, i) => i !== key)} : item));
+        setHistoryList(historyList.map((item, i) => i === index ? {...item, generatedContent: item.generatedContent.filter((_, i) => i !== key)} : item));
     }
 
     const handlePointChange = (key) => (event) => {
-        setWorkHistoryList(workHistoryList.map((item, i) => i === index ? {...item, generatedContent: item.generatedContent.map((point, i) => {
+        setHistoryList(historyList.map((item, i) => i === index ? {...item, generatedContent: item.generatedContent.map((point, i) => {
             if (i === key) {
                 return event.target.value;
             } else {
@@ -30,7 +30,7 @@ const RenderGeneratedList = (props) => {
     return (
         <Box>
         <List dense>
-                {workHistoryList[index].generatedContent.map((point, key) => (
+                {historyList[index].generatedContent.map((point, key) => (
                     <ListItem key={key}>
                         <TextField
                             value={point}
