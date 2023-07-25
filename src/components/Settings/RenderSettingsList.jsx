@@ -4,8 +4,8 @@ import {
   ListItem,
   ListItemText,
   ListItemButton,
-  Divider,
   IconButton,
+  Divider,
 } from "@mui/material";
 import { useState } from "react";
 import Settings from "./Settings";
@@ -19,6 +19,7 @@ const RenderSettingsList = ({
 }) => {
   const iconMap = {
     general: <SettingsIcon color="action" />,
+
     privacy: <ManageAccountsIcon color="action" />,
   };
   return (
@@ -40,7 +41,6 @@ const RenderSettingsList = ({
               />
             </ListItemButton>
           </ListItem>
-          <Divider />
         </React.Fragment>
       ))}
     </List>

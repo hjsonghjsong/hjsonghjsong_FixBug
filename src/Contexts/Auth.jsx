@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
       } else {
         setSession(data.session);
         saveSessionToCookie(data.session); // Save the session data to a cookie when it's fetched
-        setUser(data.session.user);
+        setUser(data?.session?.user);
       }
       setLoading(false);
       setSessionLoading(false);

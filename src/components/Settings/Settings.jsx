@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./Settings.css";
 import {
-  Divider,
   ListItem,
   TextField,
   List,
   Button,
   Chip,
+  IconButton,
+  Divider,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
@@ -14,21 +15,38 @@ import ImageIcon from "@mui/icons-material/Image";
 import ListItemText from "@mui/material/ListItemText";
 import RenderSettingsList from "./RenderSettingsList";
 import { useAuth } from "../../Contexts/Auth";
+import UserDetailsDisplay from "./UserDetailsDisplay";
+import { faL } from "@fortawesome/free-solid-svg-icons";
+import DetailsEditDialog from "./DetailsEditDialog";
 
 const Settings = () => {
   const [activeSection, setActiveSection] = useState("general");
   const { user } = useAuth();
+  const [openDialog, setOpenDialog] = useState(false);
 
   const settingOptions = [
     { id: "general", label: "General Settings", checked: true },
     { id: "privacy", label: "Privacy Settings", checked: false },
   ];
+  const capitalizeFirstLetter = (str) => {
+    return str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+  };
+
+  const first_name = capitalizeFirstLetter(user?.user_metadata?.first_name);
+  const last_name = capitalizeFirstLetter(user?.user_metadata?.last_name);
+  const email = user?.email;
+  const phone = user?.phone;
 
   const handleToggle = (sectionId) => () => {
     setActiveSection(sectionId);
   };
-  const capitalizeFirstLetter = (str) => {
-    return str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+
+  const handleOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
   };
 
   return (
@@ -67,90 +85,43 @@ const Settings = () => {
                     flex: "inline",
                   }}
                 >
-                  <div className="flex items-center justify-center gap-6">
+                  <div className="items-center justify-center gap-6 flex">
                     <Avatar>
                       <ImageIcon />
                     </Avatar>
                     <h2 className="font-semibold  text-3xl">
-                      {capitalizeFirstLetter(user?.user_metadata?.last_name)}{" "}
-                      {capitalizeFirstLetter(user?.user_metadata?.first_name)}
+                      {last_name} {first_name}
                     </h2>
                   </div>
-                  <button className="avatar-button">
-                    Change Profile Picture
-                  </button>
-                </ListItem>
-                <ListItem
-                  disablePadding
-                  className="avatar-container"
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "32px",
-                  }}
-                >
-                  <ListItemText
-                    disablePadding
-                    primary="First name"
-                    secondary={capitalizeFirstLetter(
-                      user?.user_metadata?.first_name
-                    )}
-                  />
-                  <ListItemText
-                    disablePadding
-                    primary="Last name"
-                    secondary={capitalizeFirstLetter(
-                      user?.user_metadata?.last_name
-                    )}
-                  />
-                  <Chip
-                    label="Edit"
-                    icon={<EditIcon fontSize="small" />}
-                    clickable
-                  />
-                </ListItem>
-                <Divider />
 
-                <ListItem
-                  disablePadding
-                  className="avatar-container"
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "32px",
-                  }}
-                >
-                  <ListItemText primary="Email" secondary={user.email} />
-                  <Chip
-                    label="Edit"
-                    icon={<EditIcon fontSize="small" />}
-                    clickable
-                  />
+                  <IconButton onClick={handleOpen}>
+                    <Chip
+                      label="Edit"
+                      icon={<EditIcon fontSize="small" />}
+                      clickable
+                    />
+                  </IconButton>
                 </ListItem>
-                <Divider />
 
-                <ListItem
-                  disablePadding
-                  className="avatar-container"
-                  sx={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <ListItemText
-                    primary="Phone"
-                    secondary={user?.user_metadata?.phone}
-                  />
-
-                  <Chip
-                    label="Edit"
-                    icon={<EditIcon fontSize="small" />}
-                    clickable
-                  />
-                </ListItem>
-                <Divider />
+                <UserDetailsDisplay
+                  label="Name"
+                  value={`${last_name} ${first_name}`}
+                />
+                <UserDetailsDisplay label="Email" value={email} />
+                <UserDetailsDisplay label="Phone" value={phone} />
               </List>
             </div>
           )}
         </div>
       </div>
+      <DetailsEditDialog
+        open={openDialog}
+        handleClose={handleClose}
+        firstName={first_name}
+        lastName={last_name}
+        email={email}
+        phone={phone}
+      />
     </div>
   );
 };
