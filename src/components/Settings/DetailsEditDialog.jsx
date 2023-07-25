@@ -90,6 +90,12 @@ const DetailsEditDialog = ({
                       <ArrowForwardIosRoundedIcon fontSize="normal" />
                     </ListItemButton>
                   </ListItem>
+                  <Divider
+                    sx={{
+                      borderColor: "rgba(0, 0, 0, 0.3)",
+                      margin: "0px 24px",
+                    }}
+                  />
                 </React.Fragment>
               ))}
             </List>
@@ -114,9 +120,9 @@ const DetailsEditDialog = ({
           selectedDetail === "Name"
             ? { firstName: firstName, lastName: lastName }
             : selectedDetail === "Email"
-            ? email
+            ? { email: email }
             : selectedDetail === "Phone"
-            ? phone
+            ? { phone: phone }
             : ""
         }
       />

@@ -35,8 +35,7 @@ const Settings = () => {
   const first_name = capitalizeFirstLetter(user?.user_metadata?.first_name);
   const last_name = capitalizeFirstLetter(user?.user_metadata?.last_name);
   const email = user?.email;
-  const phone = user?.phone;
-
+  const phone = user?.user_metadata?.phone;
   const handleToggle = (sectionId) => () => {
     setActiveSection(sectionId);
   };
@@ -81,7 +80,7 @@ const Settings = () => {
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginBottom: "24px",
+
                     flex: "inline",
                   }}
                 >
@@ -102,6 +101,12 @@ const Settings = () => {
                     />
                   </IconButton>
                 </ListItem>
+                <Divider
+                  sx={{
+                    borderColor: "rgba(0, 0, 0, 0.4)",
+                    marginBottom: "24px",
+                  }}
+                />
 
                 <UserDetailsDisplay
                   label="Name"

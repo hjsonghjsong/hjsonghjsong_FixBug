@@ -41,6 +41,7 @@ const RenderSettingsList = ({
               />
             </ListItemButton>
           </ListItem>
+          <Divider sx={{ borderColor: "rgba(0, 0, 0, 0.2)" }} />
         </React.Fragment>
       ))}
     </List>

@@ -15,6 +15,7 @@ const UserDetailsDisplay = ({ label, value, onEdit }) => {
       >
         <ListItemText primary={label} secondary={value} />
       </ListItem>
+      <Divider sx={{ borderColor: "rgba(0, 0, 0, 0.2)" }} />
     </>
   );
 };

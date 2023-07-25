@@ -191,6 +191,35 @@ export function AuthProvider({ children }) {
     }
   }
 
+  //function to update user's data including email in Supabase Auth
+  async function updateUser(userData) {
+    try {
+      setError(false);
+      setLoading(true);
+      setSuccess(false);
+      setMessage("Updating user details...");
+      const { data, error } = await supabase.auth.updateUser({
+        email: userData.email,
+
+        data: {
+          first_name: userData.firstName,
+          last_name: userData.lastName,
+          phone: userData.phone,
+        },
+      });
+
+      if (error) {
+        setError(true);
+        setMessage(error.message);
+      } else {
+        setSuccess(true);
+        setMessage("Updated user details...");
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
   //Function for password recovery
   async function passwordRecovery(userData) {
     try {
@@ -235,6 +264,7 @@ export function AuthProvider({ children }) {
     success,
     error,
     passwordRecovery,
+    updateUser,
   };
 
   return (

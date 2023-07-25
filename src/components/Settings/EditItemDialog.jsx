@@ -11,13 +11,29 @@ import {
 } from "@mui/material";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import CloseIcon from "@mui/icons-material/Close";
+import { useAuth } from "../../Contexts/Auth";
+import { supabase } from "../../SupabaseCL";
 
 const EditItemDialog = ({ open, handleClose, detailsType, initialValue }) => {
-  const [value, setValue] = useState(initialValue);
+  const { user, updateUser } = useAuth();
+  const [email, setEmail] = useState(user?.email);
+  const [phone, setPhone] = useState(user?.user_metadata?.phone);
+  const [firstName, setFirstName] = useState(user?.user_metadata?.first_name);
+  const [lastName, setLastName] = useState(user?.user_metadata?.last_name);
 
-  const handleSave = () => {
-    handleClose();
-    // Here you can implement the logic to save the updated value to the database (Supabase)
+  const handleSave = async (e) => {
+    const userData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+    };
+    try {
+      await updateUser(userData);
+      handleClose();
+    } catch (error) {
+      throw error;
+    }
   };
 
   const handleGoBack = () => {
@@ -44,36 +60,38 @@ const EditItemDialog = ({ open, handleClose, detailsType, initialValue }) => {
               flexDirection: "column",
               justifyContent: "space-between",
               gap: "32px",
+              padding: "20px 24px",
             }}
           >
             <TextField
               fullWidth
               label="First Name"
-              value={value.firstName}
-              onChange={(e) =>
-                setValue({ ...value, firstName: e.target.value })
-              }
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
             <TextField
               fullWidth
               label="Last Name"
-              value={value.lastName}
-              onChange={(e) => setValue({ ...value, lastName: e.target.value })}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </Box>
         ) : detailsType === "Phone" ? (
           <Box
             sx={{
               marginTop: "16px",
-
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
               gap: "32px",
+              padding: "20px 24px",
             }}
           >
             <TextField
               fullWidth
               label="Phone"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </Box>
         ) : (
@@ -84,13 +102,14 @@ const EditItemDialog = ({ open, handleClose, detailsType, initialValue }) => {
               flexDirection: "column",
               justifyContent: "space-between",
               gap: "32px",
+              padding: "20px 24px",
             }}
           >
             <TextField
               fullWidth
               label={detailsType}
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Box>
         )}
