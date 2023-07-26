@@ -4,11 +4,8 @@ import {
   ListItem,
   ListItemText,
   ListItemButton,
-  IconButton,
   Divider,
 } from "@mui/material";
-import { useState } from "react";
-import Settings from "./Settings";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
@@ -41,7 +38,7 @@ const RenderSettingsList = ({
               />
             </ListItemButton>
           </ListItem>
-          <Divider sx={{ borderColor: "rgba(0, 0, 0, 0.2)" }} />
+          <Divider />
         </React.Fragment>
       ))}
     </List>

@@ -1,7 +1,6 @@
-import { ListItem, ListItemText, Divider, Chip } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import { ListItem, ListItemText, Divider } from "@mui/material";
 
-const UserDetailsDisplay = ({ label, value, onEdit }) => {
+const UserDetailsDisplay = ({ label, value }) => {
   return (
     <>
       <ListItem
@@ -15,7 +14,7 @@ const UserDetailsDisplay = ({ label, value, onEdit }) => {
       >
         <ListItemText primary={label} secondary={value} />
       </ListItem>
-      <Divider sx={{ borderColor: "rgba(0, 0, 0, 0.2)" }} />
+      <Divider />
     </>
   );
 };

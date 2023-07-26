@@ -14,7 +14,7 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkBox, setCheckBox] = useState(false);
-  const { signIn, signInWithGoogle, passwordRecovery } = useAuth();
+  const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/resume";

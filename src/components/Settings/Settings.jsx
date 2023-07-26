@@ -2,40 +2,45 @@ import React, { useState } from "react";
 import "./Settings.css";
 import {
   ListItem,
-  TextField,
   List,
-  Button,
   Chip,
   IconButton,
   Divider,
+  avatarGroupClasses,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
 import ImageIcon from "@mui/icons-material/Image";
-import ListItemText from "@mui/material/ListItemText";
 import RenderSettingsList from "./RenderSettingsList";
 import { useAuth } from "../../Contexts/Auth";
 import UserDetailsDisplay from "./UserDetailsDisplay";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 import DetailsEditDialog from "./DetailsEditDialog";
 
 const Settings = () => {
   const [activeSection, setActiveSection] = useState("general");
   const { user } = useAuth();
   const [openDialog, setOpenDialog] = useState(false);
+  const capitalizeFirstLetter = (str) => {
+    return str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+  };
+  const [userData, setUserData] = useState({
+    first_name: capitalizeFirstLetter(user?.user_metadata?.first_name),
+    last_name: capitalizeFirstLetter(user?.user_metadata?.last_name),
+    email: user?.new_email || user?.email,
+    phone: user?.user_metadata?.phone,
+    full_name: user?.user_metadata?.full_name,
+    avatar_url: user?.user_metadata.avatar_url,
+  });
 
   const settingOptions = [
     { id: "general", label: "General Settings", checked: true },
     { id: "privacy", label: "Privacy Settings", checked: false },
   ];
-  const capitalizeFirstLetter = (str) => {
-    return str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
+
+  const handleSaveUserData = (updatedUserData) => {
+    setUserData(updatedUserData);
   };
 
-  const first_name = capitalizeFirstLetter(user?.user_metadata?.first_name);
-  const last_name = capitalizeFirstLetter(user?.user_metadata?.last_name);
-  const email = user?.email;
-  const phone = user?.user_metadata?.phone;
   const handleToggle = (sectionId) => () => {
     setActiveSection(sectionId);
   };
@@ -85,11 +90,13 @@ const Settings = () => {
                   }}
                 >
                   <div className="items-center justify-center gap-6 flex">
-                    <Avatar>
-                      <ImageIcon />
-                    </Avatar>
+                    <Avatar
+                      alt="Remy Sharp"
+                      sx={{ height: "56px", width: "56px" }}
+                      src={userData.avatar_url}
+                    ></Avatar>
                     <h2 className="font-semibold  text-3xl">
-                      {last_name} {first_name}
+                      {userData.full_name}
                     </h2>
                   </div>
 
@@ -103,17 +110,13 @@ const Settings = () => {
                 </ListItem>
                 <Divider
                   sx={{
-                    borderColor: "rgba(0, 0, 0, 0.4)",
                     marginBottom: "24px",
                   }}
                 />
 
-                <UserDetailsDisplay
-                  label="Name"
-                  value={`${last_name} ${first_name}`}
-                />
-                <UserDetailsDisplay label="Email" value={email} />
-                <UserDetailsDisplay label="Phone" value={phone} />
+                <UserDetailsDisplay label="Name" value={userData.full_name} />
+                <UserDetailsDisplay label="Email" value={userData.email} />
+                <UserDetailsDisplay label="Phone" value={userData.phone} />
               </List>
             </div>
           )}
@@ -122,10 +125,13 @@ const Settings = () => {
       <DetailsEditDialog
         open={openDialog}
         handleClose={handleClose}
-        firstName={first_name}
-        lastName={last_name}
-        email={email}
-        phone={phone}
+        firstName={userData.first_name}
+        lastName={userData.last_name}
+        email={userData.email}
+        phone={userData.phone}
+        fullName={userData.full_name}
+        avatar={userData.avatar_url}
+        onSave={handleSaveUserData}
       />
     </div>
   );

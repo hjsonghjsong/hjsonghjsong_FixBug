@@ -15,7 +15,6 @@ import "../components/Navbar.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Contexts/Auth";
 import Loading from "./LoadingComponent/Loading";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

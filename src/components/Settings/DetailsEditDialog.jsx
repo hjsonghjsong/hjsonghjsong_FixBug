@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import {
-  Box,
   Dialog,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  TextField,
   IconButton,
   Button,
   DialogActions,
-  Chip,
   Avatar,
   List,
   ListItem,
   ListItemButton,
-  ListItemText,
   Typography,
   Divider,
 } from "@mui/material";
@@ -30,10 +26,14 @@ const DetailsEditDialog = ({
   lastName,
   email,
   phone,
+  fullName,
+  onSave,
+  avatar,
 }) => {
   const detailsList = ["Name", "Email", "Phone"];
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedDetail, setSelectedDetail] = useState(null);
+  const [first_name, last_name] = fullName ? fullName.split(" ") : ["", ""];
 
   const handleEdit = (detail) => {
     setSelectedDetail(detail);
@@ -65,10 +65,12 @@ const DetailsEditDialog = ({
           </IconButton>
         </div>
         <div className="flex flex-col gap-1 items-center justify-center">
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
-          <h2 className="text-lg">{`${lastName} ${firstName}`}</h2>
+          <Avatar
+            sx={{ height: "56px", width: "56px" }}
+            alt="Remy Sharp"
+            src={avatar}
+          ></Avatar>
+          <h2 className="text-lg">{`${first_name} ${last_name}`}</h2>
         </div>
         <DialogContent sx={{ height: "265px" }}>
           <DialogContentText>
@@ -92,7 +94,6 @@ const DetailsEditDialog = ({
                   </ListItem>
                   <Divider
                     sx={{
-                      borderColor: "rgba(0, 0, 0, 0.3)",
                       margin: "0px 24px",
                     }}
                   />
@@ -104,9 +105,8 @@ const DetailsEditDialog = ({
 
         <div className="mb-2">
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button variant="contained" color="primary">
-              Save
+            <Button onClick={handleClose} variant="contained" color="primary">
+              Done
             </Button>
           </DialogActions>
         </div>
@@ -116,15 +116,15 @@ const DetailsEditDialog = ({
         open={editDialogOpen}
         handleClose={handleEditDialogClose}
         detailsType={selectedDetail}
-        initialValue={
-          selectedDetail === "Name"
-            ? { firstName: firstName, lastName: lastName }
-            : selectedDetail === "Email"
-            ? { email: email }
-            : selectedDetail === "Phone"
-            ? { phone: phone }
-            : ""
-        }
+        initialValue={{
+          first_name: first_name,
+          last_name: last_name,
+
+          phone: phone,
+
+          email: email,
+        }}
+        onSave={onSave}
       />
     </React.Fragment>
   );

@@ -117,14 +117,19 @@ export function AuthProvider({ children }) {
       setMessage("Signing up...");
       setSuccess(false);
       setError(false);
+
+      const full_name = userData.firstName + " " + userData.lastName;
       const { data, error } = await supabase.auth.signUp({
         email: userData.email,
         password: userData.password,
-        phone: userData.phone,
+
         options: {
           data: {
             first_name: userData.firstName,
             last_name: userData.lastName,
+            full_name: full_name,
+            name: full_name,
+            phone: userData.phone,
           },
         },
       });
@@ -198,6 +203,9 @@ export function AuthProvider({ children }) {
       setLoading(true);
       setSuccess(false);
       setMessage("Updating user details...");
+
+      const full_name = userData.firstName + " " + userData.lastName;
+
       const { data, error } = await supabase.auth.updateUser({
         email: userData.email,
 
@@ -205,6 +213,8 @@ export function AuthProvider({ children }) {
           first_name: userData.firstName,
           last_name: userData.lastName,
           phone: userData.phone,
+          full_name: full_name,
+          name: full_name,
         },
       });
 
