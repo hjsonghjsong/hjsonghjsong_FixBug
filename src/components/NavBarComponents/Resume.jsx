@@ -88,7 +88,6 @@ const Resume = () => {
             </div>
             <div className="score-container flex flex-col items-center justify-center gap-4">
               <CircularProgressBar score={score} />
-              <p>Score: {score}%</p>
               <button className="btn-02 w-full">Improve Resume</button>
             </div>
           </div>

@@ -130,7 +130,7 @@ const DetailsEditDialog = ({
             onSave({
               first_name: updatedValue.firstName,
               last_name: updatedValue.lastName,
-              dispat_name: updatedValue.fullName,
+              display_name: updatedValue.fullName,
             });
           } else if (selectedDetail === "Email") {
             onSave({ email: updatedValue.email });

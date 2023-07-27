@@ -15,9 +15,14 @@ const Settings = () => {
   const capitalizeFirstLetter = (str) => {
     return str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
   };
+  const [fName, Lname] = user?.user_metadata?.full_name?.split(" ") || [
+    null,
+    null,
+  ];
+
   const [userData, setUserData] = useState({
-    first_name: capitalizeFirstLetter(user?.user_metadata?.first_name) || "",
-    last_name: capitalizeFirstLetter(user?.user_metadata?.last_name) || "",
+    first_name: capitalizeFirstLetter(user?.user_metadata?.first_name) || fName,
+    last_name: capitalizeFirstLetter(user?.user_metadata?.last_name) || Lname,
     email: user?.new_email || user?.email,
     phone: user?.user_metadata?.phone || "",
     display_name:

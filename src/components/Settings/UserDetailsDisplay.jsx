@@ -12,7 +12,10 @@ const UserDetailsDisplay = ({ label, value }) => {
           gap: "32px",
         }}
       >
-        <ListItemText primary={label} secondary={value} />
+        <ListItemText
+          primary={label}
+          secondary={value ? value : `Add ${label}`}
+        />
       </ListItem>
       <Divider />
     </>
