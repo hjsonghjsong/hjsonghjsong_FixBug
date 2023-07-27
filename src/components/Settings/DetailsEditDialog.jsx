@@ -15,7 +15,6 @@ import {
   Divider,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import ImageIcon from "@mui/icons-material/Image";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import EditItemDialog from "./EditItemDialog";
 
@@ -36,7 +35,8 @@ const DetailsEditDialog = ({
   const [first_name, last_name] = fullName ? fullName.split(" ") : ["", ""];
 
   const handleEdit = (detail) => {
-    setSelectedDetail(detail);
+    console.log("Selected Detail:", detail);
+    setSelectedDetail(detail || "");
     setEditDialogOpen(true);
   };
 
@@ -70,7 +70,7 @@ const DetailsEditDialog = ({
             alt="Remy Sharp"
             src={avatar}
           ></Avatar>
-          <h2 className="text-lg">{`${first_name} ${last_name}`}</h2>
+          <h2 className="text-lg">{`${firstName} ${lastName}`}</h2>
         </div>
         <DialogContent sx={{ height: "265px" }}>
           <DialogContentText>
@@ -116,15 +116,28 @@ const DetailsEditDialog = ({
         open={editDialogOpen}
         handleClose={handleEditDialogClose}
         detailsType={selectedDetail}
-        initialValue={{
-          first_name: first_name,
-          last_name: last_name,
-
-          phone: phone,
-
-          email: email,
+        initialValue={
+          selectedDetail === "Name"
+            ? { firstName: firstName, lastName: lastName }
+            : selectedDetail === "Phone"
+            ? phone
+            : selectedDetail === "Email"
+            ? email
+            : ""
+        }
+        onSave={(updatedValue) => {
+          if (selectedDetail === "Name") {
+            onSave({
+              first_name: updatedValue.firstName,
+              last_name: updatedValue.lastName,
+              dispat_name: updatedValue.fullName,
+            });
+          } else if (selectedDetail === "Email") {
+            onSave({ email: updatedValue.email });
+          } else if (selectedDetail === "Phone") {
+            onSave({ phone: updatedValue.phone });
+          }
         }}
-        onSave={onSave}
       />
     </React.Fragment>
   );

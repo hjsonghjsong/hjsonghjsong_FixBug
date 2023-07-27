@@ -1,16 +1,8 @@
 import React, { useState } from "react";
 import "./Settings.css";
-import {
-  ListItem,
-  List,
-  Chip,
-  IconButton,
-  Divider,
-  avatarGroupClasses,
-} from "@mui/material";
+import { ListItem, List, Chip, IconButton, Divider } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
 import RenderSettingsList from "./RenderSettingsList";
 import { useAuth } from "../../Contexts/Auth";
 import UserDetailsDisplay from "./UserDetailsDisplay";
@@ -24,11 +16,12 @@ const Settings = () => {
     return str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
   };
   const [userData, setUserData] = useState({
-    first_name: capitalizeFirstLetter(user?.user_metadata?.first_name),
-    last_name: capitalizeFirstLetter(user?.user_metadata?.last_name),
+    first_name: capitalizeFirstLetter(user?.user_metadata?.first_name) || "",
+    last_name: capitalizeFirstLetter(user?.user_metadata?.last_name) || "",
     email: user?.new_email || user?.email,
-    phone: user?.user_metadata?.phone,
-    full_name: user?.user_metadata?.full_name,
+    phone: user?.user_metadata?.phone || "",
+    display_name:
+      user?.user_metadata?.display_name || user?.user_metadata?.full_name,
     avatar_url: user?.user_metadata.avatar_url,
   });
 
@@ -38,7 +31,7 @@ const Settings = () => {
   ];
 
   const handleSaveUserData = (updatedUserData) => {
-    setUserData(updatedUserData);
+    setUserData((prevUserData) => ({ ...prevUserData, ...updatedUserData }));
   };
 
   const handleToggle = (sectionId) => () => {
@@ -96,7 +89,7 @@ const Settings = () => {
                       src={userData.avatar_url}
                     ></Avatar>
                     <h2 className="font-semibold  text-3xl">
-                      {userData.full_name}
+                      {userData.display_name}
                     </h2>
                   </div>
 
@@ -114,7 +107,10 @@ const Settings = () => {
                   }}
                 />
 
-                <UserDetailsDisplay label="Name" value={userData.full_name} />
+                <UserDetailsDisplay
+                  label="Name"
+                  value={userData.display_name}
+                />
                 <UserDetailsDisplay label="Email" value={userData.email} />
                 <UserDetailsDisplay label="Phone" value={userData.phone} />
               </List>
@@ -129,7 +125,7 @@ const Settings = () => {
         lastName={userData.last_name}
         email={userData.email}
         phone={userData.phone}
-        fullName={userData.full_name}
+        fullName={userData.display_name}
         avatar={userData.avatar_url}
         onSave={handleSaveUserData}
       />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,7 @@ import {
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAuth } from "../../Contexts/Auth";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+
 const EditItemDialog = ({
   open,
   handleClose,
@@ -20,25 +20,26 @@ const EditItemDialog = ({
   initialValue,
   onSave,
 }) => {
-  const { user, updateUser } = useAuth();
-  const [value, setVale] = useState(initialValue);
+  console.log(initialValue);
+  const { updateUser } = useAuth();
   const [successs, setSuccess] = useState(false);
   const [editedEmail, setEditedEmail] = useState(initialValue.email);
   const [editedPhone, setEditedPhone] = useState(initialValue.phone);
-  const [firstName, setFirstName] = useState(initialValue.first_name);
-  const [lastName, setLastName] = useState(initialValue.last_name);
+  const [firstName, setFirstName] = useState(initialValue.firstName);
+  const [lastName, setLastName] = useState(initialValue.lastName);
   const handleSave = async () => {
     const userData = {
       firstName: firstName,
       lastName: lastName,
       email: editedEmail,
       phone: editedPhone,
+      fullName: firstName + " " + lastName,
     };
     try {
       setSuccess(false);
       await updateUser(userData);
-      onSave(userData);
       setSuccess(true);
+      onSave(userData);
       handleClose();
     } catch (error) {
       setSuccess(false);
@@ -50,6 +51,16 @@ const EditItemDialog = ({
   const handleGoBack = () => {
     handleClose();
   };
+  useEffect(() => {
+    if (detailsType === "Name") {
+      setFirstName(initialValue.firstName);
+      setLastName(initialValue.lastName);
+    } else if (detailsType === "Email") {
+      setEditedEmail(initialValue);
+    } else if (detailsType === "Phone") {
+      setEditedPhone(initialValue);
+    }
+  }, [detailsType, initialValue]);
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
@@ -87,7 +98,7 @@ const EditItemDialog = ({
               onChange={(e) => setLastName(e.target.value)}
             />
           </Box>
-        ) : detailsType === "Phone" ? (
+        ) : detailsType === "Email" ? (
           <Box
             sx={{
               marginTop: "16px",
@@ -100,25 +111,7 @@ const EditItemDialog = ({
           >
             <TextField
               fullWidth
-              label="Phone"
-              value={editedPhone}
-              onChange={(e) => setEditedPhone(e.target.value)}
-            />
-          </Box>
-        ) : (
-          <Box
-            sx={{
-              marginTop: "16px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              gap: "32px",
-              padding: "20px 24px",
-            }}
-          >
-            <TextField
-              fullWidth
-              label={detailsType}
+              label="Email"
               value={editedEmail}
               onChange={(e) => setEditedEmail(e.target.value)}
             />
@@ -147,7 +140,25 @@ const EditItemDialog = ({
               </div>
             ) : null}
           </Box>
-        )}
+        ) : detailsType === "Phone" ? (
+          <Box
+            sx={{
+              marginTop: "16px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              gap: "32px",
+              padding: "20px 24px",
+            }}
+          >
+            <TextField
+              fullWidth
+              label="Phone"
+              value={editedPhone}
+              onChange={(e) => setEditedPhone(e.target.value)}
+            />
+          </Box>
+        ) : null}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
