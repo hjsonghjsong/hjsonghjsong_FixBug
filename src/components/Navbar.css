@@ -1,0 +1,10 @@
+#nav-bar {
+  background-color: var(--nav-barcolor);
+}
+
+.MuiButtonBase-root:disabled {
+  background-color: var(--primary-500);
+}
+.loading-box {
+  z-index: 9999;
+}

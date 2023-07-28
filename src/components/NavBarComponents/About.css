@@ -1,0 +1,10 @@
+.stepper-container {
+  width: 320px;
+  height: 32px;
+  padding: 12px;
+}
+.personal-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

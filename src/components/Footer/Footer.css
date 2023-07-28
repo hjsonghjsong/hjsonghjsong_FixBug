@@ -1,0 +1,8 @@
+.footer {
+  background-color: var(--nav-barcolor);
+  height: 424px;
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+}

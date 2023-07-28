@@ -58,10 +58,19 @@ function StepperGeneration(props) {
                     historyList={historyList}
                     setHistoryList={setHistoryList} 
             />
-            <Button onClick={elongateStepper(input)}>
-                <AddIcon />
-                <Typography>Add {input}</Typography>
-            </Button>
+            
+            <Box sx={{ display: 'flex', flexGrow: 1}}>
+                <Box sx={{flexGrow: 1}} />
+                <Box sx={{display: 'flex'}}>
+                <Button variant="outlined" onClick={elongateStepper(input)}>
+                    <AddIcon sx={{color: 'text.primary' }}/>
+                    <Typography sx={{ color: 'text.primary'}}>
+                        Add {input}
+                    </Typography>
+                </Button>
+
+            </Box>
+            </Box>
             </Box>
         </Box>
     );

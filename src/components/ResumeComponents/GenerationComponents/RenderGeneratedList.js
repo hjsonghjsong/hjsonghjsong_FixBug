@@ -32,23 +32,23 @@ const RenderGeneratedList = (props) => {
         <List dense>
                 {historyList[index].generatedContent.map((point, key) => (
                     <ListItem key={key}>
+                        <ListItemIcon onClick={removePoint(key)} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <Tooltip title="Remove">
+                            <RemoveCircleOutlineIcon />
+                            </Tooltip>
+                        </ListItemIcon>
                         <TextField
                             value={point}
                             onChange={handlePointChange(key)}
                             fullWidth
                             multiline
                             />
-                        <ListItemIcon onClick={removePoint(key)} sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                            <Tooltip title="Remove">
-                            <RemoveCircleOutlineIcon />
-                            </Tooltip>
-                        </ListItemIcon>
+                        
                     </ListItem>
                 ))}
             </List>
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBlockStart: '10px' }}>
             <Box sx={{ display: 'flex', flexGrow: 1}}>
-                <Box sx={{flexGrow: 1}} />
                 <Box sx={{display: 'flex'}}>
                 <Button variant="outlined" onClick={addPoint}>
                     <AddIcon sx={{color: 'text.primary' }}/>
