@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./login.css";
 import resume from "../../Utils/Images/Resume.jpeg";
-import { FormControl, FormControlLabel, TextField } from "@mui/material";
+import { CircularProgress, FormControlLabel, TextField } from "@mui/material";
 import { Checkbox } from "@mui/material";
-
+import { useAuth } from "../../Contexts/Auth";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import "./login.css";
 
 const Login = () => {
@@ -13,6 +14,10 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkBox, setCheckBox] = useState(false);
+  const { signIn, signInWithGoogle } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/resume";
 
   const handleInputChange = (e) => {
     const { name, value, checked } = e.target;
@@ -35,8 +40,16 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const signInWithOAuth = async (e) => {
     e.preventDefault();
+    signInWithGoogle();
+    navigate("/resume");
+  };
+
+  //Login
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     if (email.trim() === "") {
       setEmailError("Email cannot be empty");
       return;
@@ -45,29 +58,36 @@ const Login = () => {
       setPasswordError("Password cannot be empty");
       return;
     }
-    console.log("Email: ", email);
-    console.log("Password: ", password);
-    console.log("Checked: ", checkBox);
-  };
 
+    try {
+      await signIn({ email, password });
+      navigate(from, { replace: true });
+    } catch (error) {
+      throw error;
+    }
+  };
   return (
-    // <div className="login-container">
     <main>
       <article className="flex justify-center w-full mr-auto ml-auto flex-shrink-0 items-stretch grow">
         <div className="w-auto">
           <img className="image" src={resume} alt="logo"></img>
         </div>
-        <div className="flex flex-col items-center login-form-container justify-center grow">
+
+        <div className="flex flex-col items-center login-form-container justify-center gap-6 grow">
           <form
+            onSubmit={handleLogin}
             id="login-form"
-            onSubmit={handleSubmit}
             className="login-form flex flex-col items-center space-y-8 w-full"
           >
             <div className="flex items-center">
               <h1>Welcome Back!</h1>
             </div>
             <div className="flex w-full">
-              <button className="btn-google w-full bg-white space-x-2 active:bg-gray-200">
+              <button
+                type="button"
+                onClick={signInWithOAuth}
+                className="btn-google w-full bg-white space-x-2 active:bg-gray-200"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -130,7 +150,7 @@ const Login = () => {
               </div>
               <div className="flex justify-between">
                 <div className=" space-x-3 flex">
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     sx={{ fontSize: "16px", fontWeight: "600" }}
                     control={
                       <Checkbox
@@ -140,19 +160,18 @@ const Login = () => {
                         onChange={handleInputChange}
                       />
                     }
-                    label="Keep me logged in"
-                  />
+                    label="Keep me logged in"s
+                  /> */}
                 </div>
                 <div>
-                  <a className="" href="">
-                    <h2 className="text-[#437ef7]">Forgot Password</h2>
-                  </a>
+                  <Link to="/forgot-password">
+                    <h2 className="text-primary]">Forgot Password</h2>
+                  </Link>
                 </div>
               </div>
             </div>
             <button
               type="submit"
-              // onClick={handleSumit}
               className="btn-01 w-full active:bg-primary600"
             >
               Login
@@ -165,7 +184,6 @@ const Login = () => {
             </div>
           </form>
         </div>
-        {/* </div> */}
       </article>
     </main>
   );
