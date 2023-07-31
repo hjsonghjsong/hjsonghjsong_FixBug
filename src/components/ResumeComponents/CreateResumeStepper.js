@@ -171,7 +171,9 @@ export default function CreateResumeStepper() {
                   input={steps[activeStep].match("Work Description").input}
                   historyList={workHistoryList}
                   setHistoryList={setWorkHistoryList}
-                  elongateStepper={elongateStepper} />
+                  elongateStepper={elongateStepper}
+                  bulletPointContext="Work Experience"
+                  />
               )}
             {(steps[activeStep].match("Project History")) !== null && steps[activeStep].match("Project History")[0] === "Project History" && (
               <RenderProjectHistory
@@ -184,7 +186,9 @@ export default function CreateResumeStepper() {
                   input={steps[activeStep].match("Project Description").input}
                   historyList={projectHistoryList}
                   setHistoryList={setProjectHistoryList}
-                  elongateStepper={elongateStepper} />
+                  elongateStepper={elongateStepper} 
+                  bulletPointContext="Project"
+                  />
             )}
             {steps[activeStep].match("Skills") !== null && steps[activeStep].match("Skills")[0] === "Skills" && (
               <RenderSkills
