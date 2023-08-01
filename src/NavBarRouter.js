@@ -10,7 +10,6 @@ import ResetPassword from "./components/ResetPassword/ResetPassword";
 import Settings from "./components/Settings/Settings";
 import CreateResumeStepper from './components/ResumeComponents/CreateResumeStepper';
 
-
 const NavBarRouter = () => (
   <Routes>
     <Route path="/" element={<ProtectedRoute />}>
