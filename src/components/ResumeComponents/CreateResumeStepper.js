@@ -65,7 +65,6 @@ export default function CreateResumeStepper() {
 }
 
   const handleNext = () => {
-    console.log(skills);
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -107,6 +106,15 @@ export default function CreateResumeStepper() {
                 setPersonalDetail={setPersonalDetailState}
                 educationDetailList={educationDetailList}
                 setEducationDetailList={setEducationDetailList}
+                jobPreference={jobPreferenceState}
+                setJobPreference={setJobPreferenceState}
+                workHistoryList={workHistoryList}
+                setWorkHistoryList={setWorkHistoryList}
+                projectHistoryList={projectHistoryList}
+                setProjectHistoryList={setProjectHistoryList}
+                skills={skills}
+                setSkills={setSkills}
+                elongateStepper={elongateStepper}
                 handleNext={handleNext}
                 handleBack={handleBack}
                 activeStep={activeStep}
