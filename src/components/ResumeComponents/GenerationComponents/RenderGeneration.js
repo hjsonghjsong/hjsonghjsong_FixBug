@@ -6,10 +6,7 @@ const RenderGeneration = (props) => {
 
     return (
         <Box>
-            <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-                
-            </Box>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Box>
                 <StepperGeneration {...props}/>
             </Box>
 

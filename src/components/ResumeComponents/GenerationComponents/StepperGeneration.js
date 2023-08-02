@@ -10,7 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 function StepperGeneration(props) {
     
     const [loading, setLoading] = React.useState(false);
-    const {input, historyList, setHistoryList, elongateStepper} = props;
+    const {input, historyList, setHistoryList, elongateStepper, bulletPointContext} = props;
     const index = parseInt(input.charAt(input.length-1));
     const handleChange = (event) => {
         setHistoryList(historyList.map((item, i) => i === index ? {...item, [event.target.name]: event.target.value} : item));
@@ -18,7 +18,7 @@ function StepperGeneration(props) {
 
     const handleSuggestPoints = () => {
         setLoading(true);
-        fetchBulletPoint(historyList[index]).then((res) => {
+        fetchBulletPoint(historyList[index], bulletPointContext).then((res) => {
             setHistoryList(historyList.map((item, i) => i === index ? {...item, generatedContent: res.bullet_points} : item));
             setLoading(false);
         }).catch((err) => {
