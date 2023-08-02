@@ -22,8 +22,18 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-const CircularProgressBar = ({ score }) => {
+const CircularProgressBar = ({ score, size, fontSize, rounded }) => {
   const remainingPercentage = 100 - score;
+
+  const scoreStyles = (score) => {
+    if (score >= 80) {
+      return "#24C63D";
+    } else if (score < 80 && score >= 50) {
+      return "#FFAE43";
+    } else if (score < 50) {
+      return "#F04438";
+    }
+  };
 
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
@@ -33,7 +43,7 @@ const CircularProgressBar = ({ score }) => {
           color: (theme) =>
             theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
         }}
-        size={150}
+        size={size}
         thickness={5}
         value={100}
       />
@@ -42,13 +52,13 @@ const CircularProgressBar = ({ score }) => {
         variant="determinate"
         disableShrink
         value={score}
-        size={150}
+        size={size}
         thickness={5}
         sx={{
-          color: (theme) =>
-            theme.palette.mode === "light" ? "#FFAE43" : "#308fe8",
+          color: scoreStyles(score),
           position: "absolute",
-          left: 0,
+          left: "0",
+          strokeLinecap: rounded ? "round" : "",
         }}
       />
       <Box
@@ -65,8 +75,8 @@ const CircularProgressBar = ({ score }) => {
       >
         <Typography
           sx={{
-            fontSize: "28px",
-            fontWeight: "bold",
+            fontSize: fontSize,
+            fontWeight: "600",
             lineHeight: "44px",
             fontFamily: "inherit",
           }}

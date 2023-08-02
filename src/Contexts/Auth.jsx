@@ -1,6 +1,6 @@
 import { supabase } from "../SupabaseCL";
 import React, { useState, useContext, useEffect } from "react";
-import Cookies from "js-cookie";
+
 import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const AuthContext = React.createContext();
@@ -20,12 +20,6 @@ export function AuthProvider({ children }) {
   const [sessionLoading, setSessionLoading] = useState(true);
 
   useEffect(() => {
-    //Loading Initial session from the coookies
-    const initialSession = loadSessionFromCookie();
-    if (initialSession) {
-      setSession(initialSession);
-    }
-
     //Fetching session from the supabase
     const fetchSession = async () => {
       const { data, error } = await supabase.auth.getSession();
@@ -35,7 +29,6 @@ export function AuthProvider({ children }) {
         setMessage(error.message);
       } else {
         setSession(data.session);
-        saveSessionToCookie(data.session); // Save the session data to a cookie when it's fetched
         setUser(data?.session?.user);
       }
       setLoading(false);
@@ -47,10 +40,8 @@ export function AuthProvider({ children }) {
       async (event, session) => {
         if (event === "SIGNED_IN") {
           setSession(session);
-          saveSessionToCookie(session);
         } else if (event === "SIGNED_OUT") {
           setSession(null);
-          Cookies.remove("supabaseSession");
         } else if (event == "PASSWORD_RECOVERY") {
           const newPassword = prompt(
             "What would you like your new password to be?"
@@ -189,8 +180,6 @@ export function AuthProvider({ children }) {
       setError(true);
       setMessage(error.message);
     } else {
-      // Clear session data from cookies on successful sign-out
-      Cookies.remove("supabaseSession");
       setSession(null);
       setUser(null);
     }
@@ -247,18 +236,6 @@ export function AuthProvider({ children }) {
       setMessage(error.message);
     }
   }
-
-  //funtcion to save session in cookies
-  const saveSessionToCookie = (session) => {
-    Cookies.set("supabaseSession", JSON.stringify(session));
-  };
-
-  //function to load session from cookies
-  const loadSessionFromCookie = () => {
-    const sessionData = Cookies.get("supabaseSession");
-    console.log("Cookie value:", sessionData);
-    return sessionData ? JSON.parse(sessionData) : null;
-  };
 
   const value = {
     signUp,

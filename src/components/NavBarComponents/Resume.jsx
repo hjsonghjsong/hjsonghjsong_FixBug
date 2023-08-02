@@ -1,4 +1,4 @@
-import { Box, Skeleton, Typography } from "@mui/material";
+import { Box, Divider, Skeleton, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import { resumeList } from "../../hooks/fetchResumeList";
@@ -6,14 +6,47 @@ import RenderResumeList from "../ResumeComponents/RenderResumeList";
 import ResumeMobile from "./ResumeMobile";
 import CircularProgressBar from "../CircularProgressBar";
 import "./Resume.css";
+import ResumeTable from "../ResumeTable/ResumeTable";
+import PrimaryButton from "../Buttons/PrimaryButton";
+import SecondaryButton from "../Buttons/SecondaryButton";
+import { Link } from "react-router-dom";
+
 const score = 80;
+
+const scoreStyles = (score) => {
+  if (score >= 80) {
+    return "#24C63D";
+  } else if (score < 80 && score >= 50) {
+    return "#FFAE43";
+  } else if (score < 50) {
+    return "#F04438";
+  }
+};
+
+const scoreData = {
+  Organization: [
+    { title: "Score 1", value: 80 },
+    { title: "Score 2", value: 60 },
+    // ... Add more scores for Organization
+  ],
+  Presentation: [
+    { title: "Score 1", value: 75 },
+    { title: "Score 2", value: 50 },
+    // ... Add more scores for Presentation
+  ],
+  Impact: [
+    { title: "Score 1", value: 90 },
+    { title: "Score 2", value: 70 },
+    // ... Add more scores for Impact
+  ],
+};
 
 const Resume = () => {
   return (
     <main className="flex flex-grow items-center justify-center">
       <div className="main-box flex flex-col justify-center gap-8 py-3">
         <div className=" flex">
-          <h1>Resumes</h1>
+          <Typography variant="h1">Resumes</Typography>
         </div>
         <div className="form-box w-full">
           <div className="form-container flex flex-row justify-center gap-8">
@@ -79,62 +112,45 @@ const Resume = () => {
                   <Skeleton animation={false} width={112} height={14} />
                 </div>
               </div>
-              <button className="btn-02">Edit Resume</button>
+              <SecondaryButton
+                text="Edit Resume"
+                sx={{ height: "46px", width: "100%", textTransform: "none" }}
+              />
             </div>
             <div>
               <div className="flex flex-col">
                 <p>Here are the steps to improvement</p>
               </div>
             </div>
-            <div className="score-container flex flex-col items-center justify-center gap-4">
-              <CircularProgressBar score={score} />
-              <button className="btn-02 w-full">Improve Resume</button>
+            <div className="score-container flex flex-col items-center justify-end gap-4">
+              <CircularProgressBar score={score} size={150} fontSize={22} />
+              <h1 className="font-semibold">On-Track</h1>
+              <SecondaryButton
+                text="Improve Resume"
+                sx={{ height: "46px", width: "100%", textTransform: "none" }}
+              />
             </div>
           </div>
         </div>
         <div className="resume-container">
+          <div className="flex justify-between mx-3 my-4">
+            <h2 className="text-2xl  ">Resumes</h2>
+
+            <Link>
+              <PrimaryButton
+                text="Create New Resume"
+                icon={<AddIcon />}
+                sx={{ textTransform: "none" }}
+              />
+            </Link>
+          </div>
+          <Divider />
           <Box>
             <Box sx={{ display: { xs: "block", md: "none" } }}>
               <ResumeMobile />
             </Box>
-            <Box
-              sx={{
-                flexGrow: 1,
-                marginBottom: "80px",
-                margin: "24px",
-                display: { xs: "none", md: "block" },
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  border: 2,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexGrow: 1,
-                    backgroundColor: "white",
-                  }}
-                >
-                  <Box sx={{ flexGrow: 1 }}>
-                    <h1>Progress graph here</h1>
-                  </Box>
-                  <Box sx={{ display: "flex" }}>
-                    <Button>
-                      <AddIcon sx={{ color: "text.primary" }} />
-                      <Typography sx={{ color: "text.primary" }}>
-                        CREATE RESUME
-                      </Typography>
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
-            </Box>
-            <RenderResumeList resumeList={resumeList} />
+
+            <ResumeTable />
           </Box>
         </div>
       </div>

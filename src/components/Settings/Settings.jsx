@@ -1,20 +1,34 @@
 import React, { useState } from "react";
 import "./Settings.css";
-import { ListItem, List, Chip, IconButton, Divider } from "@mui/material";
+import {
+  ListItem,
+  List,
+  Chip,
+  IconButton,
+  Divider,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import Avatar from "@mui/material/Avatar";
 import RenderSettingsList from "./RenderSettingsList";
 import { useAuth } from "../../Contexts/Auth";
 import UserDetailsDisplay from "./UserDetailsDisplay";
 import DetailsEditDialog from "./DetailsEditDialog";
+import LockResetRoundedIcon from "@mui/icons-material/LockResetRounded";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const [activeSection, setActiveSection] = useState("general");
   const { user } = useAuth();
   const [openDialog, setOpenDialog] = useState(false);
+  const navigate = useNavigate();
+
   const capitalizeFirstLetter = (str) => {
     return str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
   };
+
   const [fName, Lname] = user?.user_metadata?.full_name?.split(" ") || [
     null,
     null,
@@ -49,6 +63,9 @@ const Settings = () => {
 
   const handleClose = () => {
     setOpenDialog(false);
+  };
+  const handleReset = () => {
+    navigate("/forgot-password");
   };
 
   return (
@@ -93,18 +110,17 @@ const Settings = () => {
                       sx={{ height: "56px", width: "56px" }}
                       src={userData.avatar_url}
                     ></Avatar>
-                    <h2 className="font-semibold  text-3xl">
+                    <Typography variant="h1">
                       {userData.display_name}
-                    </h2>
+                    </Typography>
                   </div>
 
-                  <IconButton onClick={handleOpen}>
-                    <Chip
-                      label="Edit"
-                      icon={<EditIcon fontSize="small" />}
-                      clickable
-                    />
-                  </IconButton>
+                  <Chip
+                    onClick={handleOpen}
+                    label="Edit"
+                    icon={<EditIcon fontSize="small" />}
+                    clickable
+                  />
                 </ListItem>
                 <Divider
                   sx={{
@@ -118,6 +134,31 @@ const Settings = () => {
                 />
                 <UserDetailsDisplay label="Email" value={userData.email} />
                 <UserDetailsDisplay label="Phone" value={userData.phone} />
+              </List>
+            </div>
+          )}
+          {activeSection === "privacy" && (
+            <div className="user-details-container flex flex-col gap-2">
+              <List
+                className="user-details"
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "32px 48px",
+                }}
+              >
+                <ListItem>
+                  <ListItemText primary="Reset Password" />
+
+                  <Chip
+                    onClick={handleReset}
+                    label="Reset"
+                    icon={<LockResetRoundedIcon fontSize="small" />}
+                    clickable
+                  />
+                </ListItem>
+                <Divider />
               </List>
             </div>
           )}

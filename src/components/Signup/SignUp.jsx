@@ -10,12 +10,16 @@ import {
   DialogActions,
   Box,
   CircularProgress,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
 import Loading from "../LoadingComponent/Loading";
 import "./SignUp.css";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useLocation, useNavigate } from "react-router-dom";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import MobileSignUp from "./MobileSignUp";
 
 function SignUp(props) {
   const [firstName, setFirstName] = useState("");
@@ -28,6 +32,7 @@ function SignUp(props) {
   const [phError, setPhError] = useState(false);
   const { signUp, session } = useAuth();
   const [success, setSuccess] = useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -39,6 +44,12 @@ function SignUp(props) {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+  };
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const handleSubmit = async (event) => {
@@ -98,9 +109,25 @@ function SignUp(props) {
           Please fill out the form below to create an account.
         </DialogContentText>
 
+        <MobileSignUp
+          firstName={firstName}
+          lastName={lastName}
+          handleFirstNameChange={handleFirstNameChange}
+          handleLastNameChange={handleLastNameChange}
+          email={email}
+          handleEmailChange={handleEmailChange}
+          phone={phone}
+          handlePhoneInput={handlePhoneInput}
+          password={password}
+          handlePasswordChange={handlePasswordChange}
+          showPassword={showPassword}
+          handleClickShowPassword={handleClickShowPassword}
+          handleMouseDownPassword={handleMouseDownPassword}
+        />
+
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", md: "flex" },
             flexdirection: "row",
             justifyContent: "space-between",
           }}
@@ -133,10 +160,11 @@ function SignUp(props) {
           value={email}
           onChange={handleEmailChange}
           fullWidth
+          sx={{ display: { xs: "none", md: "flex" } }}
         />
         <Box
           sx={{
-            display: "flex",
+            display: { xs: "none", md: "flex" },
             flexdirection: "row",
             justifyContent: "space-between",
           }}
@@ -162,13 +190,27 @@ function SignUp(props) {
             label="Password"
             name="Password"
             value={password}
-            type="password"
+            type={showPassword ? "text" : "password"}
             sx={{ ml: 1 }}
             fullWidth
             onChange={handlePasswordChange}
             error={passError}
             helperText={passError ? "Minimum-8 characters" : ""}
-          />{" "}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
         </Box>
         {success ? (
           <div className="relative rounded-md border border-c py-4 px-6 flex space-x-4 items-center w-full bg-[#e9fcf2] verify-box mt-8">
