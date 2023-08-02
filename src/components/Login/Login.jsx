@@ -2,11 +2,21 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import "./login.css";
 import resume from "../../Utils/Images/Resume.jpeg";
-import { CircularProgress, FormControlLabel, TextField } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  FormControlLabel,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { useAuth } from "../../Contexts/Auth";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import "./login.css";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import PrimaryButton from "../Buttons/PrimaryButton";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +24,7 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [checkBox, setCheckBox] = useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
   const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,6 +49,12 @@ const Login = () => {
     } else if (name === "checkbox") {
       setCheckBox(checked);
     }
+  };
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const signInWithOAuth = async (e) => {
@@ -139,13 +156,27 @@ const Login = () => {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
                   onChange={handleInputChange}
                   autoComplete="current-password"
                   error={passwordError !== ""}
                   helperText={passwordError}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </div>
               <div className="flex justify-between">
@@ -170,12 +201,11 @@ const Login = () => {
                 </div>
               </div>
             </div>
-            <button
-              type="submit"
-              className="btn-01 w-full active:bg-primary600"
-            >
-              Login
-            </button>
+            <PrimaryButton
+              handleButton={handleLogin}
+              text="Login"
+              sx={{ height: "46px", width: "100%" }}
+            />
             <div className="flex items-start w-full space-x-4">
               <h4>Don't have an account?</h4>
               <a className="" href="">

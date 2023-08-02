@@ -5,9 +5,9 @@ import Login from "./components/Login/Login";
 import HomePage from "./components/HomePage/HomePage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import React from "react";
-import { AuthProvider } from "./Contexts/Auth";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import Settings from "./components/Settings/Settings";
+import EditResume from "./components/EditResume/EditResume";
 import CreateResumeStepper from './components/ResumeComponents/CreateResumeStepper';
 
 const NavBarRouter = () => (
@@ -21,6 +21,7 @@ const NavBarRouter = () => (
     <Route path="/resume/add" element={<CreateResumeStepper />} />
     <Route path="/forgot-password" element={<ResetPassword />} />
     <Route index element={<HomePage />} />
+    <Route path="userid/resume/edit" element={<EditResume />} />
   </Routes>
 );
 

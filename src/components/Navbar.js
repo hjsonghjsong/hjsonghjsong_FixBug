@@ -15,11 +15,15 @@ import "../components/Navbar.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Contexts/Auth";
 import Loading from "./LoadingComponent/Loading";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import { IconButton } from "@mui/material";
+import PrimaryButton from "./Buttons/PrimaryButton";
 
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [isArrowRotated, setIsArrowRotated] = React.useState(false);
   const { session } = useAuth();
 
   const handleOpenDialog = (e) => {
@@ -28,18 +32,22 @@ function NavBar() {
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+    setIsArrowRotated(true);
   };
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
+    setIsArrowRotated(true);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+    setIsArrowRotated(false);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    setIsArrowRotated(false);
   };
 
   return (
@@ -56,8 +64,6 @@ function NavBar() {
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-
             <Typography
               variant="h6"
               noWrap
@@ -97,6 +103,17 @@ function NavBar() {
                     sx={{ my: 2, color: "white" }}
                   >
                     My Account
+                    <IconButton sx={{ padding: "0px" }}>
+                      <KeyboardArrowDownRoundedIcon
+                        sx={{
+                          color: "white",
+                          transform: isArrowRotated
+                            ? "rotate(-180deg)"
+                            : "rotate(0deg)",
+                          transition: "transform 0.3s ease-in-out",
+                        }}
+                      />
+                    </IconButton>
                   </Button>
 
                   <RenderAccountMenuList
@@ -119,16 +136,14 @@ function NavBar() {
                   </Button>
 
                   <Link to="/login">
-                    <Button
+                    <PrimaryButton
+                      text="Login"
                       sx={{
                         my: 2,
                         color: "white",
                         display: "block",
-                        backgroundColor: "#437EF7",
                       }}
-                    >
-                      Login
-                    </Button>
+                    />
                   </Link>
 
                   <SignUp open={open} setOpen={setOpen} />

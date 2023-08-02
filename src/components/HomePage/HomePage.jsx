@@ -2,6 +2,7 @@ import React from "react";
 import image from "../../Utils/Images/job-interview.jpg";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
+import SecondaryButton from "../Buttons/SecondaryButton";
 
 function HomePage() {
   return (
@@ -26,7 +27,15 @@ function HomePage() {
       <div className="flex flex-col items-center justify-center gap-2 mt-5">
         <h1>Try Resume Builder</h1>
         <Link to="/resume/add">
-          <button className="btn-02 w-80">Create New Resume</button>
+          <SecondaryButton
+            text="Create New Resume"
+            sx={{
+              height: "46px",
+              width: "100%",
+              textTransform: "none",
+              fontSize: "16px",
+            }}
+          />
         </Link>
       </div>
     </div>

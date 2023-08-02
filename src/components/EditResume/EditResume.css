@@ -1,0 +1,24 @@
+.analysis-container {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  min-width: 580px;
+  border-radius: 18px;
+  padding: 16px 32px;
+  display: flex;
+  border: 2px solid var(--stroke-color, #eaebf0);
+}
+.improvement-container {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+
+  border-radius: 18px;
+  padding: 32px 36px;
+  display: flex;
+  border: 2px solid var(--stroke-color, #eaebf0);
+}
+.edit-container {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 18px;
+  padding: 32px 36px;
+  display: flex;
+  border: 2px solid var(--stroke-color, #eaebf0);
+  width: 100%;
+}
