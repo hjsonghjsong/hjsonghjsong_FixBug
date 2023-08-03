@@ -5,4 +5,17 @@ const supabase = createClient(
   process.env.REACT_APP_SUPABASE_KEY
 );
 
-export { supabase };
+const sendResumeInfoToSupabase = async (payload) => {
+
+  const { data, error } = await supabase.from('resumes').insert(payload).select('id');
+  console.log(data, error);
+  return data[0].id;
+
+};
+
+const sendExperienceInfoToSupabase = async (payload) => {
+  const { data, error } = await supabase.from('experiences').insert(payload);
+  console.log(data, error);
+};
+
+export { supabase, sendResumeInfoToSupabase, sendExperienceInfoToSupabase };
