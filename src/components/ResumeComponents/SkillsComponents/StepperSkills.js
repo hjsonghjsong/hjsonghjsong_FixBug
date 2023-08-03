@@ -12,9 +12,7 @@ function StepperSkills(props) {
     const {skills, setSkills, workHistoryList} = props;
     
     const handleChange = (event) => {
-        console.log(skills);
         setSkills([{...skills[0], [event.target.name]: event.target.value}]);
-        // setSkills(skills.map((item, i) => i === 0 ? {...item, [event.target.name]: event.target.value} : item));
     }
 
     const handleSuggestPoints = () => {

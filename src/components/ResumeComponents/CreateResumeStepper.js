@@ -14,7 +14,9 @@ import RenderGeneration from './GenerationComponents/RenderGeneration';
 import RenderSkills from './SkillsComponents/RenderSkills';
 import RenderProjectHistory from './ProjectComponents/RenderProjectHistory';
 import CreateResumeMobileStepper from "./CreateResumeMobileStepper";
-class CreateResumeStepper extends StepperInitializer {
+import SendResumeInfo from "../../hooks/util";
+class CreateResumeStepper extends StepperInitializer {   
+
     render() {
         const { activeStep, steps } = this.state;
         return (
@@ -24,6 +26,7 @@ class CreateResumeStepper extends StepperInitializer {
                         steps={this.state.steps}
                         activeStep={this.state.activeStep}
                         state={this.state}
+                        setUser={this.setUser}
                         setPersonalDetail={this.setPersonalDetailState}
                         setEducationDetailList={this.setEducationDetailList}
                         setJobPreference={this.setJobPreferenceState}
@@ -63,7 +66,9 @@ class CreateResumeStepper extends StepperInitializer {
                                 {activeStep === 0 && (
                                     <RenderPersonalDetail
                                         personalDetail={this.state.personalDetailState}
-                                        setPersonalDetail={this.setPersonalDetailState} />
+                                        setPersonalDetail={this.setPersonalDetailState}
+                                        user={this.state.user}
+                                        setUser={this.setUser} />
                                 )}
                                 {activeStep === 1 && (
                                     <RenderEducationList
@@ -125,9 +130,7 @@ class CreateResumeStepper extends StepperInitializer {
                                 </Button>
                                 <Box sx={{ flex: '1 1 auto' }} />
 
-                                <Button onClick={this.handleNext}>
-                                    {this.state.activeStep === this.state.steps.length - 1 ? 'Finish' : 'Next'}
-                                </Button>
+                                {this.state.activeStep === this.state.steps.length - 1 ?  <Button onClick={SendResumeInfo(this.state)}> Finish </Button> : <Button onClick={this.handleNext}>Next</Button>}
                             </Box>
                         </React.Fragment>
                     )}

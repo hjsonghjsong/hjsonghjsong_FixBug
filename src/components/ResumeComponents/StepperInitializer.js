@@ -6,8 +6,6 @@ import WorkHistory from '../../models/WorkHistory';
 import Generation from '../../models/Generation';
 import ProjectHistory from '../../models/ProjectHistory';
 import Steps from '../../models/Steps';
-
-
 class StepperInitializer extends React.Component{
     constructor(props){
         super(props);
@@ -29,6 +27,7 @@ class StepperInitializer extends React.Component{
             projectHistoryList: [projectHistoryInitialState.getState],
             skills: [generationInitialState.getState],
             steps: stepsInitialState.getState,
+            user: {}
         };
 
         this.handleNext = this.handleNext.bind(this);
@@ -113,6 +112,9 @@ class StepperInitializer extends React.Component{
 
     setSteps = (steps) => {
         this.setState({steps: steps});
+    }
+    setUser = (user) => {
+        this.setState({user: user});
     }
 }
 

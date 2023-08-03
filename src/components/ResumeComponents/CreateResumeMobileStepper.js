@@ -36,7 +36,9 @@ export default function CreateResumeMobileStepper(props) {
         {props.activeStep === 0 && 
           <RenderPersonalDetail 
                 personalDetail={props.state.personalDetailState}
-                setPersonalDetail={props.setPersonalDetail} />}
+                setPersonalDetail={props.setPersonalDetail}
+                user={props.state.user}
+                setUser={props.setUser} />}
         {props.activeStep === 1 && 
           <RenderEducationList
                 educationDetailList={props.state.educationDetailList}
