@@ -13,7 +13,6 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import Loading from "../LoadingComponent/Loading";
 import "./SignUp.css";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

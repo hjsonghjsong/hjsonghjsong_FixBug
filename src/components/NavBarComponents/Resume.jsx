@@ -10,6 +10,7 @@ import ResumeTable from "../ResumeTable/ResumeTable";
 import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import { Link } from "react-router-dom";
+import Template from "../Templates/Template";
 
 const score = 80;
 
@@ -43,7 +44,7 @@ const scoreData = {
 
 const Resume = () => {
   return (
-    <main className="flex flex-grow items-center justify-center">
+    <main className="flex flex-grow flex-col items-center justify-center gap-20">
       <div className="main-box flex flex-col justify-center gap-8 py-3">
         <div className=" flex">
           <Typography variant="h1">Resumes</Typography>
@@ -149,9 +150,18 @@ const Resume = () => {
             <Box sx={{ display: { xs: "block", md: "none" } }}>
               <ResumeMobile />
             </Box>
-
             <ResumeTable />
+            {/* Resume templates */}
           </Box>
+        </div>
+      </div>
+
+      <div className="w-full flex justify-center items-center px-20">
+        <div className="w-full temp-container px-20">
+          <h2 className="text-2xl  ">Templates</h2>
+          <div>
+            <Template />
+          </div>
         </div>
       </div>
     </main>
