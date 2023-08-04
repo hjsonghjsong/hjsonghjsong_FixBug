@@ -10,7 +10,8 @@ const SecondaryButtonStyled = styled(Button)(({ theme }) => ({
   color: "white",
   fontFamily: "inherit",
   fontWeight: 600,
-  borderRadius: "6px",
+  borderRadius: 4,
+
   "&:hover": {
     backgroundColor: "#26324d",
   },

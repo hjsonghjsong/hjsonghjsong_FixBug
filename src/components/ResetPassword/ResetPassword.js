@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import "./ResetPassword.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Contexts/Auth";
+import PrimaryButton from "../Buttons/PrimaryButton";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +26,10 @@ const ResetPassword = () => {
         className="login-form flex flex-col items-start space-y-3 w-full"
       >
         <div className="flex items-start flex-col gap-3">
-          <h2 className="text-2xln lg:text-3xl">Reset Your Password</h2>
+          <Typography variant="h1" sx={{ letterSpacing: "1px" }}>
+            Reset Your Password
+          </Typography>
+
           <p className="text-sm text-slate-600">
             Type your email and we will send you a link to reset the password
           </p>
@@ -48,14 +52,19 @@ const ResetPassword = () => {
             />
           </div>
 
-          <button type="submit" className="btn-01 w-full active:bg-primary600">
-            Send Reset Email
-          </button>
+          <PrimaryButton
+            sx={{ height: "46px" }}
+            text="Send Reset Email"
+            handleButton={handleReset}
+          ></PrimaryButton>
         </div>
         <div className="flex items-center justify-center w-full space-x-4">
-          <h4>Already have an account?</h4>
+          <Typography>Already have an account?</Typography>
+
           <Link to="/login">
-            <h2 className="text-[#437ef7]">Sign-In</h2>
+            <Typography variant="h5" className="text-[#437ef7]">
+              Sign-In
+            </Typography>
           </Link>
         </div>
       </form>

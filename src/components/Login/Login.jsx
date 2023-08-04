@@ -9,6 +9,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  Typography,
 } from "@mui/material";
 import { Checkbox } from "@mui/material";
 import { useAuth } from "../../Contexts/Auth";
@@ -112,6 +113,7 @@ const Login = () => {
                   width="22"
                   height="22"
                   viewBox="0 0 48 48"
+                  style={{ margin: "5px" }}
                 >
                   <path
                     fill="#FFC107"
@@ -130,7 +132,7 @@ const Login = () => {
                     d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                   ></path>
                 </svg>
-                <h2>Sign in with google</h2>
+                Sign in with Google
               </button>
             </div>
             <p>Login in with your email</p>
@@ -196,7 +198,9 @@ const Login = () => {
                 </div>
                 <div>
                   <Link to="/forgot-password">
-                    <h2 className="text-primary]">Forgot Password</h2>
+                    <Typography variant="h5" className="text-[#437ef7]">
+                      Forgot Password
+                    </Typography>
                   </Link>
                 </div>
               </div>
@@ -207,9 +211,12 @@ const Login = () => {
               sx={{ height: "46px", width: "100%" }}
             />
             <div className="flex items-start w-full space-x-4">
-              <h4>Don't have an account?</h4>
+              <Typography variant="h4">Don't have an account?</Typography>
+
               <a className="" href="">
-                <h2 className="text-[#437ef7]">Register</h2>
+                <Typography variant="h5" className="text-[#437ef7]">
+                  Register
+                </Typography>
               </a>
             </div>
           </form>

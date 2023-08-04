@@ -14,6 +14,8 @@ import CircularProgressBar from "../CircularProgressBar";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
+import DownloadIcon from "@mui/icons-material/Download";
+import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 
 const scoreStyles = (score) => {
   if (score >= 80) {
@@ -128,6 +130,9 @@ const ResumeTable = () => {
                 </IconButton>
                 <IconButton>
                   <DeleteRoundedIcon fontSize="small" />
+                </IconButton>
+                <IconButton>
+                  <DownloadIcon />
                 </IconButton>
               </TableCell>
             </TableRow>

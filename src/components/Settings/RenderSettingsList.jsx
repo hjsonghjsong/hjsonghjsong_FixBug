@@ -15,18 +15,18 @@ const RenderSettingsList = ({
   handleToggle,
 }) => {
   const iconMap = {
-    general: <SettingsIcon color="action" />,
+    general: <SettingsIcon color="white" />,
 
-    privacy: <ManageAccountsIcon color="action" />,
+    privacy: <ManageAccountsIcon color="white" />,
   };
   return (
-    <List>
+    <List disablePadding>
       {settingOptions.map((section) => (
         <React.Fragment key={section.id}>
           <ListItem>
             <ListItemButton
               onClick={handleToggle(section.id)}
-              sx={{ gap: "5px" }}
+              sx={{ gap: "16px" }}
             >
               {iconMap[section.id]}
               <ListItemText
@@ -38,7 +38,7 @@ const RenderSettingsList = ({
               />
             </ListItemButton>
           </ListItem>
-          <Divider />
+          <Divider sx={{ backgroundColor: "white" }} />
         </React.Fragment>
       ))}
     </List>

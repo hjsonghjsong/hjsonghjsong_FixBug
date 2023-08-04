@@ -73,7 +73,31 @@ const Settings = () => {
       <div className="w-full flex justify-start settings-wrapper flex-grow">
         <div className="side-nav-container">
           <div className="side-nav h-full">
-            <h2 className="py-2">ACCOUNT SETTINGS</h2>
+            <ListItem
+              disablePadding
+              className="avatar-container"
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+
+                flex: "inline",
+              }}
+            >
+              <div className="items-center justify-center gap-4 flex">
+                <Avatar
+                  alt="Remy Sharp"
+                  sx={{ height: "56px", width: "56px" }}
+                  src={userData.avatar_url}
+                ></Avatar>
+                <ListItemText
+                  primary={userData.display_name}
+                  secondary={userData.email}
+                />
+              </div>
+            </ListItem>
+            <Typography variant="h4" sx={{ fontWeight: "600" }}>
+              ACCOUNT SETTINGS
+            </Typography>
 
             <RenderSettingsList
               settingOptions={settingOptions}

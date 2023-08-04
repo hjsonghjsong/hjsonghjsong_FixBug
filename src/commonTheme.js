@@ -4,29 +4,28 @@ export const theme = createTheme({
   typography: {
     h1: {
       fontSize: "2rem",
-      fontWeight: 700,
-      letterSpacing: "1px",
+      fontWeight: 600,
+      letterSpacing: "1.5px",
     },
     h2: {
       fontSize: "1.5rem",
-      fontWeight: 800,
-      letterSpacing: "1px",
+      fontWeight: 500,
     },
     h3: {
       fontSize: "1.125rem",
-      fontWeight: 700,
-      letterSpacing: "1px",
+      fontWeight: 500,
     },
     h4: {
       fontSize: "1rem",
-      fontWeight: 700,
-      letterSpacing: "1px",
+      fontWeight: 500,
     },
-    p: {
-      fontSize: "1rem",
-      fontWeight: 600,
-      letterSpacing: "1px",
+    h5: {
+      fontSize: "0.875rem",
+      fontWeight: 500,
     },
+
+    fontFamily:
+      'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
   },
 
   components: {

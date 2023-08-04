@@ -11,7 +11,7 @@ const PrimaryButton = ({ text, handleButton, icon, ...props }) => {
     color: "white",
     fontFamily: "inherit",
     fontWeight: 600,
-    borderRadius: 6,
+    borderRadius: 4,
 
     "&:hover": {
       backgroundColor: "#437ef7",

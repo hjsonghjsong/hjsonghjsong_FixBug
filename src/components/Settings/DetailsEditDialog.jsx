@@ -17,6 +17,8 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import EditItemDialog from "./EditItemDialog";
+import PrimaryButton from "../Buttons/PrimaryButton";
+import SecondaryButton from "../Buttons/SecondaryButton";
 
 const DetailsEditDialog = ({
   open,
@@ -49,7 +51,7 @@ const DetailsEditDialog = ({
       <Dialog open={open} onClose={handleClose} fullWidth>
         <div className="flex flex-row justify-between">
           <DialogTitle sx={{ fontWeight: "bold", fontSize: 24 }}>
-            Personal Information
+            <Typography variant="h2">Personal Information</Typography>
           </DialogTitle>
           <IconButton
             aria-label="close"
@@ -70,7 +72,7 @@ const DetailsEditDialog = ({
             alt="Remy Sharp"
             src={avatar}
           ></Avatar>
-          <h2 className="text-lg">{`${firstName} ${lastName}`}</h2>
+          <Typography variant="h3">{`${firstName} ${lastName}`}</Typography>
         </div>
         <DialogContent sx={{ height: "265px" }}>
           <DialogContentText>
@@ -86,9 +88,7 @@ const DetailsEditDialog = ({
                         color: (theme) => theme.palette.text.primary,
                       }}
                     >
-                      <Typography sx={{ fontWeight: "bold" }}>
-                        {details}
-                      </Typography>
+                      <Typography>{details}</Typography>
                       <ArrowForwardIosRoundedIcon fontSize="normal" />
                     </ListItemButton>
                   </ListItem>
@@ -105,9 +105,7 @@ const DetailsEditDialog = ({
 
         <div className="mb-2">
           <DialogActions>
-            <Button onClick={handleClose} variant="contained" color="primary">
-              Done
-            </Button>
+            <SecondaryButton handleButton={handleClose} text="Done" />
           </DialogActions>
         </div>
       </Dialog>

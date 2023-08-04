@@ -12,6 +12,8 @@ import {
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAuth } from "../../Contexts/Auth";
+import PrimaryButton from "../Buttons/PrimaryButton";
+import SecondaryButton from "../Buttons/SecondaryButton";
 
 const EditItemDialog = ({
   open,
@@ -162,9 +164,7 @@ const EditItemDialog = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSave} variant="contained" color="primary">
-          Save
-        </Button>
+        <SecondaryButton text="Save" handleButton={handleSave} />
       </DialogActions>
     </Dialog>
   );

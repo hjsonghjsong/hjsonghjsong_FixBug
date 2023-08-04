@@ -44,7 +44,7 @@ const scoreData = {
 
 const Resume = () => {
   return (
-    <main className="flex flex-grow flex-col items-center justify-center gap-20">
+    <main className="flex flex-grow flex-col items-center justify-center gap-10">
       <div className="main-box flex flex-col justify-center gap-8 py-3">
         <div className=" flex">
           <Typography variant="h1">Resumes</Typography>
@@ -135,9 +135,11 @@ const Resume = () => {
         </div>
         <div className="resume-container">
           <div className="flex justify-between mx-3 my-4">
-            <h2 className="text-2xl  ">Resumes</h2>
+            <Typography variant="h2" fontWeight={400}>
+              Resumes
+            </Typography>
 
-            <Link>
+            <Link to="/resume/add">
               <PrimaryButton
                 text="Create New Resume"
                 icon={<AddIcon />}
@@ -147,23 +149,35 @@ const Resume = () => {
           </div>
           <Divider />
           <Box>
-            <Box sx={{ display: { xs: "block", md: "none" } }}>
-              <ResumeMobile />
-            </Box>
             <ResumeTable />
             {/* Resume templates */}
           </Box>
         </div>
       </div>
 
-      <div className="w-full flex justify-center items-center px-20">
-        <div className="w-full temp-container px-20">
-          <h2 className="text-2xl  ">Templates</h2>
+      <Box
+        sx={{
+          width: "100%",
+          display: { xs: "none", md: "flex" },
+          justifyContent: "center",
+          margin: "32px 64px",
+          alignItems: "center",
+          backgroundColor: "#35476d",
+        }}
+      >
+        <div className="w-[75%] my-16 flex flex-col">
+          <Typography
+            variant="h2"
+            sx={{ color: "white", marginBottom: "36px" }}
+          >
+            Templates
+          </Typography>
+
           <div>
             <Template />
           </div>
         </div>
-      </div>
+      </Box>
     </main>
   );
 };

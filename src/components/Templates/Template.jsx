@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import { IconButton } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+} from "@mui/material";
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import "./Template.css";
 
@@ -708,13 +714,23 @@ const Template = () => {
     <div className="flex justify-between">
       <div className="flex justify-center items-center">
         <IconButton onClick={showPrevTemplate} disabled={isFirstTemplate}>
-          <ArrowBackIosNewRoundedIcon />
+          <ArrowBackIosNewRoundedIcon
+            sx={{ color: isFirstTemplate ? "gray" : "white" }}
+          />
         </IconButton>
       </div>
-      {templates[currentTemplateIndex]}
+      <List>
+        <ListItem>
+          <ListItemButton sx={{ padding: "0px" }}>
+            {templates[currentTemplateIndex]}
+          </ListItemButton>
+        </ListItem>
+      </List>
       <div className="flex justify-center items-center">
         <IconButton onClick={showNextTemplate} disabled={isLastTemplate}>
-          <ArrowForwardIosRoundedIcon />
+          <ArrowForwardIosRoundedIcon
+            sx={{ color: isLastTemplate ? "gray" : "white" }}
+          />
         </IconButton>
       </div>
     </div>
