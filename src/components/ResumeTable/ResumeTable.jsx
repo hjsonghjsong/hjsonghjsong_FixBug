@@ -96,7 +96,7 @@ const ResumeTable = () => {
         <TableBody>
           {filesData.map((file, index) => (
             <TableRow hover key={index}>
-              <TableCell>{file.name}</TableCell>
+              <TableCell>{file.id}</TableCell>
 
               <TableCell
                 sx={{
