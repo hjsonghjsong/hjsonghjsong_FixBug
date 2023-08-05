@@ -6,16 +6,27 @@ const supabase = createClient(
 );
 
 const sendResumeInfoToSupabase = async (payload) => {
-
-  const { data, error } = await supabase.from('resumes').insert(payload).select('id');
+  const { data, error } = await supabase
+    .from("resumes")
+    .insert(payload)
+    .select("id");
   console.log(data, error);
   return data[0].id;
-
 };
 
 const sendExperienceInfoToSupabase = async (payload) => {
-  const { data, error } = await supabase.from('experiences').insert(payload);
+  const { data, error } = await supabase.from("experiences").insert(payload);
   console.log(data, error);
 };
 
-export { supabase, sendResumeInfoToSupabase, sendExperienceInfoToSupabase };
+const deleteResumesFromSupabase = async (resumeId) => {
+  console.log(resumeId);
+  const { error } = await supabase.from("resumes").delete().eq("id", resumeId);
+};
+
+export {
+  supabase,
+  sendResumeInfoToSupabase,
+  sendExperienceInfoToSupabase,
+  deleteResumesFromSupabase,
+};
