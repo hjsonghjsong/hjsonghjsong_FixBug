@@ -39,6 +39,7 @@ const createExperiencePayload = (resumeId, experiencePayload, state, context) =>
     return experiencePayload;
 
 };
+
 const SendResumeInfo =  (state) => async (event) =>{
     let experiencePayload = [];
     const resumePayload = createResumePayload(state);

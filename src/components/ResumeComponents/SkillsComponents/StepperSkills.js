@@ -11,6 +11,7 @@ function StepperSkills(props) {
     const [loading, setLoading] = React.useState(false);
     const {skills, setSkills, workHistoryList} = props;
     
+    
     const handleChange = (event) => {
         setSkills([{...skills[0], [event.target.name]: event.target.value}]);
     }
@@ -42,11 +43,10 @@ function StepperSkills(props) {
                     {loading? <CircularProgress /> :
                     <Button 
                         variant="contained" 
-                        endIcon={<OfflineBoltIcon />}
                         size='small'
                         onClick={handleSuggestPoints}
                     >
-                    Suggest Skills
+                    Submit
                     </Button>
                     }
                 </Box>

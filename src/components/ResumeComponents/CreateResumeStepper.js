@@ -15,6 +15,7 @@ import RenderSkills from './SkillsComponents/RenderSkills';
 import RenderProjectHistory from './ProjectComponents/RenderProjectHistory';
 import CreateResumeMobileStepper from "./CreateResumeMobileStepper";
 import SendResumeInfo from "../../hooks/util";
+import { Link } from "react-router-dom";
 class CreateResumeStepper extends StepperInitializer {   
 
     render() {
@@ -130,7 +131,12 @@ class CreateResumeStepper extends StepperInitializer {
                                 </Button>
                                 <Box sx={{ flex: '1 1 auto' }} />
 
-                                {this.state.activeStep === this.state.steps.length - 1 ?  <Button onClick={SendResumeInfo(this.state)}> Finish </Button> : <Button onClick={this.handleNext}>Next</Button>}
+                                {this.state.activeStep === this.state.steps.length - 1 ? 
+                                        <Link to={'/resume'}>
+                                            <Button onClick={SendResumeInfo(this.state)}> 
+                                            Finish 
+                                            </Button> 
+                                        </Link> : <Button onClick={this.handleNext}>Next</Button>}
                             </Box>
                         </React.Fragment>
                     )}

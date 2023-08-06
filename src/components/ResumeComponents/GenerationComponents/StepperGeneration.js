@@ -43,11 +43,10 @@ function StepperGeneration(props) {
                     {loading? <CircularProgress /> :
                     <Button 
                         variant="contained" 
-                        endIcon={<OfflineBoltIcon />}
                         size='small'
                         onClick={handleSuggestPoints}
                     >
-                    Suggest Points
+                    Submit
                     </Button>
                     }
                 </Box>
