@@ -125,7 +125,7 @@ const Resume = () => {
               <PrimaryButton
                 text="Create New Resume"
                 icon={<AddIcon />}
-                sx={{ textTransform: "none" }}
+                sx={{}}
               />
             </Link>
           </div>
