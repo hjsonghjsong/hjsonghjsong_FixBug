@@ -8,14 +8,14 @@ import RenderGeneratedList from './RenderGeneratedList';
 import AddIcon from '@mui/icons-material/Add';
 
 function StepperGeneration(props) {
-    
+
     const [loading, setLoading] = React.useState(false);
     const [suggestedList, setSuggestedList] = React.useState([]);
 
-    const {input, historyList, setHistoryList, elongateStepper, bulletPointContext} = props;
-    const index = parseInt(input.charAt(input.length-1));
+    const { input, historyList, setHistoryList, elongateStepper, bulletPointContext } = props;
+    const index = parseInt(input.charAt(input.length - 1));
     const handleChange = (event) => {
-        setHistoryList(historyList.map((item, i) => i === index ? {...item, [event.target.name]: event.target.value} : item));
+        setHistoryList(historyList.map((item, i) => i === index ? { ...item, [event.target.name]: event.target.value } : item));
     }
 
     const handleSuggestPoints = () => {
@@ -41,39 +41,39 @@ function StepperGeneration(props) {
                     onChange={handleChange}
                     fullWidth
                 />
-                <Box sx={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
-                    {loading? <CircularProgress /> :
-                    <Button 
-                        variant="contained" 
-                        endIcon={<OfflineBoltIcon />}
-                        size='small'
-                        onClick={handleSuggestPoints}
-                    >
-                    Suggest Points
-                    </Button>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    {loading ? <CircularProgress /> :
+                        <Button
+                            variant="contained"
+                            endIcon={<OfflineBoltIcon />}
+                            size='small'
+                            onClick={handleSuggestPoints}
+                        >
+                            Suggest Points
+                        </Button>
                     }
                 </Box>
             </Box>
             <Box>
-            <RenderGeneratedList  
+                <RenderGeneratedList
                     index={index}
                     historyList={historyList}
-                    setHistoryList={setHistoryList} 
+                    setHistoryList={setHistoryList}
                     suggestedList={suggestedList}
-            />
-            
-            <Box sx={{ display: 'flex', flexGrow: 1}}>
-                <Box sx={{flexGrow: 1}} />
-                <Box sx={{display: 'flex'}}>
-                <Button variant="outlined" onClick={elongateStepper(input)}>
-                    <AddIcon sx={{color: 'text.primary' }}/>
-                    <Typography sx={{ color: 'text.primary'}}>
-                        Add {input}
-                    </Typography>
-                </Button>
+                />
 
-            </Box>
-            </Box>
+                <Box sx={{ display: 'flex', flexGrow: 1 }}>
+                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{ display: 'flex' }}>
+                        <Button variant="outlined" onClick={elongateStepper(input)}>
+                            <AddIcon sx={{ color: 'text.primary' }} />
+                            <Typography sx={{ color: 'text.primary' }}>
+                                Add {input}
+                            </Typography>
+                        </Button>
+
+                    </Box>
+                </Box>
             </Box>
         </Box>
     );
