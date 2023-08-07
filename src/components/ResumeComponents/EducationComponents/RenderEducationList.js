@@ -5,10 +5,19 @@ import StepperEducationDetail from './StepperEducationDetail';
 import { Add } from '@mui/icons-material';
 import EducationDetail from '../../../models/EducationDetail';
 import MobileStepperEducationDetail from './MobileStepperEducationDetail';
+import useLocalStorage from 'use-local-storage';
 
 const RenderEducationList = (props) => {
 
-    const {educationDetailList, setEducationDetailList} = props;
+    const {educationDetailList, setEducationDetailList, personalDetail} = props;
+
+    // bad code here, quick fix to update local storage and store personal data, need a better solution
+    const [_, setPersonalDetailState] = useLocalStorage('personalDetail', personalDetail);
+
+    React.useEffect(() => {
+        setPersonalDetailState(personalDetail);
+    }, [personalDetail]);
+    // bad code ends here
     const addEducation = () => {
         setEducationDetailList([...educationDetailList, new EducationDetail().getState]);
     }

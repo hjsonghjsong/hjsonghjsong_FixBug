@@ -14,7 +14,8 @@ import RenderGeneration from './GenerationComponents/RenderGeneration';
 import RenderSkills from './SkillsComponents/RenderSkills';
 import RenderProjectHistory from './ProjectComponents/RenderProjectHistory';
 import CreateResumeMobileStepper from "./CreateResumeMobileStepper";
-import SendResumeInfo from "../../hooks/util";
+import { SendResumeInfo } from "../../hooks/util";
+
 import { Link } from "react-router-dom";
 class CreateResumeStepper extends StepperInitializer {   
 
@@ -74,7 +75,8 @@ class CreateResumeStepper extends StepperInitializer {
                                 {activeStep === 1 && (
                                     <RenderEducationList
                                         educationDetailList={this.state.educationDetailList}
-                                        setEducationDetailList={this.setEducationDetailList} />
+                                        setEducationDetailList={this.setEducationDetailList}
+                                        personalDetail={this.state.personalDetailState} />
                                 )}
                                 {activeStep === 2 && (
                                     <RenderJobPreference
