@@ -10,7 +10,7 @@ class EducationDetail extends React.Component{
             startYear: "",
             endYear: "",
             major: "",
-            numCourses: "",
+            courseList: "",
             gpa: "",
         };
     }

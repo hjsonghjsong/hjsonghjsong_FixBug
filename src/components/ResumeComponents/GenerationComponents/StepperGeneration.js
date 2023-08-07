@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { TextField } from '@mui/material';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
@@ -6,6 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import fetchBulletPoint from '../../../hooks/fetchBulletPoint';
 import RenderGeneratedList from './RenderGeneratedList';
 import AddIcon from '@mui/icons-material/Add';
+import PrimaryButton from '../../Buttons/PrimaryButton';
 
 function StepperGeneration(props) {
 
@@ -41,16 +42,13 @@ function StepperGeneration(props) {
                     onChange={handleChange}
                     fullWidth
                 />
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    {loading ? <CircularProgress /> :
-                        <Button
-                            variant="contained"
-                            endIcon={<OfflineBoltIcon />}
-                            size='small'
-                            onClick={handleSuggestPoints}
-                        >
-                            Suggest Points
-                        </Button>
+                <Box sx={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+                    {loading? <CircularProgress /> :
+                    <PrimaryButton
+                        text="Submit"
+                        handleButton={handleSuggestPoints}
+                        icon={<OfflineBoltIcon />}
+                    />
                     }
                 </Box>
             </Box>
@@ -58,23 +56,22 @@ function StepperGeneration(props) {
                 <RenderGeneratedList
                     index={index}
                     historyList={historyList}
-                    setHistoryList={setHistoryList}
-                    suggestedList={suggestedList}
-                    className="my-4"
+                    setHistoryList={setHistoryList} 
+            />
+            
+            <Box sx={{ display: 'flex', flexGrow: 1}}>
+                <Box sx={{flexGrow: 1}} />
+                <Box sx={{display: 'flex'}}>
+                {index === historyList.length-1 &&
+                <PrimaryButton
+                    text={`Add ${input}`}
+                    handleButton={elongateStepper(input)}
+                    icon={<AddIcon />}
+                    sx={{marginBlockStart: '10px'}}
                 />
-
-                <Box sx={{ display: 'flex', flexGrow: 1 }}>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: 'flex' }}>
-                        <Button variant="outlined" onClick={elongateStepper(input)}>
-                            <AddIcon sx={{ color: 'text.primary' }} />
-                            <Typography sx={{ color: 'text.primary' }}>
-                                Add {input}
-                            </Typography>
-                        </Button>
-
-                    </Box>
-                </Box>
+                }
+            </Box>
+            </Box>
             </Box>
         </Box>
     );
