@@ -8,10 +8,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 const RenderGeneratedList = (props) => {
-    const { index, historyList, setHistoryList } = props;
-
-    // temp
-    const suggestedList = ["I did a some things", "I made a couple things too"];
+    const { index, historyList, setHistoryList, suggestedList } = props;
 
     const currentList = historyList[index].generatedContent;
     const [htmlValue, setHtmlValue] = React.useState(`<ul>${currentList.map(v => `<li>${v}</li>`).join()}<li><br></li></ul>`);
@@ -58,34 +55,39 @@ const RenderGeneratedList = (props) => {
     return (
         <Box className="grid grid-cols-2 gap-4">
             <Paper className="p-4">
-                <ReactQuill 
+                <ReactQuill
                     modules={{
                         toolbar: false
-                    }} 
-                    formats={["list", "bullet"]} 
+                    }}
+                    formats={["list", "bullet"]}
                     theme="snow"
-                    value={htmlValue} 
-                    onChange={handleChange} 
+                    value={htmlValue}
+                    onChange={handleChange}
                 />
             </Paper>
-            <Box className="flex flex-col gap-2">
-                {suggestedList?.map((point, key) => (
-                    <Card
-                        key={key}
-                        onClick={() => addPoint(point)}
-                        variant="outlined"
-                    >
-                        <CardActionArea>
-                            <Tooltip title="Add">
-                                <Box className="flex gap-4 p-4">
-                                    <AddCircleOutlineOutlinedIcon />
-                                    <Typography>{point}</Typography>
-                                </Box>
-                            </Tooltip>
-                        </CardActionArea>
-                    </Card>
-                ))}
-            </Box>
+            <Card className="p-4">
+                <Box className="overflow-auto 20rem max-h-80">
+                    <Box className="flex flex-col gap-2">
+                        {suggestedList?.map((point, key) => (
+                            <Card
+                                key={key}
+                                onClick={() => addPoint(point)}
+                                variant="outlined"
+                            >
+                                <CardActionArea>
+                                    <Tooltip title="Add">
+                                        <Box className="flex gap-4 p-4">
+                                            <AddCircleOutlineOutlinedIcon />
+                                            <Typography>{point}</Typography>
+                                        </Box>
+                                    </Tooltip>
+                                </CardActionArea>
+                            </Card>
+                        ))}
+                    </Box>
+                </Box>
+
+            </Card>
         </Box>
     );
 };

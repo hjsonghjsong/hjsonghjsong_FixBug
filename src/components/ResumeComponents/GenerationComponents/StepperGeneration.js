@@ -10,6 +10,8 @@ import AddIcon from '@mui/icons-material/Add';
 function StepperGeneration(props) {
     
     const [loading, setLoading] = React.useState(false);
+    const [suggestedList, setSuggestedList] = React.useState([]);
+
     const {input, historyList, setHistoryList, elongateStepper, bulletPointContext} = props;
     const index = parseInt(input.charAt(input.length-1));
     const handleChange = (event) => {
@@ -19,7 +21,7 @@ function StepperGeneration(props) {
     const handleSuggestPoints = () => {
         setLoading(true);
         fetchBulletPoint(historyList[index], bulletPointContext).then((res) => {
-            setHistoryList(historyList.map((item, i) => i === index ? {...item, generatedContent: res.bullet_points} : item));
+            setSuggestedList(res.bullet_points.concat(suggestedList));
             setLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -57,6 +59,7 @@ function StepperGeneration(props) {
                     index={index}
                     historyList={historyList}
                     setHistoryList={setHistoryList} 
+                    suggestedList={suggestedList}
             />
             
             <Box sx={{ display: 'flex', flexGrow: 1}}>
