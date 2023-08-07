@@ -1,7 +1,7 @@
 .analysis-container {
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
   min-width: 580px;
-  border-radius: 18px;
+  border-radius: 9px;
   padding: 16px 32px;
   display: flex;
   border: 2px solid var(--stroke-color, #eaebf0);
@@ -9,16 +9,47 @@
 .improvement-container {
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 
-  border-radius: 18px;
+  border-radius: 9px;
   padding: 32px 36px;
   display: flex;
   border: 2px solid var(--stroke-color, #eaebf0);
 }
 .edit-container {
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 18px;
-  padding: 32px 36px;
+  border-radius: 9px;
+  padding: 90px;
   display: flex;
   border: 2px solid var(--stroke-color, #eaebf0);
+  min-height: 1054px;
+  overflow: visible;
+  transition: margin 300ms ease-in;
+}
+
+.suggestions-container {
+  height: 100px;
+  padding: 32px 36px;
+  border: 2px solid var(--stroke-color, #f04438);
+  display: flex;
+  border-radius: 9px;
+}
+.resume-builder {
+  font-size: 16px;
+}
+
+.resume-builder textarea {
+  resize: none;
+  text-decoration: inherit;
+  overflow-y: hidden;
+  padding: 0px;
+  padding-left: 2px;
+  vertical-align: top;
+  margin-bottom: 0px;
+  background: inherit;
+  transition: background-color 100ms ease-in;
+  text-transform: inherit;
+  color: inherit;
+  border: 1px solid rgba(0, 0, 0, 0);
   width: 100%;
+  border-radius: 2px;
+  text-align: center;
 }

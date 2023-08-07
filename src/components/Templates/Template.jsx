@@ -36,7 +36,7 @@ const Template = () => {
   const isLastTemplate = currentTemplateIndex === templates.length - 1;
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between template-wrapper">
       <div className="flex justify-center items-center">
         <IconButton onClick={showPrevTemplate} disabled={isFirstTemplate}>
           <ArrowBackIosNewRoundedIcon
