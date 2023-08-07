@@ -60,6 +60,7 @@ function StepperGeneration(props) {
                     historyList={historyList}
                     setHistoryList={setHistoryList}
                     suggestedList={suggestedList}
+                    className="my-4"
                 />
 
                 <Box sx={{ display: 'flex', flexGrow: 1 }}>

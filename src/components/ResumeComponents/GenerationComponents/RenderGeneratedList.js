@@ -1,14 +1,14 @@
 import * as React from "react";
-import { Card, CardActionArea, InputAdornment, Paper } from "@mui/material";
-import { TextField } from "@mui/material";
+import { Card, CardActionArea, Paper } from "@mui/material";
 import { Tooltip, Box, Typography } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import './TextEditor.css'
 
 const RenderGeneratedList = (props) => {
-    const { index, historyList, setHistoryList, suggestedList } = props;
+    const { index, historyList, setHistoryList, suggestedList, className, ...otherProps } = props;
 
     const currentList = historyList[index].generatedContent;
     const [htmlValue, setHtmlValue] = React.useState(`<ul>${currentList.map(v => `<li>${v}</li>`).join()}<li><br></li></ul>`);
@@ -53,14 +53,16 @@ const RenderGeneratedList = (props) => {
     }
 
     return (
-        <Box className="grid grid-cols-2 gap-4">
+        <Box className={`grid grid-cols-2 gap-4 ${className}`} {...otherProps}>
             <Paper className="p-4">
                 <ReactQuill
-                    modules={{
-                        toolbar: false
-                    }}
+                    modules={{ toolbar: false }}
                     formats={["list", "bullet"]}
-                    theme="snow"
+                    theme={"snow"}
+                    style={{
+                        lineHeight: "1.5",
+                        fontSize: "1rem"
+                    }}
                     value={htmlValue}
                     onChange={handleChange}
                 />
