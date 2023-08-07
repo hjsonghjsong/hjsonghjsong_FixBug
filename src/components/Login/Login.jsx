@@ -198,7 +198,7 @@ const Login = () => {
                 </div>
                 <div>
                   <Link to="/forgot-password">
-                    <Typography variant="h5" className="text-[#437ef7]">
+                    <Typography className="text-[#437ef7]">
                       Forgot Password
                     </Typography>
                   </Link>
@@ -211,12 +211,10 @@ const Login = () => {
               sx={{ height: "46px", width: "100%" }}
             />
             <div className="flex items-start w-full space-x-4">
-              <Typography variant="h4">Don't have an account?</Typography>
+              <Typography>Don't have an account?</Typography>
 
               <a className="" href="">
-                <Typography variant="h5" className="text-[#437ef7]">
-                  Register
-                </Typography>
+                <Typography className="text-[#437ef7]">Register</Typography>
               </a>
             </div>
           </form>

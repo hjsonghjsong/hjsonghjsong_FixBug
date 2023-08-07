@@ -12,7 +12,6 @@ import {
 import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAuth } from "../../Contexts/Auth";
-import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
 
 const EditItemDialog = ({

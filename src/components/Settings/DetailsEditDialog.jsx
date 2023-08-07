@@ -17,7 +17,6 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import EditItemDialog from "./EditItemDialog";
-import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
 
 const DetailsEditDialog = ({

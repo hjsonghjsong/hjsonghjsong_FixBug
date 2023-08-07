@@ -6,16 +6,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Chip,
   IconButton,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CircularProgressBar from "../CircularProgressBar";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import DownloadIcon from "@mui/icons-material/Download";
-import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
+import { useAuth } from "../../Contexts/Auth";
+import { supabase } from "../../SupabaseCL";
 
 const scoreStyles = (score) => {
   if (score >= 80) {
@@ -38,33 +38,48 @@ const cellStyles = (score) => {
 };
 
 const ResumeTable = () => {
+  const { user } = useAuth();
+  const user_id = user?.id;
   const [filesData, setFilesData] = useState([]);
-  const files = [
-    {
-      name: "Vinay.pdf",
-      status: "Needs Work",
-      score: 10,
-      lastModified: "2023-07-28",
-    },
-    {
-      name: "VinaySFSU.pdf",
-      status: "On-Target",
-      score: 95,
-      lastModified: "2023-07-25",
-    },
-    {
-      name: "VinayResume1.pdf",
-      status: "On-Track",
-      score: 50,
-      lastModified: "2023-07-20",
-    },
-    {
-      name: "Ishah.pdf",
-      status: "On-Target",
-      score: 90,
-      lastModified: "2023-07-20",
-    },
-  ];
+  console.log(filesData);
+
+  useEffect(() => {
+    const fetchUserResumes = async () => {
+      try {
+        if (!user_id) {
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from("resumes")
+          .select("*")
+          .eq("user_id", user_id);
+
+        if (error) {
+          throw error;
+        }
+
+        if (data && data.length > 0) {
+          setFormattedDates(data);
+        }
+      } catch (error) {
+        console.error("Error fetching user resumes:", error);
+      }
+    };
+
+    fetchUserResumes();
+  }, [user_id]);
+
+  const setFormattedDates = (data) => {
+    const updatedData = data.map((resume) => ({
+      ...resume,
+      created_at: new Date(resume.created_at).toLocaleDateString(),
+      edited_at: new Date(resume.edited_at).toLocaleDateString(),
+    }));
+
+    setFilesData(updatedData);
+  };
+
   return (
     <TableContainer>
       <Table>
@@ -73,14 +88,15 @@ const ResumeTable = () => {
             <TableCell sx={{ color: "#858C95" }}>Name</TableCell>
             <TableCell sx={{ color: "#858C95" }}>Status</TableCell>
             <TableCell sx={{ color: "#858C95" }}>Score</TableCell>
+            <TableCell sx={{ color: "#858C95" }}>Created at</TableCell>
             <TableCell sx={{ color: "#858C95" }}>Last Modified</TableCell>
             <TableCell sx={{ color: "#858C95" }}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {files.map((file, index) => (
+          {filesData.map((file, index) => (
             <TableRow hover key={index}>
-              <TableCell>{file.name}</TableCell>
+              <TableCell>{file.id}</TableCell>
 
               <TableCell
                 sx={{
@@ -120,19 +136,26 @@ const ResumeTable = () => {
                 />
               </TableCell>
               <TableCell
-                sx={{ color: "#858C95", fontWeight: "500", fontSize: "14px" }}
+                sx={{ color: "#858C95", fontWeight: "400", fontSize: "14px" }}
               >
-                {file.lastModified}
+                {file.created_at}
+              </TableCell>
+
+              <TableCell
+                sx={{ color: "#858C95", fontWeight: "400", fontSize: "14px" }}
+              >
+                {file.edited_at}
               </TableCell>
               <TableCell>
                 <IconButton>
+                  <RemoveRedEyeRoundedIcon fontSize="small" />
+                </IconButton>
+                <IconButton>
                   <EditRoundedIcon fontSize="small" />
                 </IconButton>
+
                 <IconButton>
-                  <DeleteRoundedIcon fontSize="small" />
-                </IconButton>
-                <IconButton>
-                  <DownloadIcon />
+                  <DownloadIcon fontSize="small" />
                 </IconButton>
               </TableCell>
             </TableRow>

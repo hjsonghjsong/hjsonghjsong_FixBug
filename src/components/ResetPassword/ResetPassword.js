@@ -62,9 +62,7 @@ const ResetPassword = () => {
           <Typography>Already have an account?</Typography>
 
           <Link to="/login">
-            <Typography variant="h5" className="text-[#437ef7]">
-              Sign-In
-            </Typography>
+            <Typography className="text-[#437ef7]">Sign-In</Typography>
           </Link>
         </div>
       </form>

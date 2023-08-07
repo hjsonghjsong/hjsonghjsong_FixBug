@@ -24,24 +24,6 @@ const scoreStyles = (score) => {
   }
 };
 
-const scoreData = {
-  Organization: [
-    { title: "Score 1", value: 80 },
-    { title: "Score 2", value: 60 },
-    // ... Add more scores for Organization
-  ],
-  Presentation: [
-    { title: "Score 1", value: 75 },
-    { title: "Score 2", value: 50 },
-    // ... Add more scores for Presentation
-  ],
-  Impact: [
-    { title: "Score 1", value: 90 },
-    { title: "Score 2", value: 70 },
-    // ... Add more scores for Impact
-  ],
-};
-
 const Resume = () => {
   return (
     <main className="flex flex-grow flex-col items-center justify-center gap-10">
@@ -126,10 +108,12 @@ const Resume = () => {
             <div className="score-container flex flex-col items-center justify-end gap-4">
               <CircularProgressBar score={score} size={150} fontSize={22} />
               <h1 className="font-semibold">On-Track</h1>
-              <SecondaryButton
-                text="Improve Resume"
-                sx={{ height: "46px", width: "100%", textTransform: "none" }}
-              />
+              <Link to="userid/resume/add">
+                <SecondaryButton
+                  text="Improve Resume"
+                  sx={{ height: "46px", width: "100%", textTransform: "none" }}
+                />
+              </Link>
             </div>
           </div>
         </div>
@@ -143,7 +127,7 @@ const Resume = () => {
               <PrimaryButton
                 text="Create New Resume"
                 icon={<AddIcon />}
-                sx={{ textTransform: "none" }}
+                sx={{}}
               />
             </Link>
           </div>
@@ -165,15 +149,15 @@ const Resume = () => {
           backgroundColor: "#35476d",
         }}
       >
-        <div className="w-[75%] my-16 flex flex-col">
+        <div className="w-[75%] my-8 flex flex-col">
           <Typography
             variant="h2"
-            sx={{ color: "white", marginBottom: "36px" }}
+            sx={{ color: "white", marginBottom: "16px" }}
           >
             Templates
           </Typography>
 
-          <div>
+          <div className="mb-8">
             <Template />
           </div>
         </div>

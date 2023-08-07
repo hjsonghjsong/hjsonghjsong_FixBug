@@ -12,13 +12,15 @@ import {
   CircularProgress,
   IconButton,
   InputAdornment,
+  Typography,
 } from "@mui/material";
 import "./SignUp.css";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import MobileSignUp from "./MobileSignUp";
+import CloseIcon from "@mui/icons-material/Close";
+import SecondaryButton from "../Buttons/SecondaryButton";
+import PrimaryButton from "../Buttons/PrimaryButton";
 
 function SignUp(props) {
   const [firstName, setFirstName] = useState("");
@@ -97,11 +99,21 @@ function SignUp(props) {
     <Dialog sx={{}} open={props.open} onClose={handleCloseDialog}>
       <div className="flex flex-row justify-between">
         <DialogTitle sx={{ fontWeight: "bold", fontSize: 24 }}>
-          Sign Up
+          <Typography variant="h2">Sign Up</Typography>
         </DialogTitle>
-        <button onClick={handleCloseDialog} className="px-5">
-          <FontAwesomeIcon icon={faX} style={{ color: "#9c9c9c" }} />
-        </button>
+
+        <IconButton
+          aria-label="close"
+          onClick={handleCloseDialog}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
       </div>
       <DialogContent>
         <DialogContentText>
@@ -244,13 +256,12 @@ function SignUp(props) {
               Done
             </Button>
           ) : (
-            <div>
+            <div className="flex">
               <Button onClick={handleCloseDialog} sx={{ color: "black" }}>
                 Cancel
               </Button>
-              <Button onClick={handleSubmit} variant="contained">
-                Sign Up
-              </Button>
+
+              <PrimaryButton text="Sign Up" handleButton={handleSubmit} />
             </div>
           )}
         </DialogActions>
