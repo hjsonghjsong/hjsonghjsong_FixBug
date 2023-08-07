@@ -17,6 +17,7 @@ import CreateResumeMobileStepper from "./CreateResumeMobileStepper";
 import { SendResumeInfo } from "../../hooks/util";
 
 import { Link } from "react-router-dom";
+import PrimaryButton from "../Buttons/PrimaryButton";
 class CreateResumeStepper extends StepperInitializer {   
 
     render() {
@@ -123,14 +124,11 @@ class CreateResumeStepper extends StepperInitializer {
                                 )}
                             </Box>
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                <Button
-                                    color="inherit"
+                                <PrimaryButton
+                                    text={"Back"}
+                                    handleButton={this.handleBack}
                                     disabled={this.state.activeStep === 0}
-                                    onClick={this.handleBack}
-                                    sx={{ mr: 1 }}
-                                >
-                                    Back
-                                </Button>
+                                />
                                 <Box sx={{ flex: '1 1 auto' }} />
 
                                 {this.state.activeStep === this.state.steps.length - 1 ? 
@@ -138,7 +136,12 @@ class CreateResumeStepper extends StepperInitializer {
                                             <Button onClick={SendResumeInfo(this.state)}> 
                                             Finish 
                                             </Button> 
-                                        </Link> : <Button onClick={this.handleNext}>Next</Button>}
+                                        </Link> :
+                                        
+                                        <PrimaryButton 
+                                                text={"Next"}
+                                                handleButton={this.handleNext}
+                                            />}
                             </Box>
                         </React.Fragment>
                     )}
