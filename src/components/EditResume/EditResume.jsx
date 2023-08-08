@@ -64,7 +64,7 @@ const EditResume = () => {
             </div>
           </div>
           {/* Scores and bullet points */}
-          <div className="h-full analysis-container justify-between p-9 gap-7">
+          <div className="analysis-container justify-between p-9 gap-7 w-full">
             <ScoreCard />
           </div>
         </div>

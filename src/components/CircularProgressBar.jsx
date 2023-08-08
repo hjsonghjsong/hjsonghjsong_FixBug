@@ -50,7 +50,6 @@ const CircularProgressBar = ({ score, size, fontSize, rounded }) => {
 
       <CircularProgress
         variant="determinate"
-        disableShrink
         value={score}
         size={size}
         thickness={5}
