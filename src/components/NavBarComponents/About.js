@@ -1,5 +1,4 @@
 import React from "react";
-import PersonalDetails from "../PersonalDetails/PersonalDetails";
 import "./About.css";
 import NavBar from "../Navbar";
 
