@@ -1,10 +1,10 @@
-import { TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Add } from "@mui/icons-material";
-import Button from "@mui/material/Button";
 import RenderSocialList from "./RenderSocialList";
 import PersonalDetail from "../../../models/PersonalDetail";
+import PrimaryButton from "../../Buttons/PrimaryButton";
 function StepperPersonalDetail(props) {
   const { personalDetail, setPersonalDetail } = props;
   const handleChange = (event) => {
@@ -119,10 +119,11 @@ function StepperPersonalDetail(props) {
         </Box>
       </Box>
       <Box>
-        <Button onClick={addSocialLink}>
-          <Add />
-          <Typography>Add Social Links</Typography>
-        </Button>
+        <PrimaryButton
+          text="Add Social Link"
+          handleButton={addSocialLink}
+          icon={<Add />}
+        />
       </Box>
       <RenderSocialList personalDetailState={props} />
     </Box>

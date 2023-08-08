@@ -39,7 +39,8 @@ const createExperiencePayload = (resumeId, experiencePayload, state, context) =>
     return experiencePayload;
 
 };
-const SendResumeInfo =  (state) => async (event) =>{
+
+export const SendResumeInfo = (state) => async (event) =>{
     let experiencePayload = [];
     const resumePayload = createResumePayload(state);
     const resumeId = await sendResumeInfoToSupabase(resumePayload);
@@ -48,5 +49,3 @@ const SendResumeInfo =  (state) => async (event) =>{
     await sendExperienceInfoToSupabase(experiencePayload);
 
 };
-
-export default SendResumeInfo;

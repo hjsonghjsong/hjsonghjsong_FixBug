@@ -39,6 +39,7 @@ function StepperEducationDetail(props) {
                     <TextField
                         margin="dense"
                         label="Degree"
+                        placeholder='e.g. BSc/Msc/PhD'
                         type="text"
                         value={educationDetailList[index].degree}
                         name='degree'
@@ -50,6 +51,7 @@ function StepperEducationDetail(props) {
                     <TextField
                         margin="dense"
                         label="Start Date"
+                        placeholder='format: mm/dd/yyyy'
                         type="text"
                         value={educationDetailList[index].startYear}
                         name='startYear'
@@ -61,6 +63,7 @@ function StepperEducationDetail(props) {
                     <TextField
                         margin="dense"
                         label="End Date"
+                        placeholder='format: mm/dd/yyyy'
                         type="text"
                         value={educationDetailList[index].endYear}
                         name='endYear'
@@ -74,6 +77,7 @@ function StepperEducationDetail(props) {
                     <TextField
                         margin="dense"
                         label="Field of Study"
+                        placeholder='e.g. Computer Science'
                         type="text"
                         value={educationDetailList[index].major}
                         name='major'
@@ -84,10 +88,11 @@ function StepperEducationDetail(props) {
                 <Box width="30%">
                     <TextField
                         margin="dense"
-                        label="Number of Courses"
+                        label="List of Courses"
+                        placeholder='e.g. Quantum Computing, Analysis of Algorithms'
                         type="text"
-                        value={educationDetailList[index].numCourses}
-                        name='numCourses'
+                        value={educationDetailList[index].courseList}
+                        name='courseList'
                         onChange={handleChange}
                         fullWidth
                     />
@@ -95,7 +100,8 @@ function StepperEducationDetail(props) {
                 <Box width="20%">
                     <TextField
                         margin="dense"
-                        label="CGPA"
+                        label="GPA"
+                        placeholder='e.g. 3.9'
                         type="text"
                         value={educationDetailList[index].gpa}
                         name='gpa'

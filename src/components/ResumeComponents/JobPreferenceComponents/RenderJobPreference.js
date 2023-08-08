@@ -23,7 +23,7 @@ function RenderJobPreference(props) {
                 margin="dense"
                 label="Job Title"
                 type="text"
-                placeholder='e.g. Software Engineer'
+                placeholder='e.g. Software Engineer or some URL'
                 value={jobPreference.jobTitle}
                 name='jobTitle'
                 onChange={handleChange}

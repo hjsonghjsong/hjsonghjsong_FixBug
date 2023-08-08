@@ -42,7 +42,8 @@ export default function CreateResumeMobileStepper(props) {
         {props.activeStep === 1 && 
           <RenderEducationList
                 educationDetailList={props.state.educationDetailList}
-                setEducationDetailList={props.setEducationDetailList} />}
+                setEducationDetailList={props.setEducationDetailList}
+                personalDetail={props.state.personalDetailState} />}
         {props.activeStep === 2 &&
           <RenderJobPreference
                 jobPreference={props.state.jobPreferenceState}

@@ -1,15 +1,17 @@
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
 import CircularProgress from '@mui/material/CircularProgress';
 import fetchSkills from '../../../hooks/fetchSkills';
 import RenderGeneratedList from '../GenerationComponents/RenderGeneratedList';
+import PrimaryButton from '../../Buttons/PrimaryButton';
 
 function StepperSkills(props) {
     
     const [loading, setLoading] = React.useState(false);
     const {skills, setSkills, workHistoryList} = props;
+    
     
     const handleChange = (event) => {
         setSkills([{...skills[0], [event.target.name]: event.target.value}]);
@@ -40,14 +42,11 @@ function StepperSkills(props) {
                 />
                 <Box sx={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
                     {loading? <CircularProgress /> :
-                    <Button 
-                        variant="contained" 
-                        endIcon={<OfflineBoltIcon />}
-                        size='small'
-                        onClick={handleSuggestPoints}
-                    >
-                    Suggest Skills
-                    </Button>
+                    <PrimaryButton
+                        text="Submit"
+                        handleButton={handleSuggestPoints}
+                        icon={<OfflineBoltIcon />}
+                    />
                     }
                 </Box>
             </Box>

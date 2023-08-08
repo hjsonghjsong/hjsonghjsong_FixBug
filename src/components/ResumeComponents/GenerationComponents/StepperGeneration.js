@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { TextField } from '@mui/material';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
@@ -6,20 +6,23 @@ import CircularProgress from '@mui/material/CircularProgress';
 import fetchBulletPoint from '../../../hooks/fetchBulletPoint';
 import RenderGeneratedList from './RenderGeneratedList';
 import AddIcon from '@mui/icons-material/Add';
+import PrimaryButton from '../../Buttons/PrimaryButton';
 
 function StepperGeneration(props) {
-    
+
     const [loading, setLoading] = React.useState(false);
-    const {input, historyList, setHistoryList, elongateStepper, bulletPointContext} = props;
-    const index = parseInt(input.charAt(input.length-1));
+    const [suggestedList, setSuggestedList] = React.useState([]);
+
+    const { input, historyList, setHistoryList, elongateStepper, bulletPointContext } = props;
+    const index = parseInt(input.charAt(input.length - 1));
     const handleChange = (event) => {
-        setHistoryList(historyList.map((item, i) => i === index ? {...item, [event.target.name]: event.target.value} : item));
+        setHistoryList(historyList.map((item, i) => i === index ? { ...item, [event.target.name]: event.target.value } : item));
     }
 
     const handleSuggestPoints = () => {
         setLoading(true);
         fetchBulletPoint(historyList[index], bulletPointContext).then((res) => {
-            setHistoryList(historyList.map((item, i) => i === index ? {...item, generatedContent: res.bullet_points} : item));
+            setSuggestedList(res.bullet_points.concat(suggestedList));
             setLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -41,19 +44,16 @@ function StepperGeneration(props) {
                 />
                 <Box sx={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
                     {loading? <CircularProgress /> :
-                    <Button 
-                        variant="contained" 
-                        endIcon={<OfflineBoltIcon />}
-                        size='small'
-                        onClick={handleSuggestPoints}
-                    >
-                    Suggest Points
-                    </Button>
+                    <PrimaryButton
+                        text="Submit"
+                        handleButton={handleSuggestPoints}
+                        icon={<OfflineBoltIcon />}
+                    />
                     }
                 </Box>
             </Box>
             <Box>
-            <RenderGeneratedList  
+                <RenderGeneratedList
                     index={index}
                     historyList={historyList}
                     setHistoryList={setHistoryList} 
@@ -62,13 +62,14 @@ function StepperGeneration(props) {
             <Box sx={{ display: 'flex', flexGrow: 1}}>
                 <Box sx={{flexGrow: 1}} />
                 <Box sx={{display: 'flex'}}>
-                <Button variant="outlined" onClick={elongateStepper(input)}>
-                    <AddIcon sx={{color: 'text.primary' }}/>
-                    <Typography sx={{ color: 'text.primary'}}>
-                        Add {input}
-                    </Typography>
-                </Button>
-
+                {index === historyList.length-1 &&
+                <PrimaryButton
+                    text={`Add ${input}`}
+                    handleButton={elongateStepper(input)}
+                    icon={<AddIcon />}
+                    sx={{marginBlockStart: '10px'}}
+                />
+                }
             </Box>
             </Box>
             </Box>

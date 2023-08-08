@@ -1,0 +1,13 @@
+.quill .ql-container {
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.quill .ql-editor {
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.quill .ql-editor ul {
+    padding-left: 0;
+}
