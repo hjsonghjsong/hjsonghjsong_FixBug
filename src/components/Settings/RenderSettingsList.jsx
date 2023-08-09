@@ -15,9 +15,9 @@ const RenderSettingsList = ({
   handleToggle,
 }) => {
   const iconMap = {
-    general: <SettingsIcon color="white" />,
+    general: <SettingsIcon color="action" />,
 
-    privacy: <ManageAccountsIcon color="white" />,
+    privacy: <ManageAccountsIcon color="action" />,
   };
   return (
     <List disablePadding>

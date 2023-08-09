@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./EditResume.css";
 import { Typography } from "@mui/material";
 import CircularProgressBar from "../CircularProgressBar";
 import ScoreCard from "./ScoreCard";
 import ResumeEditText from "./ResumeEditText";
+import { useLocation } from "react-router-dom";
 
 const EditResume = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const resumeId = queryParams.get("id");
+  const fileData = location.state?.file || null;
+
+  const feedback = fileData.feedback;
+  console.log(feedback);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="flex flex-col">
       {/* flex container */}
@@ -60,19 +72,22 @@ const EditResume = () => {
             </div>
 
             <div className="flex justify-center items-center">
-              <CircularProgressBar score={60} size={120} fontSize={22} />
+              <CircularProgressBar
+                score={feedback.overall_score}
+                size={120}
+                fontSize={22}
+              />
             </div>
           </div>
           {/* Scores and bullet points */}
           <div className="analysis-container justify-between p-9 gap-7 w-full">
-            <ScoreCard />
+            <ScoreCard feedback={feedback} />
           </div>
         </div>
 
         {/* Edit resume container*/}
-        <div className="flex flex-col px-4 items-center gap-3 justify-start w-full mt-4">
-          <div className="w-full suggestions-container"> Suggestions </div>
-          <ResumeEditText />
+        <div className="flex flex-col px-4 items-center gap-3 justify-start w-full mt-4 edit-wrapper">
+          <ResumeEditText fileData={fileData} resumeId={resumeId} />
         </div>
       </div>
     </div>

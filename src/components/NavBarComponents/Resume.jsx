@@ -11,8 +11,9 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import { Link } from "react-router-dom";
 import Template from "../Templates/Template";
-
-const score = 80;
+import useResumeData from "../../hooks/useResumeData";
+import { useAuth } from "../../Contexts/Auth";
+import { supabase } from "../../SupabaseCL";
 
 const scoreStyles = (score) => {
   if (score >= 80) {
@@ -25,6 +26,10 @@ const scoreStyles = (score) => {
 };
 
 const Resume = () => {
+  const { user } = useAuth();
+  const user_id = user?.id;
+  const filesData = useResumeData(user_id);
+
   return (
     <main className="flex flex-grow flex-col items-center justify-center gap-10">
       <div className="main-box flex flex-col justify-center gap-8 py-3">
@@ -106,7 +111,11 @@ const Resume = () => {
               </div>
             </div>
             <div className="score-container flex flex-col items-center justify-end gap-4">
-              <CircularProgressBar score={score} size={150} fontSize={22} />
+              <CircularProgressBar
+                score={filesData[5]?.feedback?.overall_score}
+                size={150}
+                fontSize={22}
+              />
               <h1 className="font-semibold">On-Track</h1>
               <Link to="userid/resume/add">
                 <SecondaryButton
@@ -133,7 +142,7 @@ const Resume = () => {
           </div>
           <Divider />
           <Box>
-            <ResumeTable />
+            <ResumeTable filesData={filesData} />
             {/* Resume templates */}
           </Box>
         </div>

@@ -10,7 +10,6 @@ import { useAuth } from "../../Contexts/Auth";
 
 const ResumeEditText = () => {
   const { user } = useAuth();
-  console.log(user);
   const [fullName, setFullName] = useState(user?.user_metadata.display_name);
   const [contactNumber, setContactNumber] = useState(
     user?.user_metadata?.phone
@@ -33,7 +32,7 @@ const ResumeEditText = () => {
           className="flex flex-wrap justify-center items-center gap-1"
         >
           <textarea
-            className="h-6 flex justify-center items-center w-full text-center font-semibold text-lg"
+            className="h-6 flex justify-center items-center w-full text-center font-semibold text-lg text-field"
             id="personal-details-name"
             placeholder="Full Name"
             maxLength={60}
@@ -41,43 +40,42 @@ const ResumeEditText = () => {
             value={fullName}
             onChange={handleChange}
             name="fullname"
-            rows={1}
           ></textarea>
-          <div className="flex justify-center items-center">
-            <textarea
-              className="h-6 flex justify-center items-center text-center"
-              id="personal-details-name"
-              placeholder="City, State"
-              maxLength={60}
-            ></textarea>
-          </div>
-
+          <div className="w-full"></div>
           <textarea
-            className="h-6 flex justify-center items-center"
+            className="h-6 flex justify-center items-center text-center text-field"
+            id="personal-details-name"
+            placeholder="City, State"
+          ></textarea>
+
+          <div className="w-full"></div>
+          <TextField></TextField>
+          <textarea
+            className="text-field"
             id="personal-details-name"
             placeholder="Email"
-            maxLength={60}
             name="email"
             value={email}
             onChange={handleChange}
-          ></textarea>
-          <div className="mx-2">|</div>
-          <textarea
-            className="h-6 flex justify-center items-center"
-            id="personal-details-name"
-            placeholder="Contact"
+            tabIndex={4}
             maxLength={60}
           ></textarea>
           <div className="mx-2">|</div>
           <textarea
-            className="h-6 flex justify-center items-center"
+            className="h-6 flex justify-center items-center text-field"
+            id="personal-details-name"
+            placeholder="Contact"
+          ></textarea>
+          <div className="mx-2">|</div>
+          <textarea
+            className="h-6 flex justify-center items-center text-field"
             id="personal-details-name"
             placeholder="Social Links"
             maxLength={60}
           ></textarea>
           <div className="mx-2">|</div>
           <textarea
-            className="h-6 flex justify-center items-center"
+            className="h-6 flex justify-center items-center text-field"
             id="personal-details-name"
             placeholder="Social Links"
             maxLength={60}
@@ -90,16 +88,14 @@ const ResumeEditText = () => {
 
           <div className="w-full flex">
             <textarea
-              className="h-6 flex justify-center items-center"
+              className="h-6 flex justify-center items-center text-field"
               id="personal-details-name"
               placeholder="Graduation School"
-              maxLength={60}
             ></textarea>
             <textarea
-              className="h-6 flex justify-center items-center text-right"
+              className="h-6 flex justify-center items-center text-right text-field"
               id="personal-details-name"
               placeholder="Location"
-              maxLength={60}
             ></textarea>
           </div>
           {/* Grad */}
@@ -108,13 +104,11 @@ const ResumeEditText = () => {
               className="h-6 flex justify-center items-center"
               id="personal-details-name"
               placeholder="Degree"
-              maxLength={60}
             ></textarea>
             <textarea
               className="h-6 flex justify-center items-center text-left"
               id="personal-details-name"
               placeholder="Major"
-              maxLength={60}
             ></textarea>
             <div>
               <LocalizationProvider dateAdapter={AdapterDayjs}>

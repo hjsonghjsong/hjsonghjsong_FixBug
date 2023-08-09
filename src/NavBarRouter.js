@@ -16,12 +16,13 @@ const NavBarRouter = () => (
       <Route path="/about" element={<About />} />
       <Route path="/resume" element={<Resume />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/resume/edit" element={<EditResume />} />
     </Route>
+
     <Route path="/login" element={<Login />} />
     <Route path="/resume/add" element={<CreateResumeStepper />} />
     <Route path="/forgot-password" element={<ResetPassword />} />
     <Route index element={<HomePage />} />
-    <Route path="userid/resume/edit" element={<EditResume />} />
   </Routes>
 );
 

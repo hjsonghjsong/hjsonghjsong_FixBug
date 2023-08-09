@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import AdbIcon from "@mui/icons-material/Adb";
 import SignUp from "./Signup/SignUp";
 import NavBarRouter from "../NavBarRouter";
 import RenderNavBarList from "./NavBarComponents/RenderNavBarList";
@@ -79,7 +78,7 @@ function NavBar() {
                 textDecoration: "none",
               }}
             >
-              MyCareerChoice
+              MyCareerCoach
             </Typography>
             <RenderNavBarMobile
               anchorElNav={anchorElNav}
