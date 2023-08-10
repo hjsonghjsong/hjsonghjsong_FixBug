@@ -21,7 +21,7 @@ function StepperSkills(props) {
     const handleSuggestPoints = () => {
         setLoading(true);
         fetchSkills(workHistoryList, skills).then((res) => {
-            setSuggestedList([{...skills, generatedContent: res.relevant_skills}]);
+            setSuggestedList([...suggestedList, ...res.relevant_skills]);
             setLoading(false);
         }).catch((err) => {
             console.log(err);
