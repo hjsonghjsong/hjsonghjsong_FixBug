@@ -55,6 +55,7 @@ function StepperSkills(props) {
                     index={0}
                     historyList={skills}
                     setHistoryList={setSkills} 
+                    suggestedList={suggestedList}
             />
             </Box>
         </Box>
