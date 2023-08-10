@@ -16,22 +16,44 @@ const RenderGeneratedList = (props) => {
     const handleChange = newHtmlValue => {
         const parser = new DOMParser();
         const htmlDoc = parser.parseFromString(newHtmlValue, "text/html");
-        const ulEl = htmlDoc.getElementsByTagName("ul")[0];
+
+        // merge all uls into single ul
+        const ulEls = htmlDoc.getElementsByTagName("ul");
+        const newUl = htmlDoc.createElement("ul");
+        for(let i = 0; i < ulEls.length; i++){
+            let liEls = ulEls[i].getElementsByTagName("li");
+            while(liEls.length > 0){
+                newUl.appendChild(liEls[0]);
+            }
+        }
+        htmlDoc.body.innerHTML = '';
+        htmlDoc.body.appendChild(newUl);
 
         // no bullet points, revert
-        if (!ulEl) {
+        let liEls = Array.from(newUl.getElementsByTagName("li"));
+        if (liEls.length === 0) {
             handleChange("<ul><li><br></li></ul>");
             return;
         }
 
+        // remove empty points
+        liEls.pop(); // ignore last li
+        if (liEls.length >= 1) {
+            liEls.forEach(li => {
+                if (!li.textContent.trim()) {
+                    newUl.removeChild(li);
+                }
+            });
+        }
+
         // strip other html
-        newHtmlValue = ulEl.outerHTML;
+        newHtmlValue = newUl.outerHTML;
         setHtmlValue(newHtmlValue);
 
-        const liEls = Array.from(ulEl.getElementsByTagName("li"));
+        // save state
+        liEls = Array.from(newUl.getElementsByTagName("li"));
         const newList = liEls.map(el => el.textContent);
 
-        // save state
         const newHistoryList = Object.assign({}, historyList);
         newHistoryList[index] = {
             ...newHistoryList[index],
