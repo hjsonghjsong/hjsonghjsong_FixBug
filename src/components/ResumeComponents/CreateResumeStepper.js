@@ -14,10 +14,9 @@ import RenderGeneration from './GenerationComponents/RenderGeneration';
 import RenderSkills from './SkillsComponents/RenderSkills';
 import RenderProjectHistory from './ProjectComponents/RenderProjectHistory';
 import CreateResumeMobileStepper from "./CreateResumeMobileStepper";
-import { SendResumeInfo } from "../../hooks/util";
-
 import { Link } from "react-router-dom";
 import PrimaryButton from "../Buttons/PrimaryButton";
+import ShowSignUpLogin from './MiscComponents/ShowSignUpLogin';
 class CreateResumeStepper extends StepperInitializer {   
 
     render() {
@@ -115,13 +114,18 @@ class CreateResumeStepper extends StepperInitializer {
                                     />
                                 )}
                                 {steps[activeStep].match("Skills") !== null && steps[activeStep].match("Skills")[0] === "Skills" && (
+                                    <div>
                                     <RenderSkills
                                         skills={this.state.skills}
                                         setSkills={this.setSkills}
                                         workHistoryList={this.state.workHistoryList}
                                         jobPreferenceState={this.state.jobPreferenceState}
                                     />
+                                    {this.state.openDialog && !this.state.user ? <ShowSignUpLogin state={this.state} /> : null}
+                                    </div>
+                                    
                                 )}
+                                
                             </Box>
                             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                 <PrimaryButton
@@ -131,17 +135,26 @@ class CreateResumeStepper extends StepperInitializer {
                                 />
                                 <Box sx={{ flex: '1 1 auto' }} />
 
-                                {this.state.activeStep === this.state.steps.length - 1 ? 
-                                        <Link to={'/resume'}>
-                                            <Button onClick={SendResumeInfo(this.state)}> 
-                                            Finish 
-                                            </Button> 
-                                        </Link> :
-                                        
-                                        <PrimaryButton 
-                                                text={"Next"}
-                                                handleButton={this.handleNext}
-                                            />}
+                                {activeStep !== steps.length - 1 &&
+                                    <PrimaryButton
+                                        text={"Next"}
+                                        handleButton={this.handleNext}
+                                    />
+                                }
+                                {activeStep === steps.length - 1 && this.state.user &&
+                                    <Link to="/resume">
+                                        <PrimaryButton
+                                            text={"Finish"}
+                                            handleButton={this.handleFinish}
+                                        />
+                                    </Link>
+                                }
+                                {activeStep === steps.length - 1 && !this.state.user &&
+                                    <PrimaryButton
+                                        text={"Finish"}
+                                        handleButton={this.handleFinish}
+                                    />
+                                }
                             </Box>
                         </React.Fragment>
                     )}
