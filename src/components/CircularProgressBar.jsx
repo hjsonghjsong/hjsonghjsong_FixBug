@@ -1,29 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import React from "react";
-import { styled } from "@mui/material/styles";
-
-import CircularProgress, {
-  circularProgressClasses,
-} from "@mui/material/CircularProgress";
-import LinearProgress, {
-  linearProgressClasses,
-} from "@mui/material/LinearProgress";
-
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor:
-      theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
-  },
-}));
 
 const CircularProgressBar = ({ score, size, fontSize, rounded }) => {
-  const remainingPercentage = 100 - score;
+  const [progress, setProgress] = React.useState(0);
 
   const scoreStyles = (score) => {
     if (score >= 80) {
@@ -34,6 +13,20 @@ const CircularProgressBar = ({ score, size, fontSize, rounded }) => {
       return "#F04438";
     }
   };
+
+  React.useEffect(() => {
+    if (score) {
+      const timer = setInterval(() => {
+        setProgress((prevProgress) =>
+          prevProgress >= score ? score : prevProgress + 20
+        );
+      }, 30);
+
+      return () => {
+        clearInterval(timer);
+      };
+    }
+  }, [score]);
 
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
@@ -50,8 +43,7 @@ const CircularProgressBar = ({ score, size, fontSize, rounded }) => {
 
       <CircularProgress
         variant="determinate"
-        disableShrink
-        value={score}
+        value={progress}
         size={size}
         thickness={5}
         sx={{

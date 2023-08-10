@@ -11,11 +11,12 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import { Link } from "react-router-dom";
 import Template from "../Templates/Template";
+import useResumeData from "../../hooks/useResumeData";
+import { supabase } from "../../SupabaseCL";
 import useLocalStorage from "use-local-storage";
 import React from "react";
 import { SendResumeInfo } from "../../hooks/util";
 import { useAuth } from "../../Contexts/Auth";
-const score = 80;
 
 const scoreStyles = (score) => {
   if (score >= 80) {
@@ -28,8 +29,10 @@ const scoreStyles = (score) => {
 };
 
 const Resume = () => {
-  const [loginState, _] = useLocalStorage("loginState");
   const { user } = useAuth();
+  const user_id = user?.id;
+  const filesData = useResumeData(user_id);
+  const [loginState, _] = useLocalStorage("loginState");
   
   React.useEffect(() => {
     if (loginState) {
@@ -120,7 +123,11 @@ const Resume = () => {
               </div>
             </div>
             <div className="score-container flex flex-col items-center justify-end gap-4">
-              <CircularProgressBar score={score} size={150} fontSize={22} />
+              <CircularProgressBar
+                score={filesData[5]?.feedback?.overall_score}
+                size={150}
+                fontSize={22}
+              />
               <h1 className="font-semibold">On-Track</h1>
               <Link to="userid/resume/add">
                 <SecondaryButton
@@ -147,7 +154,7 @@ const Resume = () => {
           </div>
           <Divider />
           <Box>
-            <ResumeTable />
+            <ResumeTable filesData={filesData} />
             {/* Resume templates */}
           </Box>
         </div>

@@ -1,13 +1,13 @@
 .analysis-container {
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
-  min-width: 580px;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.11);
   border-radius: 9px;
+  min-width: 510px;
   padding: 16px 32px;
   display: flex;
   border: 2px solid var(--stroke-color, #eaebf0);
 }
 .improvement-container {
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.11);
 
   border-radius: 9px;
   padding: 32px 36px;
@@ -15,11 +15,11 @@
   border: 2px solid var(--stroke-color, #eaebf0);
 }
 .edit-container {
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.11);
   border-radius: 9px;
   padding: 90px;
   display: flex;
-  border: 2px solid var(--stroke-color, #eaebf0);
+  border: 1px solid var(--stroke-color, #eaebf0);
   min-height: 1054px;
   overflow: visible;
   transition: margin 300ms ease-in;
@@ -36,10 +36,8 @@
   font-size: 16px;
 }
 
-.resume-builder textarea {
+.text-field {
   resize: none;
-  text-decoration: inherit;
-  overflow-y: hidden;
   padding: 0px;
   padding-left: 2px;
   vertical-align: top;
@@ -49,7 +47,53 @@
   text-transform: inherit;
   color: inherit;
   border: 1px solid rgba(0, 0, 0, 0);
-  width: 100%;
+  align-items: center;
+  justify-content: center;
   border-radius: 2px;
-  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  height: 28px;
+  outline: none;
+  white-space: nowrap;
+}
+
+.feedback-container {
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.11),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 9px;
+  display: flex;
+
+  border-radius: 4px;
+  /* border: 0.9px solid #eaebf0; */
+  height: 60px;
+  margin: 4px;
+  transition: margin 300ms ease-in;
+  padding: 7px 18px;
+  background: #fff;
+}
+
+.feedback-field {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.11);
+  border-radius: 9px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 9px;
+  border: 0.9px solid #eaebf0;
+
+  overflow: visible;
+  transition: margin 300ms ease-in;
+  padding: 14px 18px 0px 18px;
+  align-self: stretch;
+  background: #fff;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 200px;
+  overflow: hidden;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+}
+
+.feedback-field.open {
+  max-height: 200px;
 }

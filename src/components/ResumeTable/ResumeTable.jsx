@@ -7,15 +7,15 @@ import {
   TableHead,
   TableRow,
   IconButton,
+  Link,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import CircularProgressBar from "../CircularProgressBar";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import DownloadIcon from "@mui/icons-material/Download";
-import { useAuth } from "../../Contexts/Auth";
-import { supabase } from "../../SupabaseCL";
+
+import { useNavigate } from "react-router-dom";
 
 const scoreStyles = (score) => {
   if (score >= 80) {
@@ -37,47 +37,11 @@ const cellStyles = (score) => {
   }
 };
 
-const ResumeTable = () => {
-  const { user } = useAuth();
-  const user_id = user?.id;
-  const [filesData, setFilesData] = useState([]);
-  console.log(filesData);
+const ResumeTable = ({ filesData }) => {
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserResumes = async () => {
-      try {
-        if (!user_id) {
-          return;
-        }
-
-        const { data, error } = await supabase
-          .from("resumes")
-          .select("*")
-          .eq("user_id", user_id);
-
-        if (error) {
-          throw error;
-        }
-
-        if (data && data.length > 0) {
-          setFormattedDates(data);
-        }
-      } catch (error) {
-        console.error("Error fetching user resumes:", error);
-      }
-    };
-
-    fetchUserResumes();
-  }, [user_id]);
-
-  const setFormattedDates = (data) => {
-    const updatedData = data.map((resume) => ({
-      ...resume,
-      created_at: new Date(resume.created_at).toLocaleDateString(),
-      edited_at: new Date(resume.edited_at).toLocaleDateString(),
-    }));
-
-    setFilesData(updatedData);
+  const handleEditClick = (file) => {
+    navigate(`/resume/edit?id=${file.id}`, { state: { file } });
   };
 
   return (
@@ -129,9 +93,9 @@ const ResumeTable = () => {
               </TableCell>
               <TableCell>
                 <CircularProgressBar
-                  score={file.score}
+                  score={file?.feedback?.overall_score}
                   size={40}
-                  fontSize={10}
+                  fontSize={12}
                   rounded={true}
                 />
               </TableCell>
@@ -150,7 +114,8 @@ const ResumeTable = () => {
                 <IconButton>
                   <RemoveRedEyeRoundedIcon fontSize="small" />
                 </IconButton>
-                <IconButton>
+
+                <IconButton onClick={() => handleEditClick(file)}>
                   <EditRoundedIcon fontSize="small" />
                 </IconButton>
 
