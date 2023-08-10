@@ -1,7 +1,7 @@
 .analysis-container {
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.11);
   border-radius: 9px;
-  min-width: 580px;
+  min-width: 510px;
   padding: 16px 32px;
   display: flex;
   border: 2px solid var(--stroke-color, #eaebf0);
@@ -65,7 +65,7 @@
 
   border-radius: 4px;
   /* border: 0.9px solid #eaebf0; */
-  height: 80px;
+  height: 60px;
   margin: 4px;
   transition: margin 300ms ease-in;
   padding: 7px 18px;
@@ -95,5 +95,5 @@
 }
 
 .feedback-field.open {
-  max-height: 200px; /* Set the desired maximum height */
+  max-height: 200px;
 }

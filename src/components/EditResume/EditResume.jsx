@@ -53,7 +53,7 @@ const EditResume = () => {
                       lineHeight: "normal",
                     }}
                   >
-                    Needs Work
+                    On-Track
                   </Typography>
                 </div>
                 <div className="flex gap-2 justify-center items-center">
@@ -65,7 +65,7 @@ const EditResume = () => {
                       lineHeight: "normal",
                     }}
                   >
-                    Needs Work
+                    On-Target
                   </Typography>
                 </div>
               </div>
@@ -74,7 +74,7 @@ const EditResume = () => {
             <div className="flex justify-center items-center">
               <CircularProgressBar
                 score={feedback.overall_score}
-                size={120}
+                size={100}
                 fontSize={22}
               />
             </div>

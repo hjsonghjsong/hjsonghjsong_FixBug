@@ -21,18 +21,34 @@ const scoreStyles = (score) => {
 
 const ScoreCard = ({ feedback }) => {
   const scoreList = [
-    { id: "format", name: "Format" },
-    { id: "soft_skills", name: "Soft Skills" },
-    { id: "bullet_points", name: "Bullet Points" },
-    { id: "skills", name: "Skills" },
+    { id: "Soft_Skills", name: "Soft Skills" },
+    { id: "Impact", name: "Impact" },
+    { id: "Format", name: "Format" },
+
+    // { id: "Skills", name: "Skills" },
   ];
 
+  // const formatList = [
+  //   "Education",
+  //   "Date Format",
+  //   "Number of Pages",
+  //   "Contact",
+  //   "Experience Fomrat",
+  //   "Essential Sections",
+  // ];
+  // const softSkills = [
+  //   "Analytical",
+  //   "Leadership",
+  //   "Communication",
+  //   "Teamwork",
+  //   "Initiative",
+  // ];
+
   // Check if feedback is null, and set a default value if it is
-  const initialActiveSection = feedback ? feedback.format : {};
-  const [openSection, setOpenSection] = useState(null);
+  const initialActiveSection = feedback ? feedback.Format : {};
+
   const [activeSection, setActiveSection] =
     React.useState(initialActiveSection);
-  console.log(feedback);
 
   const handleActiveSection = (section) => {
     setActiveSection(section);
@@ -87,8 +103,8 @@ const ScoreCard = ({ feedback }) => {
         ))}
       </List>
 
-      {activeSection.sections &&
-        Object.entries(activeSection.sections).map(
+      {activeSection?.items &&
+        Object.entries(activeSection?.items).map(
           ([sectionName, sectionData]) => (
             <FeedBack
               key={sectionName}

@@ -95,7 +95,7 @@ const ResumeTable = ({ filesData }) => {
                 <CircularProgressBar
                   score={file?.feedback?.overall_score}
                   size={40}
-                  fontSize={10}
+                  fontSize={12}
                   rounded={true}
                 />
               </TableCell>
