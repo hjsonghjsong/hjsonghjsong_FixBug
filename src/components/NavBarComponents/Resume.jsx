@@ -11,7 +11,10 @@ import PrimaryButton from "../Buttons/PrimaryButton";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import { Link } from "react-router-dom";
 import Template from "../Templates/Template";
-
+import useLocalStorage from "use-local-storage";
+import React from "react";
+import { SendResumeInfo } from "../../hooks/util";
+import { useAuth } from "../../Contexts/Auth";
 const score = 80;
 
 const scoreStyles = (score) => {
@@ -25,6 +28,17 @@ const scoreStyles = (score) => {
 };
 
 const Resume = () => {
+  const [loginState, _] = useLocalStorage("loginState");
+  const { user } = useAuth();
+  
+  React.useEffect(() => {
+    if (loginState) {
+      loginState.user = user;
+      SendResumeInfo(loginState);
+      localStorage.removeItem("loginState");
+    }
+  }, [loginState]);
+
   return (
     <main className="flex flex-grow flex-col items-center justify-center gap-10">
       <div className="main-box flex flex-col justify-center gap-8 py-3">

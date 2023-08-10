@@ -11,10 +11,11 @@ import PrimaryButton from '../../Buttons/PrimaryButton';
 function StepperGeneration(props) {
 
     const [loading, setLoading] = React.useState(false);
-    const [suggestedList, setSuggestedList] = React.useState([]);
-
     const { input, historyList, setHistoryList, elongateStepper, bulletPointContext } = props;
     const index = parseInt(input.charAt(input.length - 1));
+    
+    const [suggestedList, setSuggestedList] = React.useState(historyList[index].generatedContent);
+    
     const handleChange = (event) => {
         setHistoryList(historyList.map((item, i) => i === index ? { ...item, [event.target.name]: event.target.value } : item));
     }
@@ -22,7 +23,8 @@ function StepperGeneration(props) {
     const handleSuggestPoints = () => {
         setLoading(true);
         fetchBulletPoint(historyList[index], bulletPointContext).then((res) => {
-            setSuggestedList(res.bullet_points.concat(suggestedList));
+            setHistoryList(historyList.map((item, i) => i === index ? { ...item, generatedContent: res.bullet_points } : item));
+            setSuggestedList([...suggestedList, ...res.bullet_points]);
             setLoading(false);
         }).catch((err) => {
             console.log(err);
@@ -56,8 +58,9 @@ function StepperGeneration(props) {
                 <RenderGeneratedList
                     index={index}
                     historyList={historyList}
-                    setHistoryList={setHistoryList}
+                    setHistoryList={setHistoryList} 
                     suggestedList={suggestedList}
+                    className="my-4"
             />
             
             <Box sx={{ display: 'flex', flexGrow: 1}}>

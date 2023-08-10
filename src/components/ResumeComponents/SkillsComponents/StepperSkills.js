@@ -35,7 +35,6 @@ function StepperSkills(props) {
                     margin="dense"
                     label='Skills'
                     type="text"
-                    multiline
                     value={skills[0].helperText}
                     name='helperText'
                     onChange={handleChange}

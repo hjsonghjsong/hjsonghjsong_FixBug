@@ -24,9 +24,21 @@ const deleteResumesFromSupabase = async (resumeId) => {
   const { error } = await supabase.from("resumes").delete().eq("id", resumeId);
 };
 
+const sendResumeFeedback = async (feedback, resumeId) => {
+  const { data, error } = await supabase
+      .from("resumes")
+      .update({
+        feedback: feedback,
+      }).eq("id", resumeId)
+      .select();
+  console.log(data, error);
+};
+
+
 export {
   supabase,
   sendResumeInfoToSupabase,
   sendExperienceInfoToSupabase,
   deleteResumesFromSupabase,
+  sendResumeFeedback
 };
