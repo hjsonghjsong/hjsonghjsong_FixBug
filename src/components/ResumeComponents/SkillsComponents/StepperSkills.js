@@ -10,6 +10,7 @@ import PrimaryButton from '../../Buttons/PrimaryButton';
 function StepperSkills(props) {
     
     const [loading, setLoading] = React.useState(false);
+    const [suggestedList, setSuggestedList] = React.useState([]);
     const {skills, setSkills, workHistoryList} = props;
     
     
@@ -20,7 +21,7 @@ function StepperSkills(props) {
     const handleSuggestPoints = () => {
         setLoading(true);
         fetchSkills(workHistoryList, skills).then((res) => {
-            setSkills([{...skills, generatedContent: res.relevant_skills}]);
+            setSuggestedList([{...skills, generatedContent: res.relevant_skills}]);
             setLoading(false);
         }).catch((err) => {
             console.log(err);
