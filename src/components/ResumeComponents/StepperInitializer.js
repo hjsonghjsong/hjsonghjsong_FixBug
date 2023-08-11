@@ -6,6 +6,8 @@ import WorkHistory from '../../models/WorkHistory';
 import Generation from '../../models/Generation';
 import ProjectHistory from '../../models/ProjectHistory';
 import Steps from '../../models/Steps';
+import { SendResumeInfo } from '../../hooks/util';
+import { evaluateResume } from '../../hooks/evaluateResume';
 class StepperInitializer extends React.Component{
     constructor(props){
         super(props);
@@ -27,10 +29,12 @@ class StepperInitializer extends React.Component{
             projectHistoryList: [projectHistoryInitialState.getState],
             skills: [generationInitialState.getState],
             steps: stepsInitialState.getState,
-            user: {}
+            user: {},
+            openDialog: false,
         };
 
         this.handleNext = this.handleNext.bind(this);
+        this.handleFinish = this.handleFinish.bind(this);
         this.handleBack = this.handleBack.bind(this);
         this.handleReset = this.handleReset.bind(this);
         this.setActiveStep = this.setActiveStep.bind(this);
@@ -43,7 +47,8 @@ class StepperInitializer extends React.Component{
         this.setSkills = this.setSkills.bind(this);
         this.elongateStepper = this.elongateStepper.bind(this);
         this.setSteps = this.setSteps.bind(this);
-
+        this.setUser = this.setUser.bind(this);
+        this.setOpenDialog = this.setOpenDialog.bind(this);
     }
 
     elongateStepper = (type) => (event) =>{
@@ -62,7 +67,20 @@ class StepperInitializer extends React.Component{
     }
 
     handleNext = () => {
+        this.setWorkHistoryList(Object.values(this.state.workHistoryList)); // dirty fix for bug in new stepper generation, converting obj of obj to array of obj
+        this.setProjectHistoryList(Object.values(this.state.projectHistoryList)); // dirty fix for bug in new stepper generation, converting obj of obj to array of obj
         this.setActiveStep(this.state.activeStep + 1);
+    }
+
+    handleFinish = async () => {
+        if(this.state.user){
+            const resumeId = await SendResumeInfo(this.state);
+            console.log("Evaluate Resume not working....");
+            // await evaluateResume(this.state, resumeId);
+        }
+        else{
+            this.setOpenDialog(!this.state.openDialog);
+        }
     }
 
     handleBack = () => {
@@ -116,6 +134,10 @@ class StepperInitializer extends React.Component{
     setUser = (user) => {
         this.setState({user: user});
     }
+    setOpenDialog = (openDialog) => {
+        this.setState({openDialog: openDialog});
+    }
+
 }
 
 export default StepperInitializer;

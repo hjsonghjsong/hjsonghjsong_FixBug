@@ -88,7 +88,7 @@ export function AuthProvider({ children }) {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: "http://localhost:3000/resume",
+          redirectTo: "https://argus-resume-gen.vercel.app/resume",
         },
       });
       // if (error) throw error;

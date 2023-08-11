@@ -12,8 +12,11 @@ import SecondaryButton from "../Buttons/SecondaryButton";
 import { Link } from "react-router-dom";
 import Template from "../Templates/Template";
 import useResumeData from "../../hooks/useResumeData";
-import { useAuth } from "../../Contexts/Auth";
 import { supabase } from "../../SupabaseCL";
+import useLocalStorage from "use-local-storage";
+import React from "react";
+import { SendResumeInfo } from "../../hooks/util";
+import { useAuth } from "../../Contexts/Auth";
 
 const scoreStyles = (score) => {
   if (score >= 80) {
@@ -29,6 +32,15 @@ const Resume = () => {
   const { user } = useAuth();
   const user_id = user?.id;
   const filesData = useResumeData(user_id);
+  const [loginState, _] = useLocalStorage("loginState");
+  
+  React.useEffect(() => {
+    if (loginState) {
+      loginState.user = user;
+      SendResumeInfo(loginState);
+      localStorage.removeItem("loginState");
+    }
+  }, [loginState]);
 
   return (
     <main className="flex flex-grow flex-col items-center justify-center gap-10">

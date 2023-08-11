@@ -40,12 +40,13 @@ const createExperiencePayload = (resumeId, experiencePayload, state, context) =>
 
 };
 
-export const SendResumeInfo = (state) => async (event) =>{
-    let experiencePayload = [];
-    const resumePayload = createResumePayload(state);
-    const resumeId = await sendResumeInfoToSupabase(resumePayload);
-    experiencePayload = createExperiencePayload(resumeId, experiencePayload, state, 'Work Experience');
-    experiencePayload = createExperiencePayload(resumeId, experiencePayload, state, 'Project');
-    await sendExperienceInfoToSupabase(experiencePayload);
+export const SendResumeInfo = async (state) => {
+        let experiencePayload = [];
+        const resumePayload = createResumePayload(state);
+        const resumeId = await sendResumeInfoToSupabase(resumePayload);
+        experiencePayload = createExperiencePayload(resumeId, experiencePayload, state, 'Work Experience');
+        experiencePayload = createExperiencePayload(resumeId, experiencePayload, state, 'Project');
+        await sendExperienceInfoToSupabase(experiencePayload);
+        return resumeId;
 
 };

@@ -21,6 +21,7 @@ import MobileSignUp from "./MobileSignUp";
 import CloseIcon from "@mui/icons-material/Close";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import PrimaryButton from "../Buttons/PrimaryButton";
+import WebSignUp from "./WebSignUp";
 
 function SignUp(props) {
   const [firstName, setFirstName] = useState("");
@@ -136,93 +137,26 @@ function SignUp(props) {
           handleMouseDownPassword={handleMouseDownPassword}
         />
 
-        <Box
-          sx={{
-            display: { xs: "none", md: "flex" },
-            flexdirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <TextField
-            autoFocus
-            margin="dense"
-            label="First Name"
-            type="text"
-            value={firstName}
-            onChange={handleFirstNameChange}
-            fullWidth
-            sx={{ mr: 1 }}
-          />
-          <TextField
-            margin="dense"
-            label="Last Name"
-            type="text"
-            value={lastName}
-            onChange={handleLastNameChange}
-            fullWidth
-            sx={{ ml: 1 }}
-          />
-        </Box>
+        <WebSignUp
+          firstName={firstName}
+          lastName={lastName}
+          handleFirstNameChange={handleFirstNameChange}
+          handleLastNameChange={handleLastNameChange}
+          email={email}
+          handleEmailChange={handleEmailChange}
+          phone={phone}
+          handlePhoneInput={handlePhoneInput}
+          password={password}
+          handlePasswordChange={handlePasswordChange}
+          showPassword={showPassword}
+          handleClickShowPassword={handleClickShowPassword}
+          handleMouseDownPassword={handleMouseDownPassword}
+          passError={passError}
+          phError={phError}
 
-        <TextField
-          margin="dense"
-          label="Email Address"
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-          fullWidth
-          sx={{ display: { xs: "none", md: "flex" } }}
         />
-        <Box
-          sx={{
-            display: { xs: "none", md: "flex" },
-            flexdirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <TextField
-            margin="dense"
-            label="Phone number"
-            type="tel"
-            inputMode="tel"
-            name="phone"
-            value={phone}
-            onChange={handlePhoneInput}
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            placeholder="xxx-xxx-xxxx"
-            sx={{ mr: 1 }}
-            fullWidth
-            error={phError}
-            helperText={phError ? "Enter a valid phone number" : ""}
-          />
-          <TextField
-            margin="dense"
-            placeholder="Password"
-            label="Password"
-            name="Password"
-            value={password}
-            type={showPassword ? "text" : "password"}
-            sx={{ ml: 1 }}
-            fullWidth
-            onChange={handlePasswordChange}
-            error={passError}
-            helperText={passError ? "Minimum-8 characters" : ""}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
+         
+        
         {success ? (
           <div className="relative rounded-md border border-c py-4 px-6 flex space-x-4 items-center w-full bg-[#e9fcf2] verify-box mt-8">
             <div class=" text-[#3fcf8e]">
