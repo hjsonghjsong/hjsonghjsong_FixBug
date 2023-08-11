@@ -21,9 +21,9 @@ const scoreStyles = (score) => {
 
 const ScoreCard = ({ feedback }) => {
   const scoreList = [
+    { id: "Format", name: "Format" },
     { id: "Soft_Skills", name: "Soft Skills" },
     { id: "Impact", name: "Impact" },
-    { id: "Format", name: "Format" },
 
     // { id: "Skills", name: "Skills" },
   ];
@@ -45,7 +45,8 @@ const ScoreCard = ({ feedback }) => {
   // ];
 
   // Check if feedback is null, and set a default value if it is
-  const initialActiveSection = feedback ? feedback.Format : {};
+  const initialActiveSection =
+    feedback && feedback.Format ? feedback.Format : {};
 
   const [activeSection, setActiveSection] =
     React.useState(initialActiveSection);
@@ -72,10 +73,10 @@ const ScoreCard = ({ feedback }) => {
               }}
             >
               <ListItemButton
-                onClick={() => handleActiveSection(feedback[item?.id])}
+                onClick={() => handleActiveSection(feedback?.[item?.id])}
                 sx={{
                   backgroundColor:
-                    activeSection === feedback[item?.id] ? "#ebedf0" : "",
+                    activeSection === feedback?.[item?.id] ? "#ebedf0" : "",
                 }}
               >
                 <Typography
@@ -84,10 +85,10 @@ const ScoreCard = ({ feedback }) => {
                     fontWeight: "700",
                     lineHeight: "normal",
                     fontFamily: "inter",
-                    color: scoreStyles(feedback[item?.id]?.score),
+                    color: scoreStyles(feedback?.[item?.id]?.score),
                   }}
                 >
-                  {feedback[item?.id]?.score}
+                  {feedback?.[item?.id]?.score}
                 </Typography>
               </ListItemButton>
               <ListItemText sx={{ color: "#5E6C7D" }} primary={item?.name} />
