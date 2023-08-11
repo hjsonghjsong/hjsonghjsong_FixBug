@@ -18,7 +18,7 @@ const RenderSocialList = (props) => {
 
   return (
     <Box>
-      {personalDetail?.socialList.map((value, key) => (
+      {personalDetail?.socialList?.map((value, key) => (
         <Box key={key} sx={{ display: "flex" }}>
           <Box
             width="100%"

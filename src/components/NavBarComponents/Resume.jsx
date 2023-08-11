@@ -14,7 +14,7 @@ import Template from "../Templates/Template";
 import useResumeData from "../../hooks/useResumeData";
 import { supabase } from "../../SupabaseCL";
 import useLocalStorage from "use-local-storage";
-import React from "react";
+import React, { useEffect } from "react";
 import { SendResumeInfo } from "../../hooks/util";
 import { useAuth } from "../../Contexts/Auth";
 
@@ -32,15 +32,19 @@ const Resume = () => {
   const { user } = useAuth();
   const user_id = user?.id;
   const filesData = useResumeData(user_id);
-  const [loginState, _] = useLocalStorage("loginState");
-  
-  React.useEffect(() => {
+  const [loginState, setLoginState] = React.useState(null);
+
+  useEffect(() => {
     if (loginState) {
       loginState.user = user;
       SendResumeInfo(loginState);
       localStorage.removeItem("loginState");
     }
-  }, [loginState]);
+  }, [loginState, user]);
+
+  const handleLoginState = (state) => {
+    setLoginState(state);
+  };
 
   return (
     <main className="flex flex-grow flex-col items-center justify-center gap-10">
