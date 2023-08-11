@@ -39,6 +39,9 @@ export const theme = createTheme({
           "& .MuiInputLabel-root.Mui-focused": {
             color: "black",
           },
+          "& .custom-datepicker-input": {
+            padding: 0,
+          },
         },
       },
     },
@@ -46,6 +49,23 @@ export const theme = createTheme({
       styleOverrides: {
         contained: {
           backgroundColor: "black",
+        },
+      },
+    },
+
+    MobileDatePicker: {
+      styleOverrides: {
+        root: {
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+            {
+              borderColor: "red",
+            },
+          "& .MuiInputLabel-root.Mui-focused": {
+            color: "red",
+          },
+          "& .MuiOutlinedInput-input": {
+            padding: "0px",
+          },
         },
       },
     },

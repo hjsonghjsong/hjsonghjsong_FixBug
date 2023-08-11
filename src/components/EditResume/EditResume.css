@@ -8,7 +8,6 @@
 }
 .improvement-container {
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.11);
-
   border-radius: 9px;
   padding: 32px 36px;
   display: flex;
@@ -36,25 +35,42 @@
   font-size: 16px;
 }
 
-.text-field {
+textarea {
   resize: none;
   padding: 0px;
-  padding-left: 2px;
   vertical-align: top;
   margin-bottom: 0px;
   background: inherit;
   transition: background-color 100ms ease-in;
   text-transform: inherit;
   color: inherit;
-  border: 1px solid rgba(0, 0, 0, 0);
   align-items: center;
   justify-content: center;
   border-radius: 2px;
   display: inline-block;
   overflow: hidden;
   height: 28px;
-  outline: none;
   white-space: nowrap;
+  font-size: 16px;
+}
+
+input {
+  resize: none;
+  padding: 0px;
+  vertical-align: top;
+  margin-bottom: 0px;
+  background: inherit;
+  transition: background-color 100ms ease-in;
+  text-transform: inherit;
+  color: inherit;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  display: inline-block;
+  overflow: hidden;
+  height: 28px;
+  white-space: nowrap;
+  font-size: 16px;
 }
 
 .feedback-container {
@@ -96,4 +112,29 @@
 
 .feedback-field.open {
   max-height: 200px;
+}
+
+.field-textarea {
+  resize: none;
+  text-decoration: inherit;
+  overflow-y: hidden;
+  padding: 0px;
+  padding-left: 2px;
+  vertical-align: top;
+  margin-bottom: 0px;
+  background: inherit;
+  transition: background-color 100ms ease-in;
+  text-transform: inherit;
+  color: inherit;
+  border: 1px solid rgba(0, 0, 0, 0);
+  width: 100%;
+  border-radius: 2px;
+  outline: none;
+  text-align: inherit;
+  resize: none;
+}
+.personal-entity {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
 }

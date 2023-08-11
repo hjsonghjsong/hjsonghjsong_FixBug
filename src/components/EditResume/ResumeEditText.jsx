@@ -7,10 +7,15 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker/";
 import { useAuth } from "../../Contexts/Auth";
+import EducationSections from "./EducationSections";
+import CustomTextArea from "../CustomTextArea";
+import DynamicWidthInput from "../DynamicWidthInput";
+import ExperienceField from "./ExperienceField";
 
 const ResumeEditText = () => {
   const { user } = useAuth();
-  const [fullName, setFullName] = useState(user?.user_metadata.display_name);
+  const [fullName, setFullName] = useState(user?.user_metadata?.display_name);
+  const [address, setAddress] = useState("SF, CA");
   const [contactNumber, setContactNumber] = useState(
     user?.user_metadata?.phone
   );
@@ -31,95 +36,61 @@ const ResumeEditText = () => {
           id="personals-details-container"
           className="flex flex-wrap justify-center items-center gap-1"
         >
-          <textarea
-            className="h-6 flex justify-center items-center w-full text-center font-semibold text-lg text-field"
-            id="personal-details-name"
-            placeholder="Full Name"
-            maxLength={60}
-            spellCheck={false}
+          <DynamicWidthInput
+            placeholder="Full name"
+            name="fullname"
             value={fullName}
             onChange={handleChange}
-            name="fullname"
-          ></textarea>
-          <div className="w-full"></div>
-          <textarea
-            className="h-6 flex justify-center items-center text-center text-field"
-            id="personal-details-name"
-            placeholder="City, State"
-          ></textarea>
+            className="text-center w-full"
+          />
 
-          <div className="w-full"></div>
-          <TextField></TextField>
-          <textarea
-            className="text-field"
-            id="personal-details-name"
-            placeholder="Email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            tabIndex={4}
-            maxLength={60}
-          ></textarea>
-          <div className="mx-2">|</div>
-          <textarea
-            className="h-6 flex justify-center items-center text-field"
-            id="personal-details-name"
-            placeholder="Contact"
-          ></textarea>
-          <div className="mx-2">|</div>
-          <textarea
-            className="h-6 flex justify-center items-center text-field"
-            id="personal-details-name"
-            placeholder="Social Links"
-            maxLength={60}
-          ></textarea>
-          <div className="mx-2">|</div>
-          <textarea
-            className="h-6 flex justify-center items-center text-field"
-            id="personal-details-name"
-            placeholder="Social Links"
-            maxLength={60}
-          ></textarea>
-        </div>
-        <div id="education-information" className="gap-3 flex flex-col">
-          <div className="w-full p-1 bg-slate-300 rounded-sm">
-            <span className="w-full font-semibold text-lg px-2">Education</span>
+          <div className="w-full flex justify-center items-center">
+            <DynamicWidthInput
+              placeholder="Contact"
+              name="contact"
+              value={contactNumber}
+              onChange={handleChange}
+              className="text-right w-full"
+            />
+            <div className="mx-2">|</div>
+            <DynamicWidthInput
+              placeholder="Email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              className="text-left w-full"
+            />
           </div>
 
-          <div className="w-full flex">
-            <textarea
-              className="h-6 flex justify-center items-center text-field"
-              id="personal-details-name"
-              placeholder="Graduation School"
-            ></textarea>
-            <textarea
-              className="h-6 flex justify-center items-center text-right text-field"
-              id="personal-details-name"
-              placeholder="Location"
-            ></textarea>
+          <div className="w-full flex flex-wrap justify-center items-center">
+            <DynamicWidthInput
+              placeholder="Email"
+              name="address"
+              value={address}
+              onChange={handleChange}
+              className="text-center"
+            />
           </div>
-          {/* Grad */}
-          <div className="w-full flex justify-between">
-            <textarea
-              className="h-6 flex justify-center items-center"
-              id="personal-details-name"
-              placeholder="Degree"
-            ></textarea>
-            <textarea
-              className="h-6 flex justify-center items-center text-left"
-              id="personal-details-name"
-              placeholder="Major"
-            ></textarea>
-            <div>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  views={["month", "year"]}
-                  sx={{ minWidth: "200px", fontSize: "18px" }}
-                />
-              </LocalizationProvider>
-            </div>
+
+          {/* Social Links */}
+          <div className="w-full flex justify-center items-center">
+            <DynamicWidthInput
+              placeholder="Github"
+              name="github"
+              onChange={handleChange}
+              className="text-right"
+            />
+            <div className="mx-2">|</div>
+            <DynamicWidthInput
+              placeholder="LinkedIn"
+              name="linkedin"
+              onChange={handleChange}
+              className="text-left"
+            />
           </div>
         </div>
+        <EducationSections />
+        <ExperienceField />
       </div>
     </div>
   );

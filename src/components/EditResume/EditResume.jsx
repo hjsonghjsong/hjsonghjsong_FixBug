@@ -73,9 +73,7 @@ const EditResume = () => {
 
             <div className="flex justify-center items-center">
               <CircularProgressBar
-
                 score={feedback?.overall_score}
-
                 size={100}
                 fontSize={22}
               />

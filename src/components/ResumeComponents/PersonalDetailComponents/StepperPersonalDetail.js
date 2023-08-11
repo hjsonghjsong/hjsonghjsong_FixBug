@@ -34,7 +34,7 @@ function StepperPersonalDetail(props) {
           margin="dense"
           label="First Name"
           type="text"
-          value={personalDetail.firstName}
+          value={personalDetail?.firstName}
           name="firstName"
           onChange={handleChange}
           fullWidth
@@ -43,7 +43,7 @@ function StepperPersonalDetail(props) {
           margin="dense"
           label="Last Name"
           type="text"
-          value={personalDetail.lastName}
+          value={personalDetail?.lastName}
           name="lastName"
           onChange={handleChange}
           fullWidth
@@ -61,7 +61,7 @@ function StepperPersonalDetail(props) {
           margin="dense"
           label="Email Address"
           type="text"
-          value={personalDetail.email}
+          value={personalDetail?.email}
           name="email"
           onChange={handleChange}
           fullWidth
@@ -70,7 +70,7 @@ function StepperPersonalDetail(props) {
           margin="dense"
           label="Phone Number"
           type="text"
-          value={personalDetail.phone}
+          value={personalDetail?.phone}
           name="phone"
           onChange={handleChange}
           fullWidth
@@ -89,7 +89,7 @@ function StepperPersonalDetail(props) {
             margin="dense"
             label="City"
             type="text"
-            value={personalDetail.city}
+            value={personalDetail?.city}
             name="city"
             onChange={handleChange}
             fullWidth
@@ -100,7 +100,7 @@ function StepperPersonalDetail(props) {
             margin="dense"
             label="State/Province"
             type="text"
-            value={personalDetail.state}
+            value={personalDetail?.state}
             name="state"
             onChange={handleChange}
             fullWidth
@@ -111,7 +111,7 @@ function StepperPersonalDetail(props) {
             margin="dense"
             label="Zip Code"
             type="text"
-            value={personalDetail.zip}
+            value={personalDetail?.zip}
             name="zip"
             onChange={handleChange}
             fullWidth
