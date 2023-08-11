@@ -122,7 +122,9 @@ const FeedBack = ({ sectionName, sectionData }) => {
         {sectionData?.length === "short" ? (
           <ListItem>
             <Typography sx={{ color: "#F04438" }}>
-              Resume is currently too short
+
+              Resume is currently too short. It should be 1.5 page.
+
             </Typography>
           </ListItem>
         ) : null}

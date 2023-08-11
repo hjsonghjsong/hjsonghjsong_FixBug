@@ -58,19 +58,19 @@ const ResumeTable = ({ filesData }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {filesData.map((file, index) => (
+          {filesData?.map((file, index) => (
             <TableRow hover key={index}>
-              <TableCell>{file.id}</TableCell>
+              <TableCell>{file?.id}</TableCell>
 
               <TableCell
                 sx={{
-                  color: scoreStyles(file.score),
+                  color: scoreStyles(file?.score),
                   fontWeight: "600",
                 }}
               >
                 <Box
                   sx={{
-                    backgroundColor: cellStyles(file.score),
+                    backgroundColor: cellStyles(file?.score),
                     display: "inline-flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -83,12 +83,12 @@ const ResumeTable = ({ filesData }) => {
                       width: "10px",
                       height: "10px",
                       borderRadius: "50%",
-                      backgroundColor: scoreStyles(file.score),
+                      backgroundColor: scoreStyles(file?.score),
                       marginRight: "8px",
                       display: "inline-block",
                     }}
                   />
-                  {file.status}
+                  {file?.status}
                 </Box>
               </TableCell>
               <TableCell>
@@ -102,13 +102,13 @@ const ResumeTable = ({ filesData }) => {
               <TableCell
                 sx={{ color: "#858C95", fontWeight: "400", fontSize: "14px" }}
               >
-                {file.created_at}
+                {file?.created_at}
               </TableCell>
 
               <TableCell
                 sx={{ color: "#858C95", fontWeight: "400", fontSize: "14px" }}
               >
-                {file.edited_at}
+                {file?.edited_at}
               </TableCell>
               <TableCell>
                 <IconButton>
