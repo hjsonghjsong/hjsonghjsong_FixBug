@@ -79,7 +79,7 @@ const FeedBack = ({ sectionName, sectionData }) => {
 
     date_format: (
       <List>
-        {sectionData?.date_format === "wrong" ? (
+        {sectionData?.date_format === "Wrong" ? (
           <ListItem>
             <Typography sx={{ color: "#F04438" }}>Wrong Date Format</Typography>
           </ListItem>
