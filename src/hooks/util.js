@@ -8,6 +8,7 @@ const createResumePayload = (state) => {
     user_id: state?.user?.id,
     job_desc: state?.jobPreferenceState.jobTitle,
     skills: state?.skills[0].generatedContent,
+    feedback: state?.feedback
   };
 };
 

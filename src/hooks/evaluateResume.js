@@ -59,7 +59,7 @@ const evaluateBulletPoints = async (workHistoryList, projectHistoryList, jobTitl
     return response.data;
 }
 
-const evaluateEntireResume = async (state) => {
+export const evaluateEntireResume = async (state) => {
     const payload = {
         "full_name": state.personalDetailState.firstName + ' ' + state.personalDetailState.lastName,
         "contact": [state.personalDetailState.email, state.personalDetailState.phone],
