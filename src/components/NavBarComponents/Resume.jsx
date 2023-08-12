@@ -126,7 +126,7 @@ const Resume = () => {
             </div>
             <div className="score-container flex flex-col items-center justify-end gap-4">
               <CircularProgressBar
-                score={mostRecentResume?.feedback?.overall_score}
+                score={mostRecentResume?.feedback?.score}
                 size={150}
                 fontSize={22}
               />
