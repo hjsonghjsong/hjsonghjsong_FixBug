@@ -37,6 +37,13 @@ const Resume = () => {
     }
   }, [loginState]);
 
+  const mostRecentResume = filesData.reduce((prevResume, currentResume) => {
+    if (!prevResume || currentResume.created_at > prevResume.created_at) {
+      return currentResume;
+    }
+    return prevResume;
+  }, null);
+
   return (
     <main className="flex flex-grow flex-col items-center justify-center gap-10">
       <div className="main-box flex flex-col justify-center gap-8 py-3">
@@ -119,7 +126,7 @@ const Resume = () => {
             </div>
             <div className="score-container flex flex-col items-center justify-end gap-4">
               <CircularProgressBar
-                score={filesData[5]?.feedback?.overall_score}
+                score={mostRecentResume?.feedback?.overall_score}
                 size={150}
                 fontSize={22}
               />

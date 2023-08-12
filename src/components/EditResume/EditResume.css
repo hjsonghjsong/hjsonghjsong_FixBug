@@ -1,7 +1,7 @@
 .analysis-container {
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.11);
   border-radius: 9px;
-  min-width: 510px;
+  min-width: 520px;
   padding: 16px 32px;
   display: flex;
   border: 2px solid var(--stroke-color, #eaebf0);
@@ -21,7 +21,7 @@
   border: 1px solid var(--stroke-color, #eaebf0);
   min-height: 1054px;
   transition: margin 300ms ease-in;
-  max-width: 918px;
+  max-width: 920px;
 }
 
 .suggestions-container {

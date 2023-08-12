@@ -16,6 +16,7 @@ import RemoveRedEyeRoundedIcon from "@mui/icons-material/RemoveRedEyeRounded";
 import DownloadIcon from "@mui/icons-material/Download";
 
 import { useNavigate } from "react-router-dom";
+import { width } from "@mui/system";
 
 const scoreStyles = (score) => {
   if (score >= 80) {
@@ -34,6 +35,16 @@ const cellStyles = (score) => {
     return "#FFFAF2";
   } else if (score < 50) {
     return "#FFEFEE";
+  }
+};
+
+const status = (score) => {
+  if (score >= 80) {
+    return "On-Target";
+  } else if (score < 80 && score >= 50) {
+    return "On-Track";
+  } else if (score < 50) {
+    return "Needs Work";
   }
 };
 
@@ -66,16 +77,18 @@ const ResumeTable = ({ filesData }) => {
                 sx={{
                   color: scoreStyles(file?.score),
                   fontWeight: "600",
+                  padding: "0px",
                 }}
               >
                 <Box
                   sx={{
-                    backgroundColor: cellStyles(file?.score),
+                    backgroundColor: cellStyles(file?.feedback?.overall_score),
                     display: "inline-flex",
-                    justifyContent: "center",
+                    justifyContent: "start",
                     alignItems: "center",
                     padding: "4px 10px",
                     borderRadius: "128px",
+                    width: "110px",
                   }}
                 >
                   <div
@@ -83,12 +96,14 @@ const ResumeTable = ({ filesData }) => {
                       width: "10px",
                       height: "10px",
                       borderRadius: "50%",
-                      backgroundColor: scoreStyles(file?.score),
+                      backgroundColor: scoreStyles(
+                        file?.feedback?.overall_score
+                      ),
                       marginRight: "8px",
                       display: "inline-block",
                     }}
                   />
-                  {file?.status}
+                  {status(file?.feedback?.overall_score)}
                 </Box>
               </TableCell>
               <TableCell>
@@ -110,7 +125,7 @@ const ResumeTable = ({ filesData }) => {
               >
                 {file?.edited_at}
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ paddingLeft: "0px ", paddingRight: "0px" }}>
                 <IconButton>
                   <RemoveRedEyeRoundedIcon fontSize="small" />
                 </IconButton>

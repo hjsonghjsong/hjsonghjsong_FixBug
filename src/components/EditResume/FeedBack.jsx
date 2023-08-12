@@ -122,9 +122,7 @@ const FeedBack = ({ sectionName, sectionData }) => {
         {sectionData?.length === "short" ? (
           <ListItem>
             <Typography sx={{ color: "#F04438" }}>
-
               Resume is currently too short. It should be 1.5 page.
-
             </Typography>
           </ListItem>
         ) : null}
@@ -146,7 +144,7 @@ const FeedBack = ({ sectionName, sectionData }) => {
 
   return (
     <div className="w-full flex flex-col gap-1 justify-center">
-      <div className=" justify-end feedback-container gap-5">
+      <div className=" justify-end feedback-container gap-1">
         <div className="w-full flex justify-between items-center">
           <div className="flex w-full gap-3 items-center ">
             {feedbackIcons[sectionName]}

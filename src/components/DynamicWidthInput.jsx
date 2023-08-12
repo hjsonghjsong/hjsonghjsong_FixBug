@@ -49,7 +49,6 @@ const DynamicWidthInput = (props) => {
       placeholder={props.placeholder}
       className={props.className}
       style={{
-        minWidth: "50px",
         borderRadius: "4px",
         boxSizing: "border-box",
         maxWidth: "100%",

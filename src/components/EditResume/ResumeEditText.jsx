@@ -8,8 +8,10 @@ import "./EditResume.css";
 import fetchResumeSections from "../../hooks/fetchResumeSections";
 import CustomTextArea from "../CustomTextArea";
 import DynamicTextArea from "../DynamicTextArea";
+import SkillsSection from "./SkillsSection";
 
 const ResumeEditText = ({ fileData, resumeId }) => {
+  console.log("REsume :", fileData);
   const { user } = useAuth();
   const [fullName, setFullName] = useState(user?.user_metadata?.display_name);
   const [contactNumber, setContactNumber] = useState(
@@ -45,7 +47,7 @@ const ResumeEditText = ({ fileData, resumeId }) => {
                 name="fullname"
                 value={fullName}
                 onChange={handleChange}
-                className="text-center w-full"
+                className="text-center w-full font-semibold"
               />
 
               <div className="w-full flex justify-center items-center">
@@ -68,7 +70,7 @@ const ResumeEditText = ({ fileData, resumeId }) => {
 
               <div className="w-full flex flex-wrap justify-center items-center">
                 <DynamicWidthInput
-                  placeholder="Email"
+                  placeholder="City, State"
                   name="address"
                   className="text-center"
                 />
@@ -94,7 +96,7 @@ const ResumeEditText = ({ fileData, resumeId }) => {
           </Grid>
           <Grid item xs={12}>
             <div className="w-full">
-              <EducationSections />
+              <EducationSections fileData={fileData} />
             </div>
           </Grid>
           <Grid item container xs={12} sx={{ gap: "8px" }}>
@@ -110,6 +112,28 @@ const ResumeEditText = ({ fileData, resumeId }) => {
                 </div>
               </Grid>
             ))}
+          </Grid>
+
+          <Grid item container xs={12} sx={{ gap: "8px" }}>
+            <div className="w-full p-1 bg-slate-300 rounded-sm">
+              <span className="w-full font-semibold text-lg px-2">
+                Projects
+              </span>
+            </div>
+            {projects.map((file) => (
+              <Grid item xs={12}>
+                <div className="w-full">
+                  <ExperienceField workExperience={file} />
+                </div>
+              </Grid>
+            ))}
+          </Grid>
+
+          <Grid item container xs={12} sx={{ gap: "8px" }}>
+            <div className="w-full p-1 bg-slate-300 rounded-sm">
+              <span className="w-full font-semibold text-lg px-2">Skills</span>
+            </div>
+            <SkillsSection skills={fileData?.skills} />
           </Grid>
         </Grid>
       </div>

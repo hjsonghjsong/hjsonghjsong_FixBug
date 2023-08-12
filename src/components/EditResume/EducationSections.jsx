@@ -2,8 +2,11 @@ import React from "react";
 import { Grid } from "@mui/material";
 import DatePickerComponent from "../DatePickerComponent";
 import DynamicWidthInput from "../DynamicWidthInput";
+import DynamicTextArea from "../DynamicTextArea";
 
-const EducationSections = () => {
+const EducationSections = ({ fileData }) => {
+  console.log("filedata", fileData);
+  const courses = fileData?.courses?.join(", ");
   return (
     <div id="education-information" className="w-full gap-2 flex flex-col">
       <div className="w-full p-1 bg-slate-300 rounded-sm">
@@ -54,6 +57,29 @@ const EducationSections = () => {
       </div>
       <div className="w-full flex justify-between items-center">
         <DynamicWidthInput placeholder="CGPA" />
+      </div>
+      {/* <Grid container spacing={2} sx={{ display: "flex" }}>
+        <Grid item>
+          <div>Courses :</div>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          container
+          sx={{
+            gap: "8px",
+          }}
+        >
+          <DynamicTextArea placeholder="Courses" value={courses} />
+        </Grid>
+      </Grid> */}
+      <div className="w-full flex gap-2">
+        <div className=" font-semibold">Courses:</div>
+        <DynamicTextArea
+          placeholder="e.g. Algorithms, Machine Learning..."
+          value={courses}
+        />
       </div>
     </div>
   );
