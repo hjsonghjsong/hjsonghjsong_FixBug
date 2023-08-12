@@ -10,8 +10,8 @@ import './TextEditor.css'
 const RenderGeneratedList = (props) => {
     const { index, historyList, setHistoryList, suggestedList, className, ...otherProps } = props;
 
-    const currentList = historyList[index].generatedContent;
-    const [htmlValue, setHtmlValue] = React.useState(`<ul>${currentList.map(v => `<li>${v}</li>`).join()}<li><br></li></ul>`);
+    const currentList = historyList[index].selectedContent;
+    const [htmlValue, setHtmlValue] = React.useState(`<ul>${currentList.map((v) => `<li>${v}</li>`).join("")}<li><br></li></ul>`);
 
     const handleChange = newHtmlValue => {
         const parser = new DOMParser();
@@ -54,12 +54,7 @@ const RenderGeneratedList = (props) => {
         liEls = Array.from(newUl.getElementsByTagName("li"));
         const newList = liEls.map(el => el.textContent);
 
-        const newHistoryList = Object.assign({}, historyList);
-        newHistoryList[index] = {
-            ...newHistoryList[index],
-            generatedContent: newList
-        }
-        setHistoryList(newHistoryList);
+        setHistoryList(historyList.map((item, i) => i === index ? { ...item, selectedContent: newList } : item));
     };
 
     const addPoint = point => {

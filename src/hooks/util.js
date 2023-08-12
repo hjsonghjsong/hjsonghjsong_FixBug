@@ -27,7 +27,7 @@ const createExperiencePayload = (
         start_date: workHistory.startDate,
         end_date: workHistory.endDate,
         description: workHistory.helperText,
-        bullet_points: workHistory.generatedContent,
+        bullet_points: workHistory.selectedContent,
       });
     });
   } else if (context === "Project") {
@@ -39,15 +39,16 @@ const createExperiencePayload = (
         start_date: projectHistory.startDate,
         end_date: projectHistory.endDate,
         description: projectHistory.helperText,
-        bullet_points: projectHistory.generatedContent,
+        bullet_points: projectHistory.selectedContent,
       });
     });
   }
   return experiencePayload;
 };
 
-export const SendResumeInfo = async (state) => {
+export const SendResumeInfo = async (state, feedback) => {
   let experiencePayload = [];
+  state.feedback = feedback;
   const resumePayload = createResumePayload(state);
   const resumeId = await sendResumeInfoToSupabase(resumePayload);
   experiencePayload = createExperiencePayload(
@@ -63,5 +64,4 @@ export const SendResumeInfo = async (state) => {
     "Project"
   );
   await sendExperienceInfoToSupabase(experiencePayload);
-  return resumeId;
 };

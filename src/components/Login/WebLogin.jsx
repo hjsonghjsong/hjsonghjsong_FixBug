@@ -13,7 +13,6 @@ import "./login.css";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import PrimaryButton from "../Buttons/PrimaryButton";
-import { SendResumeInfo } from "../../hooks/util";
 
 
 export default function WebLogin(props){
@@ -77,7 +76,6 @@ export default function WebLogin(props){
     try {
       await signIn({ email, password });
       navigate(from, { replace: true });
-      SendResumeInfo(props.state);
     } catch (error) {
       throw error;
     }

@@ -1,9 +1,5 @@
 import { Box, Divider, Skeleton, Typography } from "@mui/material";
-import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import { resumeList } from "../../hooks/fetchResumeList";
-import RenderResumeList from "../ResumeComponents/RenderResumeList";
-import ResumeMobile from "./ResumeMobile";
 import CircularProgressBar from "../CircularProgressBar";
 import "./Resume.css";
 import ResumeTable from "../ResumeTable/ResumeTable";
@@ -12,9 +8,8 @@ import SecondaryButton from "../Buttons/SecondaryButton";
 import { Link } from "react-router-dom";
 import Template from "../Templates/Template";
 import useResumeData from "../../hooks/useResumeData";
-import { supabase } from "../../SupabaseCL";
 import useLocalStorage from "use-local-storage";
-import React, { useEffect } from "react";
+import React from "react";
 import { SendResumeInfo } from "../../hooks/util";
 import { useAuth } from "../../Contexts/Auth";
 
@@ -32,19 +27,15 @@ const Resume = () => {
   const { user } = useAuth();
   const user_id = user?.id;
   const filesData = useResumeData(user_id);
-  const [loginState, setLoginState] = React.useState(null);
+  const [loginState, _] = useLocalStorage("loginState");
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (loginState) {
       loginState.user = user;
       SendResumeInfo(loginState);
       localStorage.removeItem("loginState");
     }
-  }, [loginState, user]);
-
-  const handleLoginState = (state) => {
-    setLoginState(state);
-  };
+  }, [loginState]);
 
   return (
     <main className="flex flex-grow flex-col items-center justify-center gap-10">

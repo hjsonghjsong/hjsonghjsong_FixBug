@@ -81,7 +81,8 @@ class CreateResumeStepper extends StepperInitializer {
                                 {activeStep === 2 && (
                                     <RenderJobPreference
                                         jobPreference={this.state.jobPreferenceState}
-                                        setJobPreference={this.setJobPreferenceState} />
+                                        setJobPreference={this.setJobPreferenceState}
+                                        educationDetailList={this.state.educationDetailList} />
                                 )}
                                 {(steps[activeStep].match("Work Experience")) !== null && steps[activeStep].match("Work Experience")[0] === "Work Experience" && (
                                     <RenderWorkHistory

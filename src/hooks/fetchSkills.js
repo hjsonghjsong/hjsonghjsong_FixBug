@@ -8,7 +8,7 @@ function createSkillsPayload(workHistoryList, skills) {
     workHistoryList.forEach((item) => {
         payload.experiences.push({
             "title": item.jobTitle,
-            "bullet_points": item.generatedContent,
+            "bullet_points": item.selectedContent,
         });
     });
     return payload;

@@ -7,7 +7,7 @@ import Generation from '../../models/Generation';
 import ProjectHistory from '../../models/ProjectHistory';
 import Steps from '../../models/Steps';
 import { SendResumeInfo } from '../../hooks/util';
-import { evaluateEntireResume, evaluateResume } from '../../hooks/evaluateResume';
+import { evaluateEntireResume } from '../../hooks/evaluateResume';
 class StepperInitializer extends React.Component{
     constructor(props){
         super(props);
@@ -31,6 +31,7 @@ class StepperInitializer extends React.Component{
             steps: stepsInitialState.getState,
             user: {},
             openDialog: false,
+            feedback: "",
         };
 
         this.handleNext = this.handleNext.bind(this);
@@ -75,10 +76,7 @@ class StepperInitializer extends React.Component{
     handleFinish = async () => {
         if(this.state.user){
             const resumeFeedback = await evaluateEntireResume(this.state);
-            this.state.feedback = resumeFeedback;
-            const resumeId = await SendResumeInfo(this.state);
-            //console.log("Evaluate Resume not working....");
-            //await evaluateResume(this.state, resumeId);
+            await SendResumeInfo(this.state, resumeFeedback);
         }
         else{
             this.setOpenDialog(!this.state.openDialog);
