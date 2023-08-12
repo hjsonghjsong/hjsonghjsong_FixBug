@@ -6,6 +6,7 @@ class Generation extends React.Component{
         this.state = {
                 helperText: "",
                 generatedContent: [],
+                selectedContent: [],
                 numOfPoints: 5,
         }
     }

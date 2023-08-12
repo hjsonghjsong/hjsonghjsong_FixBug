@@ -36,7 +36,7 @@ function StepperGeneration(props) {
                 <TextField
                     autoFocus
                     margin="dense"
-                    label={input}
+                    label={bulletPointContext}
                     type="text"
                     multiline
                     value={historyList[index].helperText}
@@ -68,7 +68,7 @@ function StepperGeneration(props) {
                 <Box sx={{display: 'flex'}}>
                 {index === historyList.length-1 &&
                 <PrimaryButton
-                    text={`Add ${input}`}
+                    text={`Add another ${bulletPointContext}`}
                     handleButton={elongateStepper(input)}
                     icon={<AddIcon />}
                     sx={{marginBlockStart: '10px'}}

@@ -25,7 +25,7 @@ const formatWorkHistory = (workHistoryList) => {
             "title": workHistory.jobTitle,
             "date": workHistory.startDate+' - '+workHistory.endDate,
             "description": workHistory.helperText,
-            "bullet_points": workHistory.generatedContent
+            "bullet_points": workHistory.selectedContent
         });
     });
     return formattedWorkHistoryList;
@@ -38,7 +38,7 @@ const formatProjectHistory = (projectHistoryList) => {
             "title": projectHistory.company,
             "date": projectHistory.startDate+' - '+projectHistory.endDate,
             "description": projectHistory.helperText,
-            "bullet_points": projectHistory.generatedContent
+            "bullet_points": projectHistory.selectedContent
         });
     });
     return formattedProjectHistoryList;
@@ -71,7 +71,7 @@ export const evaluateEntireResume = async (state) => {
         "grad_date": state.educationDetailList[0].endYear,
         "gpa": state.educationDetailList[0].gpa,
         "courses": formatCourseList(state.educationDetailList[0].courseList),
-        "skills": state.skills[0].generatedContent,
+        "skills": state.skills[0].selectedContent,
         "experiences": formatWorkHistory(state.workHistoryList),
         "projects": formatProjectHistory(state.projectHistoryList),
         "professional_summary": "A short summary about myself",
@@ -89,7 +89,7 @@ const evaluateFormat = async (state) => {
         'gpa': state.educationList[0].gpa,
         'honors': state.educationList[0].degree,
         'courses': state.educationList[0].courseList,
-        'skills': state.skills[0].generatedContent,
+        'skills': state.skills[0].selectedContent,
         'experiences': state.workHistoryList,
         'projects': state.projectHistoryList,
         'professional_summary': '',

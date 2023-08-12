@@ -17,7 +17,7 @@ function StepperProjectHistory(props) {
                 <TextField
                     autoFocus
                     margin="dense"
-                    label="Company Name"
+                    label="Project Name"
                     type="text"
                     value={projectHistoryList[index].company}
                     name='company'
@@ -26,7 +26,7 @@ function StepperProjectHistory(props) {
                 />
                 <TextField
                     margin="dense"
-                    label="Job Title"
+                    label="Project Title"
                     type="text"
                     value={projectHistoryList[index].title}
                     name='title'
@@ -41,6 +41,7 @@ function StepperProjectHistory(props) {
                     label="Start Date"
                     type="text"
                     value={projectHistoryList[index].startDate}
+                    placeholder='mm/dd/yyyy'
                     name='startDate'
                     onChange={handleChange}
                     fullWidth
@@ -50,6 +51,7 @@ function StepperProjectHistory(props) {
                     label="End Date"
                     type="text"
                     value={projectHistoryList[index].endDate}
+                    placeholder='mm/dd/yyyy'
                     name='endDate'
                     onChange={handleChange}
                     fullWidth
