@@ -82,7 +82,7 @@ const ResumeTable = ({ filesData }) => {
               >
                 <Box
                   sx={{
-                    backgroundColor: cellStyles(file?.feedback?.overall_score),
+                    backgroundColor: cellStyles(file?.feedback?.score),
                     display: "inline-flex",
                     justifyContent: "start",
                     alignItems: "center",
@@ -97,18 +97,18 @@ const ResumeTable = ({ filesData }) => {
                       height: "10px",
                       borderRadius: "50%",
                       backgroundColor: scoreStyles(
-                        file?.feedback?.overall_score
+                        file?.feedback?.score
                       ),
                       marginRight: "8px",
                       display: "inline-block",
                     }}
                   />
-                  {status(file?.feedback?.overall_score)}
+                  {status(file?.feedback?.score)}
                 </Box>
               </TableCell>
               <TableCell>
                 <CircularProgressBar
-                  score={file?.feedback?.overall_score}
+                  score={file?.feedback?.score}
                   size={40}
                   fontSize={12}
                   rounded={true}
