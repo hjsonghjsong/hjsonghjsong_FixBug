@@ -6,6 +6,10 @@ const DynamicWidthInput = (props) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
+    setContent(props.value || "");
+  }, [props.value]);
+
+  useEffect(() => {
     adjustWidth();
   }, [content]);
 
@@ -22,7 +26,7 @@ const DynamicWidthInput = (props) => {
       const placeholderWidth = measureTextWidth(props.placeholder);
       const contentWidth = measureTextWidth(content);
       const maxWidth = Math.max(placeholderWidth, contentWidth);
-      setInputWidth(`${maxWidth}px`);
+      setInputWidth(`${maxWidth + 5}px`);
     }
   };
 

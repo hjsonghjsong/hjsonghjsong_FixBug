@@ -36,7 +36,6 @@
 }
 
 textarea {
-  resize: none;
   padding: 0px;
   vertical-align: top;
   margin-bottom: 0px;
@@ -46,11 +45,8 @@ textarea {
   color: inherit;
   align-items: center;
   justify-content: center;
-  border-radius: 2px;
   display: inline-block;
-  overflow: hidden;
   height: 28px;
-  white-space: nowrap;
   font-size: 16px;
 }
 

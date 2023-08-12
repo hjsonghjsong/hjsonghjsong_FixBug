@@ -1,18 +1,27 @@
 import React, { useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, TextareaAutosize } from "@mui/material";
 import EducationSections from "./EducationSections";
 import ExperienceField from "./ExperienceField";
 import DynamicWidthInput from "../DynamicWidthInput";
 import { useAuth } from "../../Contexts/Auth";
 import "./EditResume.css";
+import fetchResumeSections from "../../hooks/fetchResumeSections";
+import CustomTextArea from "../CustomTextArea";
+import DynamicTextArea from "../DynamicTextArea";
 
-const ResumeEditText = () => {
+const ResumeEditText = ({ fileData, resumeId }) => {
   const { user } = useAuth();
   const [fullName, setFullName] = useState(user?.user_metadata?.display_name);
   const [contactNumber, setContactNumber] = useState(
     user?.user_metadata?.phone
   );
   const [email, setEmail] = useState(user?.email);
+  const sectionData = fetchResumeSections(resumeId);
+  const workExperience = sectionData?.filter(
+    (item) => item.context === "Work Experience"
+  );
+  const projects = sectionData?.filter((item) => item.context === "Project");
+  console.log(workExperience);
   const handleChange = (event) => {
     const { name, value } = event.target;
     if (name === "fullname") {
@@ -88,10 +97,19 @@ const ResumeEditText = () => {
               <EducationSections />
             </div>
           </Grid>
-          <Grid item xs={12}>
-            <div className="w-full">
-              <ExperienceField />
+          <Grid item container xs={12} sx={{ gap: "8px" }}>
+            <div className="w-full p-1 bg-slate-300 rounded-sm">
+              <span className="w-full font-semibold text-lg px-2">
+                Experience
+              </span>
             </div>
+            {workExperience.map((file) => (
+              <Grid item xs={12}>
+                <div className="w-full">
+                  <ExperienceField workExperience={file} />
+                </div>
+              </Grid>
+            ))}
           </Grid>
         </Grid>
       </div>

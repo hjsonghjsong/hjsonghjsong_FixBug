@@ -35,7 +35,7 @@ const CustomMobileDatePicker = styled(MobileDatePicker)(({ theme }) => ({
 const DatePickerComponent = (props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <CustomMobileDatePicker {...props} />
+      <CustomMobileDatePicker {...props} value={props.value} />
     </LocalizationProvider>
   );
 };

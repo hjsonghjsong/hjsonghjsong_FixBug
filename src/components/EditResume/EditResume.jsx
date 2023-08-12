@@ -10,10 +10,12 @@ const EditResume = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const resumeId = queryParams.get("id");
+  console.log("Resume ID:", resumeId);
+
   const fileData = location.state?.file || null;
 
   const feedback = fileData.feedback;
-  console.log(feedback);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

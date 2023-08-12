@@ -14,7 +14,8 @@ const useResumeData = (user_id) => {
         const { data, error } = await supabase
           .from("resumes")
           .select("*")
-          .eq("user_id", user_id);
+          .eq("user_id", user_id)
+          .order("edited_at", { ascending: false });
 
         if (error) {
           throw error;
